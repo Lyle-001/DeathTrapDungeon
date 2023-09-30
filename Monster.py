@@ -1,4 +1,3 @@
-import random
 from random import randint
 
 # Genders of all enemies are male right now, but later it will be randomised for extra detail
