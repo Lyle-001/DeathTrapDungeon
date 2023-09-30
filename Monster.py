@@ -21,10 +21,10 @@ class Monster:
         self.species = "monster"
         self.hitPoints = 10
         self.maxDamage = 5
-        self.attackMessage = monsterMessageBank[random.randint(0, len(monsterMessageBank) - 1)]
+        self.attackMessage = monsterMessageBank[randint(0, len(monsterMessageBank) - 1)]
         self.gold = randint(4,6)
-        self.mentalFortitude = random.randint(0,100)
-        self.ego = random.randint(0,100)
+        self.mentalFortitude = randint(0,100)
+        self.ego = randint(0,100)
 
     # Getters
     def get_colour(self):
@@ -113,9 +113,9 @@ class Monster:
             highEgo = True
 
         if highFort == True and highEgo == True:
-            print('The Monster says: ' + '"' + highFortandEgo[random.randint(0, len(highFortandEgo) - 1)] + '"') # This will be changed later depending on the Mental Fortitude and Ego attribute!!
+            print('The Monster says: ' + '"' + highFortandEgo[randint(0, len(highFortandEgo) - 1)] + '"') # This will be changed later depending on the Mental Fortitude and Ego attribute!!
         else:
-            print('The Monster says: ' + '"' + normalMonster[random.randint(0, len(normalMonster) - 1)] + '"') # This will be changed later depending on the Mental Fortitude and Ego attribute!!
+            print('The Monster says: ' + '"' + normalMonster[randint(0, len(normalMonster) - 1)] + '"') # This will be changed later depending on the Mental Fortitude and Ego attribute!!
 
 class Goblin(Monster):
     # Construction
@@ -136,10 +136,10 @@ class Goblin(Monster):
         self.species = "goblin"
         self.hitPoints = 12
         self.maxDamage = 6
-        self.attackMessage = goblinMessageBank[random.randint(0, len(goblinMessageBank) - 1)]
+        self.attackMessage = goblinMessageBank[randint(0, len(goblinMessageBank) - 1)]
         self.gold = randint(4,12)
-        self.mentalFortitude = random.randint(0,100)
-        self.ego = random.randint(0,100)
+        self.mentalFortitude = randint(0,100)
+        self.ego = randint(0,100)
     # Methods
     def talk(self):
         highFortandEgo = ["I'm sorry, my family needs money.", 
@@ -187,9 +187,9 @@ class Goblin(Monster):
             highEgo = True
 
         if highFort == True and highEgo == True:
-            print('The Goblin says: ' + '"' + highFortandEgo[random.randint(0, len(highFortandEgo) - 1)] + '"') # This will be changed later depending on the Mental Fortitude and Ego attribute!!
+            print('The Goblin says: ' + '"' + highFortandEgo[randint(0, len(highFortandEgo) - 1)] + '"') # This will be changed later depending on the Mental Fortitude and Ego attribute!!
         else:
-            print('The Goblin says: ' + '"' + normalMonster[random.randint(0, len(normalMonster) - 1)] + '"') # This will be changed later depending on the Mental Fortitude and Ego attribute!!
+            print('The Goblin says: ' + '"' + normalMonster[randint(0, len(normalMonster) - 1)] + '"') # This will be changed later depending on the Mental Fortitude and Ego attribute!!
 
 class Vampire(Monster):
 
@@ -201,8 +201,8 @@ class Vampire(Monster):
         self.maxDamage = 7
         self.attackMessage = "It sinks its fangs into your neck."
         self.gold = randint(3,10)
-        self.mentalFortitude = random.randint(0,100)
-        self.ego = random.randint(0,100)
+        self.mentalFortitude = randint(0,100)
+        self.ego = randint(0,100)
 
     # Methods
     def talk(self):
@@ -218,8 +218,8 @@ class Slime(Monster):
         self.maxDamage = 4
         self.attackMessage = "It tries to engulf you."
         self.gold = randint(0,6)
-        self.mentalFortitude = random.randint(0,100)
-        self.ego = random.randint(0,100)
+        self.mentalFortitude = randint(0,100)
+        self.ego = randint(0,100)
 
     # Methods
     def talk(self):
@@ -235,8 +235,8 @@ class RogueWarrior(Monster):
         self.maxDamage = 6
         self.attackMessage = "They slash at you."
         self.gold = randint(8,18)
-        self.mentalFortitude = random.randint(0,100)
-        self.ego = random.randint(0,100)
+        self.mentalFortitude = randint(0,100)
+        self.ego = randint(0,100)
 
     # Methods
     def talk(self):
