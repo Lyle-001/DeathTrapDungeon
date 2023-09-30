@@ -1,3 +1,5 @@
+# feel free to remove this comment!!!
+
 from Monster import Monster, Goblin, Vampire, Slime, RogueWarrior
 from Heroes import Hero, Barbarian, Wizard, Warlock
 from Weapons import ClassicSword, AxeOfFlames, SwordOfSouls
