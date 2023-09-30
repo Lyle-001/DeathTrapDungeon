@@ -82,7 +82,7 @@ class Monster:
                           'RALLY, AND FIGHT!',
                           'IN THE NAME OF GOD AND COUNTRY, I WILL END YOU!',
                           'May God have mercy on your poor soul.'
-                          'There is nothing personal about this, human.'
+                          'There is nothing personal about this.'
                           ]
 
         normalMonster = ['ROOOOAR!!',
@@ -143,7 +143,54 @@ class Goblin(Monster):
         self.ego = random.randint(0,100)
     # Methods
     def talk(self):
-        print("Hee! Hee! I'm going to kill you and steal all your gold!")
+        highFortandEgo = ["I'm sorry, my family needs money.", 
+                          'I will do you the honour of not desecrating your corpse.',
+                          "Please, don't make this harder than it has to be.",
+                          'I promised my wife we could eat tonight.',
+                          "I just want to sell your weapon, not fight.",
+                          'May God rest your soul.',
+                          'I wish it could have been any other way, but I need some money.',
+                          "I'm sorry about this.",
+                          'I will give you the honour of a respectable death.',
+                          'I owe money to some vampire debt collectors. Please make this easy.',
+                          'My family is in a grave debt to the slimes. Please let me sell your tailbone.',
+                          'When I kill you, I promise I will do you the honour of a proper burial.',
+                          'May God have mercy on your poor soul.',
+                          'There is nothing personal about this.'
+                          ]
+
+        normalMonster = ['Tee hee hee, you will never get my riches',
+                         'THESE ARE MY TREASURES!',
+                         "I SMELL MONEYYY",
+                         "I'm going to take all your money!!!",
+                         "The Pawn Shop will give me an great deal for that there weapon of yours!",
+                         "Bloodied armour sells especially well with collectors nowadays!",
+                         'I SEE MONEYYYYY',
+                         "I'M GOING TO CLEAN MY TEETH WITH YOUR BONES!",
+                         'MONEY MONEY MONEY MONEY MONEY',
+                         "I'll sell your teeth to my dentist!",
+                         'Nice hair. Would be a shame if I took your scalp and sold it to my dermatologist.',
+                         'EEEEEEEEEEEEEEEEEEEEEEEEEE!!',
+                         'GAHGAHGAHGAHGAH!!'
+                         ]
+
+        fortitude = self.getFortitude()
+        ego = self.getEgo()
+
+        bothCheck = False
+        highFort = False
+        highEgo = False
+
+        if fortitude >= 70:
+            highFort = True
+
+        if ego >= 70:
+            highEgo = True
+
+        if highFort == True and highEgo == True:
+            print('The Goblin says: ' + '"' + highFortandEgo[random.randint(0, len(highFortandEgo) - 1)] + '"') # This will be changed later depending on the Mental Fortitude and Ego attribute!!
+        else:
+            print('The Goblin says: ' + '"' + normalMonster[random.randint(0, len(normalMonster) - 1)] + '"') # This will be changed later depending on the Mental Fortitude and Ego attribute!!
 
 class Vampire(Monster):
 
