@@ -2,18 +2,18 @@ from random import randint
 
 # Weapons have different stats, such as:
 # damage
-# modifier (affects damage)
+# modifier (affects damage and damage chance)
 # damage chance
 
-modifiersDict = {"legendary":5,
-                 "godly":4,
-                 "epic":3,
-                 "mighty":2,
-                 "rare":1,
-                 "common":0,
-                 "shoddy":-1,
-                 "awful":-2,
-                 "broken":-3}
+modifiersDict = {"legendary":[5,10],
+                 "godly":[4,8],
+                 "epic":[3,6],
+                 "mighty":[2,4],
+                 "rare":[1,2],
+                 "common":[0,0],
+                 "shoddy":[-1,-4],
+                 "awful":[-2,-8],
+                 "broken":[-3,-12]}
 modifiersList = ["legendary","godly","epic","mighty","rare","common","shoddy","awful","broken"]
 
 class Weapon:
@@ -34,7 +34,7 @@ class Weapon:
         luck = int(luck * 20) # fudge factor, having the luck at this value seems to provide pretty good standard odds
 
         # algorithm to provide a bell curve
-        modifier = len(modifiersList) - 1
+        modifier = len(modifiersDict) - 1
         luckLeft = luck
         for loop in range(0,luck,1):
             choice = randint(0,luckLeft)
@@ -45,9 +45,9 @@ class Weapon:
         self.modifier = modifiersList[modifier]
     
     def attack(self):
-        if randint(1,100) <= self.damageChance:
+        if randint(1,100) <= self.damageChance + modifiersDict[self.modifier][1]:
             print(self.hitMessage)
-            return self.damage + modifiersDict[self.modifier]
+            return self.damage + modifiersDict[self.modifier][0]
         else:
             print(self.missMessage)
             return 0
@@ -73,7 +73,7 @@ class AxeOfFlames(Weapon):
         self.damageChance = 80
         self.hitMessage = ("The cold metal hacks the enemy, while the fire burns their wound.")
         self.missMessage = ("Your enemy is intimated by a wall of flames.")
-        self.inspectMessage = ("You lift the flaming axe. Your enemies will surely know fear.")
+        self.inspectMessage = ("You examine the flaming axe. Your enemies will surely know fear.")
 
 class SwordOfSouls(Weapon):
     def __init__(self,modifier):
