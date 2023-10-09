@@ -1,9 +1,9 @@
 from Weapons import ClassicSword
 
 legendary = godly = epic = mighty = rare = common = shoddy = awful = broken = 0
-for loop in range(0,50000,1):
+for loop in range(0,100000,1):
     sword = ClassicSword("common")
-    sword.randomise_modifier(1)
+    sword.randomise_modifier_old(1)
     name = sword.get_name()
     if name[0] == "l":
         legendary += 1
