@@ -95,12 +95,12 @@ if debug:
     print("\t1001) SwordOfSouls\t(⚔ 0-10 | ⚄ 95%)")
 choice = int(input())
 if choice == 1:
-    weapon = Weapons.ClassicSword("common")
+    weapon = Weapons.ClassicSword()
 if debug:
     if choice == 1000:
-        weapon = Weapons.AxeOfFlames("common")
+        weapon = Weapons.AxeOfFlames()
     elif choice == 1001:
-        weapon = Weapons.SwordOfSouls("common")
+        weapon = Weapons.SwordOfSouls(4)
 weapon.randomise_modifier(1)
 print("You pick up a " + weapon.get_name())
 weapon.inspect()
