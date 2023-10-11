@@ -101,7 +101,7 @@ if debug:
         weapon = Weapons.AxeOfFlames()
     elif choice == 1001:
         weapon = Weapons.SwordOfSouls(4)
-weapon.randomise_modifier(1)
+weapon.randomise_modifier(0)
 print("You pick up a " + weapon.get_name())
 weapon.inspect()
 print()

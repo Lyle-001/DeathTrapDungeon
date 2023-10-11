@@ -7,26 +7,10 @@ from math import e,sqrt,pi
 # damage chance
 
 
-
-#####   MODIFIER STUFF   #####
-
-
-modifiersDict = {"broken":[-3,-12],
-                 "awful":[-2,-8],
-                 "shoddy":[-1,-4],
-                 "common":[0,0],
-                 "rare":[1,2],
-                 "mighty":[2,4],
-                 "epic":[3,6],
-                 "godly":[4,8],
-                 "legendary":[5,10]}
-modifiersList = ["broken","awful","shoddy","common","rare","mighty","epic","godly","legendary"]
-
-
-#####   END OF MODIFIER STUFF   #####
-
-
 class Weapon:
+
+
+
     def __init__(self):
         self.name = "unknown weapon"
         self.modifier = 0
@@ -37,40 +21,34 @@ class Weapon:
         self.inspectMessage = ("It looks unexplainable. How did you get this?")
         self.modifiers = [["unobtainable",0,0]]
 
+
+
+
     def get_name(self):
         try:
             return self.modifiers[self.modifier][0] + " " + self.name
         except:
             return "modifier out of range"
 
-    def randomise_modifier_old(self,luck):
-        # luck of 1 is normal luck
-        luck = int(luck * 50) # fudge factor, having the luck at this value seems to provide pretty good standard odds
-
-        # algorithm to provide a bell curve
-        modifier = len(modifiersDict) - 1
-        luckLeft = luck
-        for loop in range(0,luck,1):
-            choice = randint(0,luckLeft)
-            if choice == 0:
-                if modifier > 0: # stops the modifier getting bigger than the list of modifiers
-                    modifier -= 1
-            luckLeft -= 1
-        self.modifier = modifiersList[modifier]
+    ####################################
+    ##### Modifier-Related Methods #####
+    ####################################
 
     def set_modifier_curve(self,x=0,mu=0): # This is for customisation. the dev can easily define a new modifier_curve function without copy pasting the big function
         return {"value":(1/(0.4 * sqrt(2*pi))) * e**((-1/2) * ((x-mu)/0.4)**2),
                 "lowerBound":-1.5,
                 "upperBound":1.5}
 
+
+
     def randomise_modifier(self,luck):
 
-        bounds = self.set_modifier_curve(0,0) # get the bounds from the set_modifier_curve function. allows the dev to create new weapon modifier curves without copy pasting the complicated function
+        bounds = self.set_modifier_curve() # get the bounds from the set_modifier_curve function. allows the dev to create new weapon modifier curves without copy pasting the complicated function
         modifierCurveHigher = bounds["upperBound"]
         modifierCurveLower = bounds["lowerBound"]
 
         # estimate the integral by splitting it up into trapeziums gcse-style
-        modifierCount = len(modifiersList)
+        modifierCount = len(self.modifiers)
         segmentWidth = (modifierCurveHigher-modifierCurveLower)/modifierCount
         integralList = [0]
         for i in range(1,modifierCount,1):
@@ -90,6 +68,10 @@ class Weapon:
             self.modifier = len(self.modifiers)-1
         else:
             self.modifier = 0
+
+    #########################
+    ##### Other Methods #####
+    #########################
     
     def attack(self):
         if randint(1,100) <= self.damageChance + self.modifiers[self.modifier][2]:
@@ -99,8 +81,15 @@ class Weapon:
             print(self.missMessage)
             return 0
 
+
+
+
     def inspect(self):
         print(self.inspectMessage)
+
+##########################
+##### Actual Weapons #####
+##########################
 
 class ClassicSword(Weapon):
     def __init__(self):
