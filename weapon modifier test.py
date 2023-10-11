@@ -1,7 +1,7 @@
 from Weapons import ClassicSword
 
 legendary = godly = epic = mighty = rare = common = shoddy = awful = broken = 0
-for loop in range(0,10000,1):
+for loop in range(0,50000,1):
     sword = ClassicSword()
     sword.randomise_modifier(0)
     name = sword.get_name()

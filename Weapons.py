@@ -58,20 +58,24 @@ class Weapon:
             luckLeft -= 1
         self.modifier = modifiersList[modifier]
 
+    def set_modifier_curve(self,x=0,mu=0): # This is for customisation. the dev can easily define a new modifier_curve function without copy pasting the big function
+        return {"value":(1/(0.4 * sqrt(2*pi))) * e**((-1/2) * ((x-mu)/0.4)**2),
+                "lowerBound":-1.5,
+                "upperBound":1.5}
+
     def randomise_modifier(self,luck):
 
-        def set_modifier_curve(sigma,mu,x): # function-ception. i bet you didnt know you could do this
-            return (1/(sigma * sqrt(2*pi))) * e**((-1/2) * ((x-mu)/sigma)**2)
-        modifierCurveLower = -1.5
-        modifierCurveHigher = 1.5
+        bounds = self.set_modifier_curve(0,0) # get the bounds from the set_modifier_curve function. allows the dev to create new weapon modifier curves without copy pasting the complicated function
+        modifierCurveHigher = bounds["upperBound"]
+        modifierCurveLower = bounds["lowerBound"]
 
         # estimate the integral by splitting it up into trapeziums gcse-style
         modifierCount = len(modifiersList)
         segmentWidth = (modifierCurveHigher-modifierCurveLower)/modifierCount
         integralList = [0]
         for i in range(1,modifierCount,1):
-            areaLowerHeight = set_modifier_curve(0.4,luck,modifierCurveLower + segmentWidth * (i-1))
-            areaUpperHeight = set_modifier_curve(0.4,luck,modifierCurveLower + segmentWidth * i)
+            areaLowerHeight = self.set_modifier_curve(modifierCurveLower + segmentWidth * (i-1),luck)["value"]
+            areaUpperHeight = self.set_modifier_curve(modifierCurveLower + segmentWidth * i,luck)["value"]
             area = areaLowerHeight * segmentWidth
             area += (areaUpperHeight - areaLowerHeight) * segmentWidth / 2
             integralList.append(area + integralList[i-1])
