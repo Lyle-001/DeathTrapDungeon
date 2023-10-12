@@ -2,7 +2,8 @@
 
 from Monster import Monster, Goblin, Vampire, Slime, RogueWarrior
 from Heroes import Hero, Barbarian, Wizard, Warlock
-from Weapons import ClassicSword, AxeOfFlames, SwordOfSouls
+import Weapons
+
 import random
 import math
 
@@ -54,14 +55,14 @@ def shop(myHero):
                 print("\nYou do not have enough gold.")
         elif choice == "3":
             if myHero.purchase(8) == True: # Check if hero has enough gold
-                weapon = AxeOfFlames("common")
+                weapon = Weapons.AxeOfFlames("common")
                 print("You pick up a " + weapon.get_name())
                 weapon.inspect()
             else:
                 print("\nYou do not have enough gold.")
         elif choice == "4":
             if myHero.purchase(12) == True: # Check if hero has enough gold
-                weapon = SwordOfSouls("common")
+                weapon = Weapons.SwordOfSouls("common")
                 print("You pick up a " + weapon.get_name())
                 weapon.inspect()
             else:
@@ -94,13 +95,13 @@ if debug:
     print("\t1001) SwordOfSouls\t(⚔ 0-10 | ⚄ 95%)")
 choice = int(input())
 if choice == 1:
-    weapon = ClassicSword("common")
+    weapon = Weapons.ClassicSword()
 if debug:
     if choice == 1000:
-        weapon = AxeOfFlames("common")
+        weapon = Weapons.AxeOfFlames()
     elif choice == 1001:
-        weapon = SwordOfSouls("common")
-weapon.randomise_modifier(1)
+        weapon = Weapons.SwordOfSouls(4)
+weapon.randomise_modifier(0)
 print("You pick up a " + weapon.get_name())
 weapon.inspect()
 print()
