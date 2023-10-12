@@ -141,3 +141,7 @@ if victories == 10: # Check if hero won the game
     print(theHero.getName() + ", you are the Champion of Champions! Fame and fortune are yours!")
     print("You leave the dungeon with " + str(theHero.getGold()) + " gold coins!")
 print("######## GAME OVER ########")
+
+
+
+# -penis2
