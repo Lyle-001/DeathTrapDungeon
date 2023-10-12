@@ -3,7 +3,8 @@ from random import randint
 
 # Genders of all enemies are male right now, but later it will be randomised for extra detail
 # Currently, only the Monster has random pre-attack talking lines depending on mental states. This will be extended to all enemies soon but im lazy rn whoops!
-
+# Fort and Ego checks because later there will be additional dialogue for scenarios like high ego and low fortitude and etc. 
+ 
 class Monster:
     # Construction
     def __init__(self,colour):
@@ -178,7 +179,7 @@ class Goblin(Monster):
         ego = self.getEgo()
 
         bothCheck = False
-        highFort = False
+        highFort = False   
         highEgo = False
 
         if fortitude >= 70:
