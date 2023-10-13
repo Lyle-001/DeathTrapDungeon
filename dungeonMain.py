@@ -82,7 +82,7 @@ def shop(myHero):
         cont = input("\nDo you want to make another purchase? Y/N ").upper()
 
 ################################# Main Code ####################################
-debug = True
+debug = False
         
 
 
@@ -91,7 +91,7 @@ print("{}{}############# Welcome to Death Trap Dungeon! ############{}\n".format
 detailsConfirmed = False
 while not detailsConfirmed:
 
-    name = input("\n{}What is your name, mighty warrior?{}\n".format(txt.sty.italic,txt.sty.reset))
+    name = input("\nWhat is your name, mighty warrior?\n")
 
     valid = False
     while not valid:
@@ -145,9 +145,9 @@ while not detailsConfirmed:
     print("\tName: " + theHero.get_name())
     print("\tClass: " + theHero.get_class())
     print("\tWeapon: " + weapon.get_name().capitalize())
-    print("1) Yes\n2) No")
-    choice = validate_int_input("")
-    if choice == 1:
+    print("Y) Yes\nN) No")
+    choice = input()
+    if choice.lower()[0] == "y":
         detailsConfirmed = True
     else:
         print("Through the power of a mystical force you are sent back in time.")
