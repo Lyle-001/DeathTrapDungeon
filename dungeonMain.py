@@ -2,12 +2,22 @@
 
 from Monster import Monster, Goblin, Vampire, Slime, RogueWarrior
 from Heroes import Hero, Barbarian, Wizard, Warlock
+from ansi_codes import txt
 import Weapons
 
 import random
 import math
 
 ############################### Subroutines ##################################
+def validate_int_input(message=""):
+    while True:
+        try:
+            answer = int(input(message))
+            return answer
+        except:
+            print("{}Please choose a numeral.{}".format(txt.col.fg.strg.red,txt.sty.reset))
+
+
 def RandomColour(): # Choose random colour for monster.
     ColourList = ["green","yellow","red","purple","black"]
     Colour = ColourList[random.randint(0,len(ColourList)-1)]
@@ -74,33 +84,76 @@ def shop(myHero):
 ################################# Main Code ####################################
 debug = True
         
-print("############# Welcome to Death Trap Dungeon! ############\n")
-name = input("\nWhat is your name, mighty warrior?\n")
-print("What manner of warrior are you?")
-print("\t1)Barbarian\t(♡ 20-30 | ⚔ 0-8)")
-print("\t2)Wizard\t(♡ 15-25 | ⚔ 0-12)")
-print("\t3)Warlock\t(♡ 17-27 | ⚔ 0-10)")
-choice = int(input())
-if choice == 1:
-    theHero = Barbarian(name)
-elif choice == 2:
-    theHero = Wizard(name)
-else:
-    theHero = Warlock(name)
-print("What weapon is of your choosing?")
-print("\t1) Sword\t(⚔ 0-6 | ⚄ 90%)")
-if debug:
-    print("\n#### DEBUG ####")
-    print("\t1000) AxeOfFlames\t(⚔ 0-8 | ⚄ 80%)")
-    print("\t1001) SwordOfSouls\t(⚔ 0-10 | ⚄ 95%)")
-choice = int(input())
-if choice == 1:
-    weapon = Weapons.ClassicSword()
-if debug:
-    if choice == 1000:
-        weapon = Weapons.AxeOfFlames()
-    elif choice == 1001:
-        weapon = Weapons.SwordOfSouls(4)
+
+
+
+print("{}{}############# Welcome to Death Trap Dungeon! ############{}\n".format(txt.col.fg.strg.white,txt.sty.bold,txt.sty.reset))
+detailsConfirmed = False
+while not detailsConfirmed:
+
+    name = input("\n{}What is your name, mighty warrior?{}\n".format(txt.sty.italic,txt.sty.reset))
+
+    valid = False
+    while not valid:
+        print("What manner of warrior are you?")
+        print("\t1)Barbarian\t(♡ 20-30 | ⚔ 0-8)")
+        print("\t2)Wizard\t(♡ 15-25 | ⚔ 0-12)")
+        print("\t3)Warlock\t(♡ 17-27 | ⚔ 0-10)")
+        choice = validate_int_input()
+        valid = True
+        if choice == 1:
+            theHero = Barbarian(name)
+        elif choice == 2:
+            theHero = Wizard(name)
+        elif choice == 3:
+            theHero = Warlock(name)
+        else:
+            valid = False
+            print("{}I suggest you look again for training.{}".format(txt.col.fg.strg.red,txt.sty.reset))
+
+    valid = False
+    while not valid:
+        print("What weapon is of your choosing?")
+        print("\t1) Sword\t(⚔ 0-6 | ⚄ 90%)")
+        print("\t2) Axe\t\t(⚔ 0-8 | ⚄ 70%)")
+        print("\t3) Dagger\t(⚔ 0-5 | ⚄ 100%)")
+        if debug:
+            print("#### DEBUG ####")
+            print("\t1000) AxeOfFlames\t(⚔ 0-8 | ⚄ 80%)")
+            print("\t1001) SwordOfSouls\t(⚔ 0-10 | ⚄ 95%)")
+        choice = validate_int_input()
+        valid = True
+        if choice == 1:
+            weapon = Weapons.ClassicSword()
+        elif choice == 2:
+            weapon = Weapons.Axe()
+        elif choice == 3:
+            weapon = Weapons.Dagger()
+        elif debug:
+            if choice == 1000:
+                weapon = Weapons.AxeOfFlames()
+            elif choice == 1001:
+                weapon = Weapons.SwordOfSouls()
+            else:
+                valid = False
+                print("{}You have the ability to look into other planes and yet you still can't choose a weapon.{}".format(txt.col.fg.strg.red,txt.sty.reset))
+        else:
+            valid = False
+            print("{}I suggest you ask for a weapon that exists in this plane.{}".format(txt.col.fg.strg.red,txt.sty.reset))
+
+    print("\nAre you, sir, happy with these details?")
+    print("\tName: " + theHero.get_name())
+    print("\tClass: " + theHero.get_class())
+    print("\tWeapon: " + weapon.get_name().capitalize())
+    print("1) Yes\n2) No")
+    choice = validate_int_input("")
+    if choice == 1:
+        detailsConfirmed = True
+    else:
+        print("Through the power of a mystical force you are sent back in time.")
+
+
+
 weapon.randomise_modifier(0)
 print("You pick up a " + weapon.get_name())
 weapon.inspect()
@@ -136,9 +189,9 @@ while victories < 10 and theHero.getCurrentHPs() > 0: # Run until the hero wins 
             if purchase == "Y":
                 shop(theHero)
     else:
-        print(theHero.getName() + ", you are dead. Death Trap Dungeon claims another victim.")
+        print(theHero.get_name() + ", you are dead. Death Trap Dungeon claims another victim.")
 if victories == 10: # Check if hero won the game
-    print(theHero.getName() + ", you are the Champion of Champions! Fame and fortune are yours!")
+    print(theHero.get_name() + ", you are the Champion of Champions! Fame and fortune are yours!")
     print("You leave the dungeon with " + str(theHero.getGold()) + " gold coins!")
 print("######## GAME OVER ########")
 

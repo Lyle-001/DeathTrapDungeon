@@ -13,7 +13,6 @@ class Weapon:
 
     def __init__(self):
         self.name = "unknown weapon"
-        self.modifier = 0
         self.damage = randint(1,100)
         self.damageChance = randint(1,100)
         self.hitMessage = ("You did something and it worked!?")
@@ -28,11 +27,18 @@ class Weapon:
         try:
             return self.modifiers[self.modifier][0] + " " + self.name
         except:
-            return "modifier out of range"
+            return self.name
 
     ####################################
     ##### Modifier-Related Methods #####
     ####################################
+
+    def set_modifier(self,name):
+        for i in range(0,len(self.modifiers),1):
+            if self.modifiers[i][0] == name:
+                self.modifier = i
+                return
+        print("Modifier does not exist...")
 
     def set_modifier_curve(self,x=0,mu=0): # This is for customisation. the dev can easily define a new modifier_curve function without copy pasting the big function
         return {"value":(1/(0.4 * sqrt(2*pi))) * e**((-1/2) * ((x-mu)/0.4)**2),
@@ -94,7 +100,6 @@ class Weapon:
 class ClassicSword(Weapon):
     def __init__(self):
         self.name = "sword"
-        self.modifier = 4
         self.damage = 6
         self.damageChance = 90
         self.hitMessage = ("You slash the monster with your sword-like sword.")
@@ -110,10 +115,45 @@ class ClassicSword(Weapon):
                          ["godly",4,8],
                          ["legendary",5,10]]
 
+class Axe(Weapon):
+    def __init__(self):
+        self.name = "axe"
+        self.damage = 8
+        self.damageChance = 70
+        self.hitMessage = ("You slice your enemy with your wieldly axe.")
+        self.missMessage = ("You waste energy swinging your axe about.")
+        self.inspectMessage = ("Looking at your axe, you notice a small inscribing on the handle. Probably the craftsman's.")
+        self.modifiers = [["broken",-3,-12],
+                         ["awful",-2,-8],
+                         ["shoddy",-1,-4],
+                         ["common",0,0],
+                         ["rare",1,2],
+                         ["mighty",2,4],
+                         ["epic",3,6],
+                         ["godly",4,8],
+                         ["legendary",5,10]]
+
+class Dagger(Weapon):
+    def __init__(self):
+        self.name = "dagger"
+        self.damage = 5
+        self.damageChance = 100
+        self.hitMessage = ("You stab your enemy right in their guts.")
+        self.missMessage = ("You try to stab them but you can't get close enough.")
+        self.inspectMessage = ("You marvel at how lightweight this blade is.")
+        self.modifiers = [["broken",-3,-12],
+                         ["awful",-2,-8],
+                         ["shoddy",-1,-4],
+                         ["common",0,0],
+                         ["rare",1,2],
+                         ["mighty",2,4],
+                         ["epic",3,6],
+                         ["godly",4,8],
+                         ["legendary",5,10]]
+
 class AxeOfFlames(Weapon):
     def __init__(self):
         self.name = "Axe of Flames"
-        self.modifier = 4
         self.damage = 8
         self.damageChance = 80
         self.hitMessage = ("The cold metal hacks the enemy, while the fire burns their wound.")
@@ -132,7 +172,6 @@ class AxeOfFlames(Weapon):
 class SwordOfSouls(Weapon):
     def __init__(self):
         self.name = "Sword of Souls"
-        self.modifier = 4
         self.damage = 10
         self.damageChance = 95
         self.hitMessage = ("Your enemy is struck with the blood of thousands.")

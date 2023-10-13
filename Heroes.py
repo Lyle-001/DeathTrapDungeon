@@ -3,13 +3,14 @@ from random import randint
 class Hero():
     def __init__(self,name):
         self.name = name
+        self.className = "Hero"
         self.originalHPs = randint(20,30)
         self.currentHPs = self.originalHPs
         self.maxDamage = 6
         self.gold = 0
 
     # Getters
-    def getName(self):
+    def get_name(self):
         return self.name
 
     def getCurrentHPs(self):
@@ -17,6 +18,9 @@ class Hero():
 
     def getGold(self):
         return self.gold
+
+    def get_class(self):
+        return self.className
 
     # Setters
     def setGold(self,gold):
@@ -49,6 +53,7 @@ class Hero():
 class Barbarian(Hero):
     def __init__(self,name):
         self.name = name
+        self.className = "Barbarian"
         self.originalHPs = randint(20,30)
         self.currentHPs = self.originalHPs
         self.maxDamage = 8
@@ -57,6 +62,7 @@ class Barbarian(Hero):
 class Wizard(Hero):
     def __init__(self,name):
         self.name = name
+        self.className - "Wizard"
         self.originalHPs = randint(15,25)
         self.currentHPs = self.originalHPs
         self.maxDamage = 12
@@ -65,6 +71,7 @@ class Wizard(Hero):
 class Warlock(Hero):
     def __init__(self,name):
         self.name = name
+        self.className = "Warlock"
         self.originalHPs = randint(17,27)
         self.currentHPs = self.originalHPs
         self.maxDamage = 10

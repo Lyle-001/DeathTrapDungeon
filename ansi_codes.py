@@ -1,12 +1,12 @@
 class txt:
-    class styles:
+    class sty:
         reset = "[0m"
         bold = "[1m"
         underline = "[4m"
         inverse = "[7m"
-    class colours:
-        class foreground:
-            class normal:
+    class col:
+        class fg:
+            class nml:
                 black = "[30m"
                 red = "[31m"
                 green = "[32m"
@@ -15,7 +15,7 @@ class txt:
                 magnenta = "[35m"
                 cyan = "[36m"
                 white = "[37m"
-            class strong:
+            class strg:
                 grey = "[90m"
                 red = "[91m"
                 green = "[92m"
@@ -24,8 +24,8 @@ class txt:
                 magnenta = "[95m"
                 cyan = "[96m"
                 white = "[97m"
-        class background:
-            class normal:
+        class bg:
+            class nml:
                 black = "[40m"
                 red = "[41m"
                 green = "[42m"
@@ -34,7 +34,7 @@ class txt:
                 magnenta = "[45m"
                 cyan = "[46m"
                 white = "[47m"
-            class strong:
+            class strg:
                 grey = "[100m"
                 red = "[101m"
                 green = "[102m"
