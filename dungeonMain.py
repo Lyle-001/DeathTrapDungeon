@@ -5,6 +5,7 @@ from Heroes import Hero, Barbarian, Wizard, Warlock
 from ansi_codes import txt, get_list_of_colours_bg, get_list_of_colours_fg, get_list_of_formats,icons
 from merchant import shop
 import Weapons
+import Items
 
 import random
 import math
@@ -87,9 +88,9 @@ while not detailsConfirmed:
     valid = False
     while not valid:
         print("{}What manner of warrior are you?".format(txt.col.fg.nml.blue))
-        print("\t1)Barbarian\t("  + heart + "{} 20-30 | ⚔ 0-8)".format(txt.col.fg.nml.blue))
-        print("\t2)Wizard\t("  + heart + "{} 15-25 | ⚔ 0-12)".format(txt.col.fg.nml.blue))
-        print("\t3)Warlock\t("  + heart + "{} 17-27 | ⚔ 0-10)".format(txt.col.fg.nml.blue))
+        print("\t1)Barbarian\t({}{} 20-30 | {}{} 0-8)".format(icons.heart,txt.col.fg.nml.blue,icons.damage,txt.col.fg.nml.blue))
+        print("\t2)Wizard\t({}{} 15-25 | {}{} 0-12)".format(icons.heart,txt.col.fg.nml.blue,icons.damage,txt.col.fg.nml.blue))
+        print("\t3)Warlock\t({}{} 17-27 | {}{} 0-10)".format(icons.heart,txt.col.fg.nml.blue,icons.damage,txt.col.fg.nml.blue))
         choice = validate_int_input()
         valid = True
         if choice == 1:
@@ -103,7 +104,7 @@ while not detailsConfirmed:
             print("{}I suggest you look again for training.{}".format(txt.col.fg.strg.red,txt.sty.reset))
     if debug:
         print("#### DEBUG #### Wouldst thou like to set thy own health?")
-        print("\ty) Yes\n\tn) No")
+        print("\tY) Yes\n\tN) No")
         if input().lower() == "y":
             print("What would you enjoy your health to be?")
             theHero.set_max_health(validate_int_input("Health: "))
@@ -111,16 +112,16 @@ while not detailsConfirmed:
     valid = False
     while not valid:
         print("What weapon is of your choosing?")
-        print("\t1) Sword\t(⚔ 0-6 | ⚄ 90%)")
-        print("\t2) Axe\t\t(⚔ 0-8 | ⚄ 70%)")
-        print("\t3) Dagger\t(⚔ 0-5 | ⚄ 100%)")
-        print("\t4) Scimitar\t(⚔ 0-6 | ⚄ 90%)")
-        print("\t5) Mace\t\t(⚔ 0-6 | ⚄ 90%)")
-        print("\t6) Hammer\t(⚔ 0-9 | ⚄ 60%)")
+        print("\t1) Sword\t({}{} 0-6 | {}{} 90%)".format(icons.damage,txt.col.fg.nml.blue,icons.hitchance,txt.col.fg.nml.blue))
+        print("\t2) Axe\t\t({}{} 0-8 | {}{} 70%)".format(icons.damage,txt.col.fg.nml.blue,icons.hitchance,txt.col.fg.nml.blue))
+        print("\t3) Dagger\t({}{} 0-5 | {}{} 100%)".format(icons.damage,txt.col.fg.nml.blue,icons.hitchance,txt.col.fg.nml.blue))
+        print("\t4) Scimitar\t({}{} 0-6 | {}{} 90%)".format(icons.damage,txt.col.fg.nml.blue,icons.hitchance,txt.col.fg.nml.blue))
+        print("\t5) Mace\t\t({}{} 0-6 | {}{} 90%)".format(icons.damage,txt.col.fg.nml.blue,icons.hitchance,txt.col.fg.nml.blue))
+        print("\t6) Hammer\t({}{} 0-9 | {}{} 60%)".format(icons.damage,txt.col.fg.nml.blue,icons.hitchance,txt.col.fg.nml.blue))
         if debug:
             print("#### DEBUG ####")
-            print("\t1000) AxeOfFlames\t(⚔ 0-8 | ⚄ 80%)")
-            print("\t1001) SwordOfSouls\t(⚔ 0-10 | ⚄ 95%)")
+            print("\t1000) AxeOfFlames\t({}{} 0-8 | {}{} 80%)".format(icons.damage,txt.col.fg.nml.blue,icons.hitchance,txt.col.fg.nml.blue))
+            print("\t1001) SwordOfSouls\t({}{} 0-10 | {}{} 95%)".format(icons.damage,txt.col.fg.nml.blue,icons.hitchance,txt.col.fg.nml.blue))
         choice = validate_int_input()
         valid = True
         if choice == 1:
@@ -158,11 +159,10 @@ while not detailsConfirmed:
     else:
         print("Through the power of a mystical force you are sent back in time.")
 
-
 weapon.randomise_modifier()
 if debug:
         print("#### DEBUG #### Dost thou want to set thy own modifier?")
-        print("\ty) Yes\n\tn) No")
+        print("\tY) Yes\n\tN) No")
         if input().lower() == "y":
             valid = False
             while not valid:
