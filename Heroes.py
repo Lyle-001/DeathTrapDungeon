@@ -29,6 +29,10 @@ class Hero():
     def setMaxDamage(self,damage):
         self.maxDamage += damage
 
+    def set_max_health(self,health):
+        self.originalHPs = health
+        self.currentHPs = health
+
     # Methods
     def attack(self): # Returns the amount of damage inflicted
         damage = randint(0,self.maxDamage)

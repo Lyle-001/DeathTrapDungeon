@@ -65,14 +65,16 @@ def shop(myHero):
                 print("\nYou do not have enough gold.")
         elif choice == "3":
             if myHero.purchase(8) == True: # Check if hero has enough gold
-                weapon = Weapons.AxeOfFlames("common")
+                weapon = Weapons.AxeOfFlames()
+                weapon.randomise_modifier()
                 print("You pick up a " + weapon.get_name())
                 weapon.inspect()
             else:
                 print("\nYou do not have enough gold.")
         elif choice == "4":
             if myHero.purchase(12) == True: # Check if hero has enough gold
-                weapon = Weapons.SwordOfSouls("common")
+                weapon = Weapons.SwordOfSouls()
+                weapon.randomise_modifier()
                 print("You pick up a " + weapon.get_name())
                 weapon.inspect()
             else:
@@ -82,7 +84,7 @@ def shop(myHero):
         cont = input("\nDo you want to make another purchase? Y/N ").upper()
 
 ################################# Main Code ####################################
-debug = False
+debug = True
         
 
 
@@ -110,6 +112,12 @@ while not detailsConfirmed:
         else:
             valid = False
             print("{}I suggest you look again for training.{}".format(txt.col.fg.strg.red,txt.sty.reset))
+    if debug:
+        print("#### DEBUG #### Wouldst though like to set thy own health?")
+        print("\ty) Yes\n\tn) No")
+        if input().lower() == "y":
+            print("What would you enjoy your health to be?")
+            theHero.set_max_health(validate_int_input("Health: "))
 
     valid = False
     while not valid:
@@ -154,7 +162,7 @@ while not detailsConfirmed:
 
 
 
-weapon.randomise_modifier(0)
+weapon.randomise_modifier()
 print("You pick up a " + weapon.get_name())
 weapon.inspect()
 print()

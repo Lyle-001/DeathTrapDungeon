@@ -48,7 +48,7 @@ class Weapon:
 
 
 
-    def randomise_modifier(self,luck):
+    def randomise_modifier(self,luck=0):
 
         bounds = self.set_modifier_curve() # get the bounds from the set_modifier_curve function. allows the dev to create new weapon modifier curves without copy pasting the complicated function
         modifierCurveHigher = bounds["upperBound"]
