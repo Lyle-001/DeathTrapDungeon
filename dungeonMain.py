@@ -118,13 +118,13 @@ while not detailsConfirmed:
 
     valid = False
     while not valid:
-        print("What weapon is of your choosing?")
-        print("\t1) Sword\t(⚔ 0-6 | ⚄ 90%)")
-        print("\t2) Axe\t\t(⚔ 0-8 | ⚄ 70%)")
-        print("\t3) Dagger\t(⚔ 0-5 | ⚄ 100%)")
-        print("\t4) Scimitar\t(⚔ 0-6 | ⚄ 90%)")
-        print("\t5) Mace\t\t(⚔ 0-6 | ⚄ 90%)")
-        print("\t6) Hammer\t(⚔ 0-9 | ⚄ 60%)")
+        print("{}What weapon is of your choosing?".format(txt.col.fg.nml.green))
+        print("\t1) Sword\t({} {}0-6 | {} {}90%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
+        print("\t2) Axe\t\t({} {}0-8 | {} {}70%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
+        print("\t3) Dagger\t({} {}0-5 | {} {}100%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
+        print("\t4) Scimitar\t({} {}0-6 | {} {}90%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
+        print("\t5) Mace\t\t({} {}0-6 | {} {}90%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
+        print("\t6) Hammer\t({} {}0-9 | {} {}60%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
         if debug:
             print("#### DEBUG ####")
             print("\t1000) AxeOfFlames\t({}{} 0-8 | {}{} 80%)".format(icons.damage,txt.col.fg.nml.blue,icons.hitchance,txt.col.fg.nml.blue))
