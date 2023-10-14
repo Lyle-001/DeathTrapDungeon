@@ -2,7 +2,7 @@
 
 from Monster import Monster, Goblin, Vampire, Slime, RogueWarrior
 from Heroes import Hero, Barbarian, Wizard, Warlock
-from ansi_codes import txt, get_list_of_colours_bg, get_list_of_colours_fg, get_list_of_formats
+from ansi_codes import txt, get_list_of_colours_bg, get_list_of_colours_fg, get_list_of_formats,icons
 from merchant import shop
 import Weapons
 
@@ -10,7 +10,7 @@ import random
 import math
 
 ############################### Subroutines ##################################
-def validate_not_empty_input(message=""):
+def validate_not_empty_input(message=""):#asks until non empty input entered
     while True:
         answer = input(message)
         if answer != "":
@@ -24,7 +24,7 @@ def validate_int_input(message=""):
         except:
             print("{}Please choose a numeral.{}".format(txt.col.fg.strg.red,txt.sty.reset))
 
-def validate_int_input_with_bounds(lowbound,upperbound,message=""):
+def validate_int_input_with_bounds(lowbound,upperbound,message=""):#upper bound is exclusive lower bound inclusive
     while True:
         try:
             answer = int(input(message))
@@ -41,19 +41,19 @@ def RandomColour(): # Choose random colour for monster.
 # Run one fight until either hero or monster is dead
 def Combat(myHero, myWeapon, myMonster ):
     while myHero.get_hp() > 0 and myMonster.get_hitPoints() > 0: #Fight continues until either combatant dies.
-        print("\n######### Hero: " + str(myHero.get_hp()) + " ♡ #########" +
-              " " + myMonster.get_species().capitalize() + ": " + str(myMonster.get_hitPoints()) + " ♡ #########\n")
-        anyKey = input("Press enter to attack!")
+        print("\n######### Hero: " + str(myHero.get_hp()) + " " + heart + " #########" +
+              " " + myMonster.get_species().capitalize() + ": " + str(myMonster.get_hitPoints()) + " " + heart + " #########\n")
+        input("Press enter to attack!")
         heroDamage = math.floor(math.sqrt((myWeapon.attack() * myHero.attack())))
         myMonster.receive_damage(heroDamage) # Assign damage to monster
         if myMonster.get_hitPoints() > 0: # Monster only attacks if it's  still alive.
             print("The " + myMonster.get_species() + " attacks...")
-            anyKey = input("Press enter to defend!")
+            input("Press enter to defend!")
             myHero.receiveDamage(myMonster.attack()) # Subtract damage from hero
 
-def name_and_format():
+def name_and_format():#asks the user what they want their name to be and look like
 
-    name = validate_not_empty_input("\nWhat is your name, mighty warrior?\n")
+    name = validate_not_empty_input("\n{}What is your name, mighty warrior?\n".format(txt.col.fg.nml.cyan))
     print("\nWhat colour do you want your name to be?\n")
     print("1. Black\n2. Red\n3. Green\n4. Yellow\n5. Blue\n6. Magenta\n7. Cyan\n8. White")
     fgcolour = validate_int_input_with_bounds(1,9) 
@@ -70,13 +70,15 @@ def name_and_format():
     format = validate_int_input_with_bounds(1,5)
 
     name = "{}{}{}".format(get_list_of_formats()[format-1],get_list_of_colours_bg()[bgstrength-1][bgcolour-1],get_list_of_colours_fg()[fgstrength-1][fgcolour-1]) + name + "{}".format(txt.sty.reset)
-    #name = "{}{}{}".format(txt.col.fg.strength-1.colour-1,txt.col.bg.(bgstrength-1).(bgcolour-1),txt.sty.(format-1)) + name + "{}".format(txt.sty.reset)
-    return name
+    return name #already includes all the formating
 
 ################################# Main Code ####################################
 debug = True
+ 
+heart = "{}♡{}".format(txt.col.fg.nml.red,txt.sty.reset)
+globals = heart
 
-print("{}{}############# Welcome to Death Trap Dungeon! ############{}\n".format(txt.col.fg.strg.white,txt.sty.bold,txt.sty.reset))
+print("{}{}############# Welcome to Death Trap Dungeon! ############{}\n".format(txt.col.fg.strg.blue,txt.sty.bold,txt.sty.reset))
 detailsConfirmed = False
 while not detailsConfirmed:
 
@@ -84,10 +86,10 @@ while not detailsConfirmed:
 
     valid = False
     while not valid:
-        print("What manner of warrior are you?")
-        print("\t1)Barbarian\t(♡ 20-30 | ⚔ 0-8)")
-        print("\t2)Wizard\t(♡ 15-25 | ⚔ 0-12)")
-        print("\t3)Warlock\t(♡ 17-27 | ⚔ 0-10)")
+        print("{}What manner of warrior are you?".format(txt.col.fg.nml.blue))
+        print("\t1)Barbarian\t("  + heart + "{} 20-30 | ⚔ 0-8)".format(txt.col.fg.nml.blue))
+        print("\t2)Wizard\t("  + heart + "{} 15-25 | ⚔ 0-12)".format(txt.col.fg.nml.blue))
+        print("\t3)Warlock\t("  + heart + "{} 17-27 | ⚔ 0-10)".format(txt.col.fg.nml.blue))
         choice = validate_int_input()
         valid = True
         if choice == 1:
