@@ -1,5 +1,6 @@
 from random import randint,random
 from math import e,sqrt,pi
+from tkinter import SEL_FIRST
 from ansi_codes import txt
 
 # Weapons have different stats, such as:
@@ -16,9 +17,9 @@ class Weapon:
         self.name = "unknown weapon"
         self.damage = randint(1,100)
         self.damageChance = randint(1,100)
-        self.hitMessage = ("You did something and it worked!?")
-        self.missMessage = ("Even I don't even know what weapon this is, of course you wouldn't be able to swing it!")
-        self.inspectMessage = ("It looks unexplainable. How did you get this?")
+        self.hitMessage = "You did something and it worked!?"
+        self.missMessage = "Even I don't even know what weapon this is, of course you wouldn't be able to swing it!"
+        self.inspectMessage = "It looks unexplainable. How did you get this?"
         self.modifiers = [["unobtainable",0,0]]
 
 
@@ -104,9 +105,9 @@ class ClassicSword(Weapon):
         self.name = "sword"
         self.damage = 6
         self.damageChance = 90
-        self.hitMessage = ("You slash the monster with your sword-like sword.")
-        self.missMessage = ("You slash the air with your sword-like sword")
-        self.inspectMessage = ("Your sword feels solid in your hands.")
+        self.hitMessage = "You slash the monster with your sword-like sword."
+        self.missMessage = "You slash the air with your sword-like sword."
+        self.inspectMessage = "Your sword feels solid in your hands."
         self.modifiers = [["broken",-3,-12],
                          ["awful",-2,-8],
                          ["shoddy",-1,-4],
@@ -122,9 +123,9 @@ class Axe(Weapon):
         self.name = "axe"
         self.damage = 8
         self.damageChance = 70
-        self.hitMessage = ("You slice your enemy with your wieldly axe.")
-        self.missMessage = ("You waste energy swinging your axe about.")
-        self.inspectMessage = ("Looking at your axe, you notice a small inscribing on the handle. Probably the craftsman's.")
+        self.hitMessage = "You slice your enemy with your wieldly axe."
+        self.missMessage = "You waste energy swinging your axe about."
+        self.inspectMessage = "Looking at your axe, you notice a small inscribing on the handle. Probably the craftsman's."
         self.modifiers = [["broken",-3,-12],
                          ["awful",-2,-8],
                          ["shoddy",-1,-4],
@@ -140,9 +141,63 @@ class Dagger(Weapon):
         self.name = "dagger"
         self.damage = 5
         self.damageChance = 100
-        self.hitMessage = ("You stab your enemy right in their guts.")
-        self.missMessage = ("You try to stab them but you can't get close enough.")
-        self.inspectMessage = ("You marvel at how lightweight this blade is.")
+        self.hitMessage = "You stab your enemy right in their guts."
+        self.missMessage = "You try to stab them but you can't get close enough."
+        self.inspectMessage = "You marvel at how lightweight this blade is."
+        self.modifiers = [["broken",-3,-12],
+                         ["awful",-2,-8],
+                         ["shoddy",-1,-4],
+                         ["common",0,0],
+                         ["rare",1,2],
+                         ["mighty",2,4],
+                         ["epic",3,6],
+                         ["godly",4,8],
+                         ["legendary",5,10]]
+
+class Scimitar(Weapon):
+    def __init__(self):
+        self.name = "scimitar"
+        self.damage = 6
+        self.damageChance = 90
+        self.hitMessage = "You slash the monster with your scimitar."
+        self.missMessage = "You slash the air with your scimitar."
+        self.inspectMessage = "You notice the exotic shape of your scimitar's blade."
+        self.modifiers = [["broken",-3,-12],
+                         ["awful",-2,-8],
+                         ["shoddy",-1,-4],
+                         ["common",0,0],
+                         ["rare",1,2],
+                         ["mighty",2,4],
+                         ["epic",3,6],
+                         ["godly",4,8],
+                         ["legendary",5,10]]
+
+class Mace(Weapon):
+    def __init__(self):
+        self.name = "mace"
+        self.damage = 6
+        self.damageChance = 90
+        self.hitMessage = "You slam the monster with your mace"
+        self.missMessage = "Your miss your shot with your mace."
+        self.inspectMessage = "Your mace is very bumpy and spiky."
+        self.modifiers = [["broken",-3,-12],
+                         ["awful",-2,-8],
+                         ["shoddy",-1,-4],
+                         ["common",0,0],
+                         ["rare",1,2],
+                         ["mighty",2,4],
+                         ["epic",3,6],
+                         ["godly",4,8],
+                         ["legendary",5,10]]
+
+class Hammer(Weapon):
+    def __init__(self):
+        self.name = "hammer"
+        self.damage = 9
+        self.damage = 60
+        self.hitMessage = "The enemy gets a concussion from your hammer's blast"
+        self.missMessage = "You waste valuable stamina missing your shot."
+        self.inspectMessage = "\"Would you like... another nail?\" - A wise philosopher."
         self.modifiers = [["broken",-3,-12],
                          ["awful",-2,-8],
                          ["shoddy",-1,-4],

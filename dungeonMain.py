@@ -154,6 +154,9 @@ while not detailsConfirmed:
         print("\t1) Sword\t(⚔ 0-6 | ⚄ 90%)")
         print("\t2) Axe\t\t(⚔ 0-8 | ⚄ 70%)")
         print("\t3) Dagger\t(⚔ 0-5 | ⚄ 100%)")
+        print("\t4) Scimitar\t(⚔ 0-6 | ⚄ 90%)")
+        print("\t5) Mace\t\t(⚔ 0-6 | ⚄ 90%)")
+        print("\t6) Hammer\t(⚔ 0-9 | ⚄ 60%)")
         if debug:
             print("#### DEBUG ####")
             print("\t1000) AxeOfFlames\t(⚔ 0-8 | ⚄ 80%)")
@@ -166,6 +169,12 @@ while not detailsConfirmed:
             weapon = Weapons.Axe()
         elif choice == 3:
             weapon = Weapons.Dagger()
+        elif choice == 4:
+            weapon = Weapons.Scimitar()
+        elif choice == 5:
+            weapon = Weapons.Mace()
+        elif choice == 6:
+            weapon = Weapons.Hammer()
         elif debug:
             if choice == 1000:
                 weapon = Weapons.AxeOfFlames()
