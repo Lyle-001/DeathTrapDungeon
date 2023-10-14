@@ -3,6 +3,7 @@
 from Monster import Monster, Goblin, Vampire, Slime, RogueWarrior
 from Heroes import Hero, Barbarian, Wizard, Warlock
 from ansi_codes import txt, get_list_of_colours_bg, get_list_of_colours_fg, get_list_of_formats
+from merchant import shop
 import Weapons
 
 import random
@@ -49,53 +50,6 @@ def Combat(myHero, myWeapon, myMonster ):
             print("The " + myMonster.get_species() + " attacks...")
             anyKey = input("Press enter to defend!")
             myHero.receiveDamage(myMonster.attack()) # Subtract damage from hero
-
-# Lets the hero buy items providing they have enough gold.
-def shop(myHero):
-    cont = "Y"
-    while cont == "Y":
-        output = "\n############## Welcome to Ye Olde Dungeon Shoppe! ##########\n"
-        output += "1) Buy basic health potion (+2-8 ♡)\t\t 2¤\n"
-        output += "2) Buy standard health potion (+4-12 ♡)\t\t 4¤\n"
-        output += "3) Buy Axe of Fire (⚔ 0-8 | ⚄ 80%)\t\t 8¤\n"
-        output += "4) Buy Sword of Souls (⚔ 0-10 | ⚄ 95%)\t\t12¤\n"
-        output += "5) Exit shoppe\n"
-        output += "Your current gold: " + str(myHero.getGold()) + "\n"
-        output += "Select option: "
-        choice = input(output)
-        if choice == "1":
-            healthPotion = random.randint(2,8)
-            if myHero.purchase(2) == True: # Check if hero has enough gold
-                print("\nYou swig a health potion. You recover " + str(healthPotion) + " HPs.")
-                myHero.heal(healthPotion)
-            else:
-                print("\nYou do not have enough gold.")
-        elif choice == "2":
-            healthPotion = random.randint(4,12)
-            if myHero.purchase(4) == True: # Check if hero has enough gold
-                print("\nYou swig a health potion. You recover " + str(healthPotion) + " HPs.")
-                myHero.heal(healthPotion)
-            else:
-                print("\nYou do not have enough gold.")
-        elif choice == "3":
-            if myHero.purchase(8) == True: # Check if hero has enough gold
-                weapon = Weapons.AxeOfFlames()
-                weapon.randomise_modifier()
-                print("You pick up a " + weapon.get_name())
-                weapon.inspect()
-            else:
-                print("\nYou do not have enough gold.")
-        elif choice == "4":
-            if myHero.purchase(12) == True: # Check if hero has enough gold
-                weapon = Weapons.SwordOfSouls()
-                weapon.randomise_modifier()
-                print("You pick up a " + weapon.get_name())
-                weapon.inspect()
-            else:
-                print("\nYou do not have enough gold.")
-        elif choice == "5":
-            return
-        cont = input("\nDo you want to make another purchase? Y/N ").upper()
 
 def name_and_format():
 
@@ -239,18 +193,18 @@ while victories < 10 and theHero.getCurrentHPs() > 0: # Run until the hero wins 
         print("The monster dropped " + str(gold) + " gold coins.")
         theHero.setGold(gold)
         victories += 1
-        anyKey = input("You are victorious! Press enter for the next attack!\n ")
-        print("Gold coins: " + str(theHero.gold) + "\n")
+        anyKey = input("You are victorious! Press enter to descend deeper into the dungeon...\n ")
+        print("You have " + str(theHero.gold) + " ¤.\n")
         # Give user option of visiting the dungeon shop if they have another fight next
         if victories < 10:
-            purchase = input("\nDo you want to visit Ye Olde Dungeon Shoppe? Y/N ").upper()
+            purchase = input("\nUp ahead lies a hastily-constructed shelter. Do you wish to enter the Merchant's Tent? Y/N ").upper()
             if purchase == "Y":
                 shop(theHero)
     else:
         print(theHero.get_name() + ", you are dead. Death Trap Dungeon claims another victim.")
 if victories == 10: # Check if hero won the game
     print(theHero.get_name() + ", you are the Champion of Champions! Fame and fortune are yours!")
-    print("You leave the dungeon with " + str(theHero.getGold()) + " gold coins!")
+    print("You leave the dungeon with " + str(theHero.getGold()) + " ¤!")
 print("######## GAME OVER ########")
 
 
