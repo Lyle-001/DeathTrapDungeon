@@ -23,7 +23,7 @@ class Monster:
         self.hitPoints = 10
         self.maxDamage = 5
         self.attackMessage = monsterMessageBank[randint(0, len(monsterMessageBank) - 1)]
-        self.gold = randint(4,6)
+        self.gold = randint(6,9)
         self.mentalFortitude = randint(0,100)
         self.ego = randint(0,100)
 
@@ -138,7 +138,7 @@ class Goblin(Monster):
         self.hitPoints = 12
         self.maxDamage = 6
         self.attackMessage = goblinMessageBank[randint(0, len(goblinMessageBank) - 1)]
-        self.gold = randint(4,12)
+        self.gold = randint(6,18)
         self.mentalFortitude = randint(0,100)
         self.ego = randint(0,100)
     # Methods
@@ -201,7 +201,7 @@ class Vampire(Monster):
         self.hitPoints = 20
         self.maxDamage = 7
         self.attackMessage = "It sinks its fangs into your neck."
-        self.gold = randint(3,10)
+        self.gold = randint(5,15)
         self.mentalFortitude = randint(0,100)
         self.ego = randint(0,100)
 
@@ -218,7 +218,7 @@ class Slime(Monster):
         self.hitPoints = 8
         self.maxDamage = 4
         self.attackMessage = "It tries to engulf you."
-        self.gold = randint(0,6)
+        self.gold = randint(2,9)
         self.mentalFortitude = randint(0,100)
         self.ego = randint(0,100)
 
@@ -235,7 +235,7 @@ class RogueWarrior(Monster):
         self.hitPoints = 25
         self.maxDamage = 6
         self.attackMessage = "They slash at you."
-        self.gold = randint(8,18)
+        self.gold = randint(12,27)
         self.mentalFortitude = randint(0,100)
         self.ego = randint(0,100)
 

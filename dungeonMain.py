@@ -40,8 +40,8 @@ def RandomColour(): # Choose random colour for monster.
 
 # Run one fight until either hero or monster is dead
 def Combat(myHero, myWeapon, myMonster ):
-    while myHero.getCurrentHPs() > 0 and myMonster.get_hitPoints() > 0: #Fight continues until either combatant dies.
-        print("\n######### Hero: " + str(myHero.getCurrentHPs()) + " ♡ #########" +
+    while myHero.get_hp() > 0 and myMonster.get_hitPoints() > 0: #Fight continues until either combatant dies.
+        print("\n######### Hero: " + str(myHero.get_hp()) + " ♡ #########" +
               " " + myMonster.get_species().capitalize() + ": " + str(myMonster.get_hitPoints()) + " ♡ #########\n")
         anyKey = input("Press enter to attack!")
         heroDamage = math.floor(math.sqrt((myWeapon.attack() * myHero.attack())))
@@ -55,13 +55,13 @@ def name_and_format():
 
     name = validate_not_empty_input("\nWhat is your name, mighty warrior?\n")
     print("\nWhat colour do you want your name to be?\n")
-    print("1. black\n2. Red\n3. Green\n4. Yellow\n5. Blue\n6. Magenta\n7. Cyan\n8. White")
+    print("1. Black\n2. Red\n3. Green\n4. Yellow\n5. Blue\n6. Magenta\n7. Cyan\n8. White")
     fgcolour = validate_int_input_with_bounds(1,9) 
     print("\nDo you want the colour to be strong or normal?\n1. Strong\n2. Normal")
     fgstrength = validate_int_input_with_bounds(1,3)
 
     print("\nWhat colour do you want the background of your name to be?\n")
-    print("1. Grey\n2. Red\n3. Green\n4. Yellow\n5. Blue\n6. Magenta\n7. Cyan\n8. White")
+    print("1. Black\n2. Red\n3. Green\n4. Yellow\n5. Blue\n6. Magenta\n7. Cyan\n8. White")
     bgcolour = validate_int_input_with_bounds(1,9) 
     print("\nDo you want the colour to be strong or normal?\n1. Strong\n2. Normal")
     bgstrength = validate_int_input_with_bounds(1,3)
@@ -172,7 +172,7 @@ weapon.inspect()
 
 print()
 victories = 0
-while victories < 10 and theHero.getCurrentHPs() > 0: # Run until the hero wins three matches or dies/
+while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins three matches or dies/
     monsterChoice = random.randint(0,4)
     if monsterChoice == 0:
         theMonster = Monster(RandomColour())
@@ -188,10 +188,10 @@ while victories < 10 and theHero.getCurrentHPs() > 0: # Run until the hero wins 
           + theMonster.get_species() + ".")
     theMonster.talk()
     Combat(theHero, weapon, theMonster)
-    if theHero.getCurrentHPs() > 0: # Check if the hero has won or lost
+    if theHero.get_hp() > 0: # Check if the hero has won or lost
         gold = theMonster.getGold()
         print("The monster dropped " + str(gold) + " gold coins.")
-        theHero.setGold(gold)
+        theHero.set_gold(gold)
         victories += 1
         anyKey = input("You are victorious! Press enter to descend deeper into the dungeon...\n ")
         print("You have " + str(theHero.gold) + " ¤.\n")
@@ -204,7 +204,7 @@ while victories < 10 and theHero.getCurrentHPs() > 0: # Run until the hero wins 
         print(theHero.get_name() + ", you are dead. Death Trap Dungeon claims another victim.")
 if victories == 10: # Check if hero won the game
     print(theHero.get_name() + ", you are the Champion of Champions! Fame and fortune are yours!")
-    print("You leave the dungeon with " + str(theHero.getGold()) + " ¤!")
+    print("You leave the dungeon with " + str(theHero.get_gold()) + " ¤!")
 print("######## GAME OVER ########")
 
 

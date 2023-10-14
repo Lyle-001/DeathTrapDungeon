@@ -13,17 +13,17 @@ class Hero():
     def get_name(self):
         return self.name
 
-    def getCurrentHPs(self):
+    def get_hp(self):
         return self.currentHPs
 
-    def getGold(self):
+    def get_gold(self):
         return self.gold
 
     def get_class(self):
         return self.className
 
     # Setters
-    def setGold(self,gold):
+    def set_gold(self,gold):
         self.gold += gold
 
     def setMaxDamage(self,damage):

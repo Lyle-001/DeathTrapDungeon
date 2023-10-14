@@ -194,7 +194,7 @@ class Hammer(Weapon):
     def __init__(self):
         self.name = "hammer"
         self.damage = 9
-        self.damage = 60
+        self.damageChance = 60
         self.hitMessage = "The enemy gets a concussion from your hammer's blast"
         self.missMessage = "You waste valuable stamina missing your shot."
         self.inspectMessage = "\"Would you like... another nail?\" - A wise philosopher."
