@@ -17,6 +17,14 @@ def validate_int_input(message=""):
         except:
             print("{}Please choose a numeral.{}".format(txt.col.fg.strg.red,txt.sty.reset))
 
+def validate_int_input_with_bounds(lowbound,upperbound,message=""):
+    while True:
+        try:
+            answer = int(input(message))
+            if answer >+lowbound and answer < upperbound:
+                return answer
+        except:
+            print("{}Please choose a valid number.{}".format(txt.col.fg.strg.red,txt.sty.reset))
 
 def RandomColour(): # Choose random colour for monster.
     ColourList = ["green","yellow","red","purple","black"]
@@ -83,17 +91,38 @@ def shop(myHero):
             return
         cont = input("\nDo you want to make another purchase? Y/N ").upper()
 
+def name_and_format():
+
+    name = input("\nWhat is your name, mighty warrior?\n")
+    print("\nWhat colour do you want your name to be?\n")
+    print("1. black\n2. Red\n3. Green\n4. Yellow\n5. Blue\n6. Magenta\n7. Cyan\n8. White")
+    colour = validate_int_input_with_bounds(1,9) 
+    print("\nDo you want the colour to be strong or normal?\n1. Strong\n2. Normal")
+    strength = validate_int_input_with_bounds(1,3)
+
+    print("\nWhat colour do you want the background of your name to be?\n")
+    print("1. black\n2. Red\n3. Green\n4. Yellow\n5. Blue\n6. Magenta\n7. Cyan\n8. White")
+    bgcolour = validate_int_input_with_bounds(1,9) 
+    print("\nDo you want the colour to be strong or normal?\n1. Strong\n2. Normal")
+    bgstrength = validate_int_input_with_bounds(1,3)
+
+    print("\nDo you want your name underlined, bold or both?")
+    format = validate_int_input_with_bounds(1,4)
+    name = "{}hello".format(txt.col.fg.nml.colour-1)
+    #name = "{}{}{}".format(txt.col.fg.strength-1.colour-1,txt.col.bg.(bgstrength-1).(bgcolour-1),txt.sty.(format-1)) + name + "{}".format(txt.sty.reset)
+    return name
+
 ################################# Main Code ####################################
 debug = True
-        
 
-
+print("{}{}hello".format(txt.sty.underlinebold))
 
 print("{}{}############# Welcome to Death Trap Dungeon! ############{}\n".format(txt.col.fg.strg.white,txt.sty.bold,txt.sty.reset))
 detailsConfirmed = False
 while not detailsConfirmed:
 
-    name = input("\nWhat is your name, mighty warrior?\n")
+    name = name_and_format()
+    print(name)
 
     valid = False
     while not valid:
