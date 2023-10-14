@@ -2,13 +2,19 @@
 
 from Monster import Monster, Goblin, Vampire, Slime, RogueWarrior
 from Heroes import Hero, Barbarian, Wizard, Warlock
-from ansi_codes import txt
+from ansi_codes import txt, get_list_of_colours_bg, get_list_of_colours_fg, get_list_of_formats
 import Weapons
 
 import random
 import math
 
 ############################### Subroutines ##################################
+def validate_not_empty_input(message=""):
+    while True:
+        answer = input(message)
+        if answer != "":
+            return answer
+
 def validate_int_input(message=""):
     while True:
         try:
@@ -93,36 +99,34 @@ def shop(myHero):
 
 def name_and_format():
 
-    name = input("\nWhat is your name, mighty warrior?\n")
+    name = validate_not_empty_input("\nWhat is your name, mighty warrior?\n")
     print("\nWhat colour do you want your name to be?\n")
     print("1. black\n2. Red\n3. Green\n4. Yellow\n5. Blue\n6. Magenta\n7. Cyan\n8. White")
-    colour = validate_int_input_with_bounds(1,9) 
+    fgcolour = validate_int_input_with_bounds(1,9) 
     print("\nDo you want the colour to be strong or normal?\n1. Strong\n2. Normal")
-    strength = validate_int_input_with_bounds(1,3)
+    fgstrength = validate_int_input_with_bounds(1,3)
 
     print("\nWhat colour do you want the background of your name to be?\n")
-    print("1. black\n2. Red\n3. Green\n4. Yellow\n5. Blue\n6. Magenta\n7. Cyan\n8. White")
+    print("1. Grey\n2. Red\n3. Green\n4. Yellow\n5. Blue\n6. Magenta\n7. Cyan\n8. White")
     bgcolour = validate_int_input_with_bounds(1,9) 
     print("\nDo you want the colour to be strong or normal?\n1. Strong\n2. Normal")
     bgstrength = validate_int_input_with_bounds(1,3)
 
-    print("\nDo you want your name underlined, bold or both?")
-    format = validate_int_input_with_bounds(1,4)
-    name = "{}hello".format(txt.col.fg.nml.colour-1)
+    print("\nWhat style do you want your name to be in?\n1. Normal\n2.Bold\n3.Underlined\n4.Both")
+    format = validate_int_input_with_bounds(1,5)
+
+    name = "{}{}{}".format(get_list_of_formats()[format-1],get_list_of_colours_bg()[bgstrength-1][bgcolour-1],get_list_of_colours_fg()[fgstrength-1][fgcolour-1]) + name + "{}".format(txt.sty.reset)
     #name = "{}{}{}".format(txt.col.fg.strength-1.colour-1,txt.col.bg.(bgstrength-1).(bgcolour-1),txt.sty.(format-1)) + name + "{}".format(txt.sty.reset)
     return name
 
 ################################# Main Code ####################################
 debug = True
 
-print("{}hello".format(txt.sty.underlinebold))
-
 print("{}{}############# Welcome to Death Trap Dungeon! ############{}\n".format(txt.col.fg.strg.white,txt.sty.bold,txt.sty.reset))
 detailsConfirmed = False
 while not detailsConfirmed:
 
     name = name_and_format()
-    print(name)
 
     valid = False
     while not valid:
