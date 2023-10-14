@@ -66,7 +66,7 @@ def name_and_format():
     print("\nDo you want the colour to be strong or normal?\n1. Strong\n2. Normal")
     bgstrength = validate_int_input_with_bounds(1,3)
 
-    print("\nWhat style do you want your name to be in?\n1. Normal\n2.Bold\n3.Underlined\n4.Both")
+    print("\nWhat style do you want your name to be in?\n1. Normal\n2. Bold\n3. Underlined\n4. Both")
     format = validate_int_input_with_bounds(1,5)
 
     name = "{}{}{}".format(get_list_of_formats()[format-1],get_list_of_colours_bg()[bgstrength-1][bgcolour-1],get_list_of_colours_fg()[fgstrength-1][fgcolour-1]) + name + "{}".format(txt.sty.reset)
