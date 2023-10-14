@@ -66,7 +66,7 @@ class Barbarian(Hero):
 class Wizard(Hero):
     def __init__(self,name):
         self.name = name
-        self.className - "Wizard"
+        self.className = "Wizard"
         self.originalHPs = randint(15,25)
         self.currentHPs = self.originalHPs
         self.maxDamage = 12
