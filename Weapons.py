@@ -17,7 +17,7 @@ class Weapon:
         self.damage = randint(1,100)
         self.damageChance = randint(1,100)
         self.hitMessage = ("You did something and it worked!?")
-        self.missMessage = ("I don't even know what weapon this is, of course you wouldn't be able to swing it!")
+        self.missMessage = ("Even I don't even know what weapon this is, of course you wouldn't be able to swing it!")
         self.inspectMessage = ("It looks unexplainable. How did you get this?")
         self.modifiers = [["unobtainable",0,0]]
 
