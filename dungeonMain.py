@@ -21,7 +21,7 @@ def validate_int_input_with_bounds(lowbound,upperbound,message=""):
     while True:
         try:
             answer = int(input(message))
-            if answer >+lowbound and answer < upperbound:
+            if answer >= lowbound and answer < upperbound:
                 return answer
         except:
             print("{}Please choose a valid number.{}".format(txt.col.fg.strg.red,txt.sty.reset))
@@ -115,7 +115,7 @@ def name_and_format():
 ################################# Main Code ####################################
 debug = True
 
-print("{}{}hello".format(txt.sty.underlinebold))
+print("{}hello".format(txt.sty.underlinebold))
 
 print("{}{}############# Welcome to Death Trap Dungeon! ############{}\n".format(txt.col.fg.strg.white,txt.sty.bold,txt.sty.reset))
 detailsConfirmed = False
