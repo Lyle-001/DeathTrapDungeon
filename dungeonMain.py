@@ -27,7 +27,7 @@ def RandomColour(): # Choose random colour for monster.
 def Combat(myHero, myWeapon, myMonster ):
     while myHero.getCurrentHPs() > 0 and myMonster.get_hitPoints() > 0: #Fight continues until either combatant dies.
         print("\n######### Hero: " + str(myHero.getCurrentHPs()) + " ♡ #########" +
-              " Monster: " + str(myMonster.get_hitPoints()) + " ♡ #########\n")
+              " " + myMonster.get_species().capitalize() + ": " + str(myMonster.get_hitPoints()) + " ♡ #########\n")
         anyKey = input("Press enter to attack!")
         heroDamage = math.floor(math.sqrt((myWeapon.attack() * myHero.attack())))
         myMonster.receive_damage(heroDamage) # Assign damage to monster
@@ -113,7 +113,7 @@ while not detailsConfirmed:
             valid = False
             print("{}I suggest you look again for training.{}".format(txt.col.fg.strg.red,txt.sty.reset))
     if debug:
-        print("#### DEBUG #### Wouldst though like to set thy own health?")
+        print("#### DEBUG #### Wouldst thou like to set thy own health?")
         print("\ty) Yes\n\tn) No")
         if input().lower() == "y":
             print("What would you enjoy your health to be?")
@@ -161,12 +161,20 @@ while not detailsConfirmed:
         print("Through the power of a mystical force you are sent back in time.")
 
 
-
 weapon.randomise_modifier()
+if debug:
+        print("#### DEBUG #### Dost thou want to set thy own modifier?")
+        print("\ty) Yes\n\tn) No")
+        if input().lower() == "y":
+            valid = False
+            while not valid:
+                print("What would you enjoy your modifier to be?")
+                valid = weapon.set_modifier(input("Modifier: "))
 print("You pick up a " + weapon.get_name())
 weapon.inspect()
+
+
 print()
-heroHitPoints = random.randint(10,30) # Assign random number of hit points to hero.
 victories = 0
 while victories < 10 and theHero.getCurrentHPs() > 0: # Run until the hero wins three matches or dies/
     monsterChoice = random.randint(0,4)

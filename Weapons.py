@@ -38,8 +38,9 @@ class Weapon:
         for i in range(0,len(self.modifiers),1):
             if self.modifiers[i][0] == name:
                 self.modifier = i
-                return
-        print("{}Modifier does not exist...{}",format(txt.col.fg.nml.red,txt.sty.reset))
+                return True
+        print("{}Modifier does not exist...{}".format(txt.col.fg.nml.red,txt.sty.reset))
+        return False
 
     def set_modifier_curve(self,x=0,mu=0): # This is for customisation. the dev can easily define a new modifier_curve function without copy pasting the big function
         return {"value":(1/(0.4 * sqrt(2*pi))) * e**((-1/2) * ((x-mu)/0.4)**2),
