@@ -15,6 +15,9 @@ def validate_not_empty_input(message=""):#asks until non empty input entered
         answer = input(message)
         if answer != "":
             return answer
+        else:
+            print("{}Type something!{}".format(txt.warning,txt.sty.reset))
+
 
 def validate_int_input(message=""):
     while True:
@@ -22,7 +25,7 @@ def validate_int_input(message=""):
             answer = int(input(message))
             return answer
         except:
-            print("{}Please choose a numeral.{}".format(txt.col.fg.strg.red,txt.sty.reset))
+            print("{}Please choose a numeral.{}".format(txt.warning,txt.sty.reset))
 
 def validate_int_input_with_bounds(lowbound,upperbound,message=""):#upper bound is exclusive lower bound inclusive
     while True:
@@ -30,19 +33,21 @@ def validate_int_input_with_bounds(lowbound,upperbound,message=""):#upper bound 
             answer = int(input(message))
             if answer >= lowbound and answer < upperbound:
                 return answer
+            else:
+                print("{}Please choose a valid number.{}".format(txt.warning,txt.sty.reset))
         except:
-            print("{}Please choose a valid number.{}".format(txt.col.fg.strg.red,txt.sty.reset))
+            print("{}Please choose a valid number.{}".format(txt.warning,txt.sty.reset))
 
 def RandomColour(): # Choose random colour for monster.
-    ColourList = ["green","yellow","red","purple","black"]
+    ColourList = ["black","red","green","yellow","blue","magenta","cyan","white"]
     Colour = ColourList[random.randint(0,len(ColourList)-1)]
     return Colour
 
 # Run one fight until either hero or monster is dead
 def Combat(myHero, myWeapon, myMonster ):
     while myHero.get_hp() > 0 and myMonster.get_hitPoints() > 0: #Fight continues until either combatant dies.
-        print("\n######### Hero: " + str(myHero.get_hp()) + " " + heart + " #########" +
-              " " + myMonster.get_species().capitalize() + ": " + str(myMonster.get_hitPoints()) + " " + heart + " #########\n")
+        print("\n######### " + name + ": " + str(myHero.get_hp()) + " " + icons.heart + " #########" +
+              " " + myMonster.get_species().capitalize() + ": " + str(myMonster.get_hitPoints()) + " " + icons.heart + " #########\n")
         input("Press enter to attack!")
         heroDamage = math.floor(math.sqrt((myWeapon.attack() * myHero.attack())))
         myMonster.receive_damage(heroDamage) # Assign damage to monster
@@ -53,7 +58,7 @@ def Combat(myHero, myWeapon, myMonster ):
 
 def name_and_format():#asks the user what they want their name to be and look like
 
-    name = validate_not_empty_input("\n{}What is your name, mighty warrior?\n".format(txt.col.fg.nml.cyan))
+    name = validate_not_empty_input("\n{}What is your name, mighty warrior?\n".format(txt.col.fg.nml.white))
     print("\nWhat colour do you want your name to be?\n")
     print("1. Black\n2. Red\n3. Green\n4. Yellow\n5. Blue\n6. Magenta\n7. Cyan\n8. White")
     fgcolour = validate_int_input_with_bounds(1,9) 
@@ -73,10 +78,12 @@ def name_and_format():#asks the user what they want their name to be and look li
     return name #already includes all the formating
 
 ################################# Main Code ####################################
-debug = True
- 
-heart = "{}♡{}".format(txt.col.fg.nml.red,txt.sty.reset)
-globals = heart
+
+debuganswer = input("\nDebug?(true or false)")
+if debuganswer.lower == "true":
+    debug = True
+else:
+    debug = False
 
 print("{}{}############# Welcome to Death Trap Dungeon! ############{}\n".format(txt.col.fg.strg.blue,txt.sty.bold,txt.sty.reset))
 detailsConfirmed = False
@@ -86,10 +93,10 @@ while not detailsConfirmed:
 
     valid = False
     while not valid:
-        print("{}What manner of warrior are you?".format(txt.col.fg.nml.blue))
-        print("\t1)Barbarian\t("  + heart + "{} 20-30 | ⚔ 0-8)".format(txt.col.fg.nml.blue))
-        print("\t2)Wizard\t("  + heart + "{} 15-25 | ⚔ 0-12)".format(txt.col.fg.nml.blue))
-        print("\t3)Warlock\t("  + heart + "{} 17-27 | ⚔ 0-10)".format(txt.col.fg.nml.blue))
+        print("{}\nWhat manner of warrior are you?".format(txt.col.fg.nml.yellow))
+        print("\t1)Barbarian\t("  + icons.heart + "{} 20-30 | ⚔ 0-8)".format(txt.col.fg.nml.yellow))
+        print("\t2)Wizard\t("  + icons.heart + "{} 15-25 | ⚔ 0-12)".format(txt.col.fg.nml.yellow))
+        print("\t3)Warlock\t("  + icons.heart + "{} 17-27 | ⚔ 0-10)".format(txt.col.fg.nml.yellow))
         choice = validate_int_input()
         valid = True
         if choice == 1:
@@ -110,13 +117,13 @@ while not detailsConfirmed:
 
     valid = False
     while not valid:
-        print("What weapon is of your choosing?")
-        print("\t1) Sword\t(⚔ 0-6 | ⚄ 90%)")
-        print("\t2) Axe\t\t(⚔ 0-8 | ⚄ 70%)")
-        print("\t3) Dagger\t(⚔ 0-5 | ⚄ 100%)")
-        print("\t4) Scimitar\t(⚔ 0-6 | ⚄ 90%)")
-        print("\t5) Mace\t\t(⚔ 0-6 | ⚄ 90%)")
-        print("\t6) Hammer\t(⚔ 0-9 | ⚄ 60%)")
+        print("{}What weapon is of your choosing?".format(txt.col.fg.nml.green))
+        print("\t1) Sword\t({} {}0-6 | {} {}90%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
+        print("\t2) Axe\t\t({} {}0-8 | {} {}70%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
+        print("\t3) Dagger\t({} {}0-5 | {} {}100%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
+        print("\t4) Scimitar\t({} {}0-6 | {} {}90%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
+        print("\t5) Mace\t\t({} {}0-6 | {} {}90%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
+        print("\t6) Hammer\t({} {}0-9 | {} {}60%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
         if debug:
             print("#### DEBUG ####")
             print("\t1000) AxeOfFlames\t(⚔ 0-8 | ⚄ 80%)")
@@ -147,10 +154,10 @@ while not detailsConfirmed:
             valid = False
             print("{}I suggest you ask for a weapon that exists in this plane.{}".format(txt.col.fg.strg.red,txt.sty.reset))
 
-    print("\nAre you, sir, happy with these details?")
-    print("\tName: " + theHero.get_name())
-    print("\tClass: " + theHero.get_class())
-    print("\tWeapon: " + weapon.get_name().capitalize())
+    print("\n{}Are you, sir, happy with these details?{}".format(txt.warning,txt.sty.reset))
+    print("\n\tName: " + theHero.get_name())
+    print("\tClass: {}{}{}".format(txt.col.fg.nml.yellow,theHero.get_class(),txt.sty.reset))
+    print("\tWeapon: {}{}{}".format(txt.col.fg.nml.green,weapon.get_name().capitalize(),txt.sty.reset))
     print("Y) Yes\nN) No")
     choice = input()
     if choice.lower()[0] == "y":
@@ -186,8 +193,8 @@ while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins three m
         theMonster = Slime(RandomColour())
     else:
         theMonster = RogueWarrior(RandomColour())
-    print("You are attacked by a " + theMonster.get_colour() + " "
-          + theMonster.get_species() + ".")
+    print("You are attacked by a {}".format(theMonster.getCode()) +  theMonster.get_colour() + " "
+          + theMonster.get_species() + ".{}".format(txt.sty.reset))
     theMonster.talk()
     Combat(theHero, weapon, theMonster)
     if theHero.get_hp() > 0: # Check if the hero has won or lost
@@ -196,7 +203,7 @@ while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins three m
         theHero.set_gold(gold)
         victories += 1
         anyKey = input("You are victorious! Press enter to descend deeper into the dungeon...\n ")
-        print("You have " + str(theHero.gold) + " ¤.\n")
+        print("You have " + str(theHero.gold) + icons.gold + ".\n")
         # Give user option of visiting the dungeon shop if they have another fight next
         if victories < 10:
             purchase = input("\nUp ahead lies a hastily-constructed shelter. Do you wish to enter the Merchant's Tent? Y/N ").upper()
@@ -206,7 +213,7 @@ while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins three m
         print(theHero.get_name() + ", you are dead. Death Trap Dungeon claims another victim.")
 if victories == 10: # Check if hero won the game
     print(theHero.get_name() + ", you are the Champion of Champions! Fame and fortune are yours!")
-    print("You leave the dungeon with " + str(theHero.get_gold()) + " ¤!")
+    print("You leave the dungeon with " + str(theHero.get_gold()) + icons.gold + "!")
 print("######## GAME OVER ########")
 
 

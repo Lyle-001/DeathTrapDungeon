@@ -11,6 +11,7 @@ def get_list_of_formats():#list of formats for indexing
     return list_of_formats
 
 class txt:
+    warning = "[1m[31m"
     class sty:
         reset = "[0m"
         bold = "[1m"

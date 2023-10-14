@@ -1,9 +1,15 @@
 from random import randint
-
+from ansi_codes import txt,get_list_of_colours_fg,icons
 # Genders of all enemies are male right now, but later it will be randomised for extra detail
 # Currently, only the Monster has random pre-attack talking lines depending on mental states. This will be extended to all enemies soon but im lazy rn whoops!
 # Fort and Ego checks because later there will be additional dialogue for scenarios like high ego and low fortitude and etc. 
- 
+
+def colourcode(colour):
+    colourarray = ["black","red","green","yellow","blue","magenta","cyan","white"]
+    for loop in range(len(colourarray)):
+        if colourarray[loop] == colour:
+            return get_list_of_colours_fg()[0][loop]
+
 class Monster:
     # Construction
     def __init__(self,colour):
@@ -19,6 +25,7 @@ class Monster:
             'He whispers "scuderia" in your ear, shocking you to the bone.'
         ]
         self.colour = colour
+        self.colourcode = colourcode(colour)
         self.species = "monster"
         self.hitPoints = 10
         self.maxDamage = 5
@@ -46,16 +53,19 @@ class Monster:
     def getEgo(self):
         return self.ego
 
+    def getCode(self):
+        return self.colourcode
+
     # Methods
     def attack(self): # Defines monster attack behaviour and returns the damage inflicted.
         damage = randint(0,self.maxDamage)
         if damage == 0:
             print("You successfully dodge the blow!")
         elif damage == 1:
-            print("A glancing blow! You take 1 ♡.")
+            print("A glancing blow! You take 1 {}.".format(icons.heart))
         else:
             print(self.attackMessage + " You take "
-                  + str(damage) + " ♡.")
+                  + str(damage) + " {}.".format(icons.heart))
         return damage
 
     def receive_damage(self,damage): # Subtracts damage from the monster and prints out related message.
@@ -65,7 +75,7 @@ class Monster:
             print("You strike a glancing blow for 1 point of damage.")
         else:
             print("The " + self.species + " takes " + str(damage)
-                  + " ♡.")
+                  + " {}.".format(icons.heart))
         self.hitPoints -= damage
 
     def talk(self): # Prints monster's battle cry
@@ -114,9 +124,9 @@ class Monster:
             highEgo = True
 
         if highFort == True and highEgo == True:
-            print('The Monster says: ' + '"' + highFortandEgo[randint(0, len(highFortandEgo) - 1)] + '"') # This will be changed later depending on the Mental Fortitude and Ego attribute!!
+            print('The Monster says: {}"{}"{}'.format(self.colourcode,highFortandEgo[randint(0, len(highFortandEgo) - 1)],txt.sty.reset))# This will be changed later depending on the Mental Fortitude and Ego attribute!!
         else:
-            print('The Monster says: ' + '"' + normalMonster[randint(0, len(normalMonster) - 1)] + '"') # This will be changed later depending on the Mental Fortitude and Ego attribute!!
+            print('The Monster says: {}"{}"{}'.format(self.colourcode,normalMonster[randint(0, len(normalMonster) - 1)],txt.sty.reset)) # This will be changed later depending on the Mental Fortitude and Ego attribute!!
 
 class Goblin(Monster):
     # Construction
@@ -134,6 +144,7 @@ class Goblin(Monster):
             'He fires a falafaluten!'
         ]
         self.colour = colour
+        self.colourcode = colourcode(colour)
         self.species = "goblin"
         self.hitPoints = 12
         self.maxDamage = 6
@@ -188,15 +199,16 @@ class Goblin(Monster):
             highEgo = True
 
         if highFort == True and highEgo == True:
-            print('The Goblin says: ' + '"' + highFortandEgo[randint(0, len(highFortandEgo) - 1)] + '"') # This will be changed later depending on the Mental Fortitude and Ego attribute!!
+            print('The Monster says: {}"{}"{}'.format(self.colourcode,highFortandEgo[randint(0, len(highFortandEgo) - 1)],txt.sty.reset))# This will be changed later depending on the Mental Fortitude and Ego attribute!!
         else:
-            print('The Goblin says: ' + '"' + normalMonster[randint(0, len(normalMonster) - 1)] + '"') # This will be changed later depending on the Mental Fortitude and Ego attribute!!
+            print('The Monster says: {}"{}"{}'.format(self.colourcode,normalMonster[randint(0, len(normalMonster) - 1)],txt.sty.reset)) # This will be changed later depending on the Mental Fortitude and Ego attribute!!
 
 class Vampire(Monster):
 
     # Construction
     def __init__(self,colour):
         self.colour = colour
+        self.colourcode = colourcode(colour)
         self.species = "vampire"
         self.hitPoints = 20
         self.maxDamage = 7
@@ -207,13 +219,14 @@ class Vampire(Monster):
 
     # Methods
     def talk(self):
-        print("I vant to drink your blood!")
+        print("{}I vant to drink your blood!{}".format(self.colourcode,txt.sty.reset))
 
 class Slime(Monster):
 
     # Construction
     def __init__(self,colour):
         self.colour = colour
+        self.colourcode = colourcode(colour)
         self.species = "slime"
         self.hitPoints = 8
         self.maxDamage = 4
@@ -224,13 +237,14 @@ class Slime(Monster):
 
     # Methods
     def talk(self):
-        print("Boooiiinnnggg!")
+        print("{}Boooiiinnnggg!{}".format(self.colourcode,txt.sty.reset))
 
 class RogueWarrior(Monster):
 
     # Construction
     def __init__(self,colour):
         self.colour = colour +  "-shielded"
+        self.colourcode = colourcode(colour)
         self.species = "rogue warrior"
         self.hitPoints = 25
         self.maxDamage = 6
@@ -241,4 +255,4 @@ class RogueWarrior(Monster):
 
     # Methods
     def talk(self):
-        print("I'll kill you!")
+        print("{}I'll kill you!{}".format(self.colourcode,txt.sty.reset))
