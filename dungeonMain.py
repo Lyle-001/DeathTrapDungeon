@@ -5,6 +5,7 @@ from Heroes import Hero, Barbarian, Wizard, Warlock
 from ansi_codes import txt, get_list_of_colours_bg, get_list_of_colours_fg, get_list_of_formats,icons
 from merchant import shop
 import Weapons
+import Items
 
 import random
 import math
@@ -71,7 +72,7 @@ def name_and_format():#asks the user what they want their name to be and look li
     print("\nDo you want the colour to be strong or normal?\n1. Strong\n2. Normal")
     bgstrength = validate_int_input_with_bounds(1,3)
 
-    print("\nWhat style do you want your name to be in?\n1. Normal\n2.Bold\n3.Underlined\n4.Both")
+    print("\nWhat style do you want your name to be in?\n1. Normal\n2. Bold\n3. Underlined\n4. Both")
     format = validate_int_input_with_bounds(1,5)
 
     name = "{}{}{}".format(get_list_of_formats()[format-1],get_list_of_colours_bg()[bgstrength-1][bgcolour-1],get_list_of_colours_fg()[fgstrength-1][fgcolour-1]) + name + "{}".format(txt.sty.reset)
@@ -93,10 +94,10 @@ while not detailsConfirmed:
 
     valid = False
     while not valid:
-        print("{}\nWhat manner of warrior are you?".format(txt.col.fg.nml.yellow))
-        print("\t1)Barbarian\t("  + icons.heart + "{} 20-30 | ⚔ 0-8)".format(txt.col.fg.nml.yellow))
-        print("\t2)Wizard\t("  + icons.heart + "{} 15-25 | ⚔ 0-12)".format(txt.col.fg.nml.yellow))
-        print("\t3)Warlock\t("  + icons.heart + "{} 17-27 | ⚔ 0-10)".format(txt.col.fg.nml.yellow))
+        print("{}What manner of warrior are you?".format(txt.col.fg.nml.blue))
+        print("\t1)Barbarian\t({}{} 20-30 | {}{} 0-8)".format(icons.heart,txt.col.fg.nml.yellow,icons.damage,txt.col.fg.nml.yellow))
+        print("\t2)Wizard\t({}{} 15-25 | {}{} 0-12)".format(icons.heart,txt.col.fg.nml.yellow,icons.damage,txt.col.fg.nml.yellow))
+        print("\t3)Warlock\t({}{} 17-27 | {}{} 0-10)".format(icons.heart,txt.col.fg.nml.yellow,icons.damage,txt.col.fg.nml.yellow))
         choice = validate_int_input()
         valid = True
         if choice == 1:
@@ -110,24 +111,24 @@ while not detailsConfirmed:
             print("{}I suggest you look again for training.{}".format(txt.col.fg.strg.red,txt.sty.reset))
     if debug:
         print("#### DEBUG #### Wouldst thou like to set thy own health?")
-        print("\ty) Yes\n\tn) No")
+        print("\tY) Yes\n\tN) No")
         if input().lower() == "y":
             print("What would you enjoy your health to be?")
             theHero.set_max_health(validate_int_input("Health: "))
 
     valid = False
     while not valid:
-        print("{}What weapon is of your choosing?".format(txt.col.fg.nml.green))
-        print("\t1) Sword\t({} {}0-6 | {} {}90%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
-        print("\t2) Axe\t\t({} {}0-8 | {} {}70%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
-        print("\t3) Dagger\t({} {}0-5 | {} {}100%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
-        print("\t4) Scimitar\t({} {}0-6 | {} {}90%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
-        print("\t5) Mace\t\t({} {}0-6 | {} {}90%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
-        print("\t6) Hammer\t({} {}0-9 | {} {}60%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
+        print("What weapon is of your choosing?")
+        print("\t1) Sword\t(⚔ 0-6 | ⚄ 90%)")
+        print("\t2) Axe\t\t(⚔ 0-8 | ⚄ 70%)")
+        print("\t3) Dagger\t(⚔ 0-5 | ⚄ 100%)")
+        print("\t4) Scimitar\t(⚔ 0-6 | ⚄ 90%)")
+        print("\t5) Mace\t\t(⚔ 0-6 | ⚄ 90%)")
+        print("\t6) Hammer\t(⚔ 0-9 | ⚄ 60%)")
         if debug:
             print("#### DEBUG ####")
-            print("\t1000) AxeOfFlames\t(⚔ 0-8 | ⚄ 80%)")
-            print("\t1001) SwordOfSouls\t(⚔ 0-10 | ⚄ 95%)")
+            print("\t1000) AxeOfFlames\t({}{} 0-8 | {}{} 80%)".format(icons.damage,txt.col.fg.nml.blue,icons.hitchance,txt.col.fg.nml.blue))
+            print("\t1001) SwordOfSouls\t({}{} 0-10 | {}{} 95%)".format(icons.damage,txt.col.fg.nml.blue,icons.hitchance,txt.col.fg.nml.blue))
         choice = validate_int_input()
         valid = True
         if choice == 1:
@@ -165,11 +166,10 @@ while not detailsConfirmed:
     else:
         print("Through the power of a mystical force you are sent back in time.")
 
-
 weapon.randomise_modifier()
 if debug:
         print("#### DEBUG #### Dost thou want to set thy own modifier?")
-        print("\ty) Yes\n\tn) No")
+        print("\tY) Yes\n\tN) No")
         if input().lower() == "y":
             valid = False
             while not valid:
