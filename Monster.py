@@ -18,6 +18,7 @@ class Monster:
             'His scary aura engulfs you!!',
             'He whispers "scuderia" in your ear, shocking you to the bone.'
         ]
+        self.resists = [["smash",0],["pierce",0],["slash",0]]
         self.adj = adj
         self.colourcode = colour
         self.species = "monster"
@@ -50,6 +51,9 @@ class Monster:
     def getCode(self):
         return self.colourcode
 
+    def getResists(self):
+        return self.resists
+
     # Methods
     def attack(self): # Defines monster attack behaviour and returns the damage inflicted.
         damage = randint(0,self.maxDamage)
@@ -62,13 +66,17 @@ class Monster:
                   + str(damage) + " {}.".format(icons.heart))
         return damage
 
-    def receive_damage(self,damage): # Subtracts damage from the monster and prints out related message.
-        if damage == 0:
-            print("Miss! The " + self.species + " is too fast for you.")
+    def receive_damage(self,damage,damagetype): # Subtracts damage from the monster and prints out related message.
+        for loop in self.resists:
+            if loop[0] == damagetype:
+                damage -= loop[1]
+        if damage <= 0:
+            damage = 0
+            print("Miss! The " + self.colourcode + self.species + "{} is too fast for you.".format(txt.sty.reset))
         elif damage == 1:
             print("You strike a glancing blow for 1 point of damage.")
         else:
-            print("The " + self.species + " takes " + str(damage)
+            print("The " + self.colourcode + self.species + "{} takes ".format(txt.sty.reset) + str(damage)
                   + " {}.".format(icons.heart))
         self.hitPoints -= damage
 
@@ -137,6 +145,7 @@ class Goblin(Monster):
             'He beats your shins!',
             'He fires a falafaluten!'
         ]
+        self.resists = [["smash",0],["pierce",0],["slash",2]]
         self.adj = adj
         self.colourcode = colour
         self.species = "goblin"
@@ -201,6 +210,7 @@ class Vampire(Monster):
 
     # Construction
     def __init__(self,colour,adj):
+        self.resists = [["smash",0],["pierce",4],["slash",0]]
         self.adj = adj
         self.colourcode = colour
         self.species = "vampire"
@@ -219,6 +229,7 @@ class Slime(Monster):
 
     # Construction
     def __init__(self,colour,adj):
+        self.resists = [["smash",5],["pierce",0],["slash",0]]
         self.adj = adj
         self.colourcode = colour
         self.species = "slime"
@@ -237,6 +248,7 @@ class RogueWarrior(Monster):
 
     # Construction
     def __init__(self,colour,adj):
+        self.resists = [["smash",4],["pierce",2],["slash",3]]
         self.adj = adj
         self.colourcode = colour
         self.species = "rogue warrior"

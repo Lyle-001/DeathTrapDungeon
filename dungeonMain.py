@@ -4,7 +4,7 @@ from Monster import Monster, Goblin, Vampire, Slime, RogueWarrior
 from Heroes import Hero, Barbarian, Wizard, Warlock
 from ansi_codes import txt, get_list_of_colours_bg, get_list_of_colours_fg, get_list_of_formats,icons
 from merchant import shop
-from validation import validate_int_input,validate_int_input_with_bounds,validate_not_empty_input
+from validation import validate_int_input,validate_int_input_with_bounds,validate_not_empty_input,validate_input_from_array
 
 import Weapons
 import inventoryfile
@@ -24,16 +24,24 @@ def RandomAdjective():
     intensifiers = ["Very ","Not Very ", ""]
     return intensifiers[random.randint(0,len(intensifiers)-1)] + array[random.randint(0,len(array)-1)]
 
+def makeWeaponlist(weapon):
+    string = "How do you wish to attack?\n"
+    for loop in weapon.get_attacks():
+        string += loop + "\n"
+    return string 
+        
 # Run one fight until either hero or monster is dead
 def Combat(myHero, myWeapon, myMonster ):
     while myHero.get_hp() > 0 and myMonster.get_hitPoints() > 0: #Fight continues until either combatant dies.
         print("\n######### " + name + ": " + str(myHero.get_hp()) + " " + icons.heart + " #########" +
-              " " + myMonster.get_species().capitalize() + ": " + str(myMonster.get_hitPoints()) + " " + icons.heart + " #########\n")
-        input("{}Press enter to attack!\n{}".format(txt.col.fg.nml.white,txt.sty.reset))
+              " "+ myMonster.getCode() + myMonster.get_species().capitalize() + ":{} ".format(txt.sty.reset) + str(myMonster.get_hitPoints()) + " " + icons.heart + " #########\n")
+        
+        choice = input(validate_input_from_array(weapon.get_attacks(),makeWeaponlist(myWeapon)))     
+
         heroDamage = math.floor(math.sqrt((myWeapon.attack() * myHero.attack())))
-        myMonster.receive_damage(heroDamage) # Assign damage to monster
+        myMonster.receive_damage(heroDamage,choice) # Assign damage to monster
         if myMonster.get_hitPoints() > 0: # Monster only attacks if it's  still alive.
-            print("The " + myMonster.get_species() + " attacks...")
+            print("The " + myMonster.getCode() + myMonster.get_species() + "{} attacks...".format(txt.sty.reset))
             input("{}Press enter to defend!{}\n".format(txt.col.fg.nml.white,txt.sty.reset))
             myHero.receiveDamage(myMonster.attack()) # Subtract damage from hero
 
