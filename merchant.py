@@ -1,4 +1,5 @@
 from random import randint
+import Items as it
 
 def shop(hero):
     #alreadyBought = hero.getItems() - figure this shit out when items are implemented
@@ -10,14 +11,14 @@ def shop(hero):
         print("2. Impure Healing Elixir - Heals you for an average amount.\t\t 10 ¤")
         print("3. Distilled Healing Elixir - Heals you for a great amount.\t\t 20 ¤")
         priceList = [5,10,20] #keeps track of prices for options
-        wareList = ["sh","mh","lh"] #keeps track of what each option is
+        wareList = [it.DilutedHealingElixir(),it.ImpureHealingElixir(),it.DistilledHealingElixir()] #keeps track of what each option is
         itemNo = 4 # modular shop list - new item? just increment number and you're good to go
 
         if not mysBought: # if you've not bought the mystery potion
             mysPrice = randint(3,20) # random price and random effects
             print(str(itemNo) + ". Mystery Elixir - An unknown elixir. Who knows what it does?\t\t " + str(mysPrice) + " ¤")
             priceList.append(mysPrice)
-            wareList.append("me")
+            wareList.append(it.MysteryElixir)
             itemNo += 1
 
         choice = input("Does much of anything catch your eye? Y/N ").upper()
@@ -39,30 +40,8 @@ def shop(hero):
                 choice = input("You reconsider if you want any of these wares. (Y/N) ").upper()
                 if choice == "N":
                     return
-        if wareList[choice] == "sh": #check what that option is
-            hero.heal(randint(3,7))
-            print("The weak elixir eases you slightly, but isn't the most pleasant...")
-        elif wareList[choice] == "mh":
-            hero.heal(randint(5,10))
-            print("Your wounds feel somewhat better, and you feel full of a new vigour.")
-        elif wareList[choice] == "lh":
-            hero.heal(randint(15,20))
-            print("As the formulation pours down your throat, you feel better in body and soul, ready to take on the next fight!")
-
-        elif wareList[choice] == "me": #mystery potion code
-            effect = randint(1,6)
-            if effect <= 3: #weighted towards nothing
-                print("As you drink it, you realise it is a phony elixir, with no effects other than an unpleasant taste.")
-            elif effect == 4:
-                print("The potion tastes vile, but turns out to be medicinal.")
-                hero.heal(randint(5,10))
-            elif effect == 5:
-                print("You feel the flask's contents burning down your throat, causing you some discomfort.")
-                hero.receiveDamage(randint(3,5))
-            elif effect == 6:
-                print("Too late you realise the recklessness of your drinking as poison spills down your throat, taking its effect in seconds.")
-                hero.receiveDamage(1000) #there's more elegant ways to kill you, yes. there's also more elegant ways to make a game and i don't see them used here
-                return
-            
-
-
+        item = wareList[choice]
+        print()
+        item.use(hero)
+        if hero.get_hp() == 0:
+            return

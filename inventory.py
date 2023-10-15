@@ -33,23 +33,23 @@ class inventory:
         return self.weapons
 
     def add_weapon(self,weaponID):
-        for i in range(0,weaponSlots,1):
+        for i in range(0,self.weaponSlots,1):
             if self.weapons[i] == "blank":
-                self.weapons[i] == weaponID
+                self.weapons[i] = weaponID
                 return True
         print("Weapon slots full. Consider removing some old weapons.")
         return False
 
     def remove_weapon(self,weaponID):
-        for i in range(0,weaponSlots,1):
+        for i in range(0,self.weaponSlots,1):
             if self.weapons[i] == weaponID:
-                self.weapons[i] == "blank":
+                self.weapons[i] = "blank"
                 return True
         print("You are not in possession of such a weapon.")
         return False
 
     def switch_active_weapon(self,weaponID):
-        for i in range(0,weaponSlots,1):
+        for i in range(0,self.weaponSlots,1):
             if self.weapons[i] == weaponID:
                 return True,self.weapons[i]
         print("You are not in possession of such a weapon.")
@@ -58,6 +58,9 @@ class inventory:
 
 
 
+    def get_equipment(self):
+        return self.equipment
+    
     def swap_equipment(self,equipmentID):
         slot = equipmentID.get_type()
         if slot == "head":
@@ -71,7 +74,7 @@ class inventory:
         elif slot == "feet":
             slot = 4
         else:
-            print("equipmentID not recognised.)
+            print("equipmentID not recognised.")
             return False
 
         if self.equipment[slot] == "blank":

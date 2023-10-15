@@ -5,7 +5,7 @@ from Heroes import Hero, Barbarian, Wizard, Warlock
 from ansi_codes import txt, get_list_of_colours_bg, get_list_of_colours_fg, get_list_of_formats,icons
 from merchant import shop
 import Weapons
-import Items
+import Inventory
 
 import random
 import math
@@ -87,6 +87,7 @@ else:
     debug = False
 
 print("{}{}############# Welcome to Death Trap Dungeon! ############{}\n".format(txt.col.fg.strg.blue,txt.sty.bold,txt.sty.reset))
+inv = Inventory.inventory()
 detailsConfirmed = False
 while not detailsConfirmed:
 
@@ -177,11 +178,11 @@ if debug:
                 valid = weapon.set_modifier(input("Modifier: "))
 print("You pick up a " + weapon.get_name())
 weapon.inspect()
-
+inv.add_weapon(weapon)
 
 print()
 victories = 0
-while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins three matches or dies/
+while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins ten matches or dies
     monsterChoice = random.randint(0,4)
     if monsterChoice == 0:
         theMonster = Monster(RandomColour())
