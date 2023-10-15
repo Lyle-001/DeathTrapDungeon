@@ -7,7 +7,7 @@ from merchant import shop
 from validation import validate_int_input,validate_int_input_with_bounds,validate_not_empty_input
 
 import Weapons
-import Items
+import Inventory
 
 import random
 import math
@@ -55,13 +55,16 @@ def name_and_format():#asks the user what they want their name to be and look li
 
 ################################# Main Code ####################################
 
-debuganswer = input("\nDebug?(true or false)")
-if debuganswer.lower == "true":
+debuganswer = input("\nDebug?(true or false) ")
+if debuganswer.lower() == "true":
     debug = True
+    print("debug set to true")
 else:
     debug = False
+    print("debug set to false")
 
 print("{}{}############# Welcome to Death Trap Dungeon! ############{}\n".format(txt.col.fg.strg.blue,txt.sty.bold,txt.sty.reset))
+inv = Inventory.inventory()
 detailsConfirmed = False
 while not detailsConfirmed:
 
@@ -152,11 +155,11 @@ if debug:
                 valid = weapon.set_modifier(input("Modifier: "))
 print("You pick up a " + weapon.get_name())
 weapon.inspect()
-
+inv.add_weapon(weapon)
 
 print()
 victories = 0
-while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins three matches or dies/
+while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins ten matches or dies
     monsterChoice = random.randint(0,4)
     if monsterChoice == 0:
         theMonster = Monster(RandomColour())
@@ -184,6 +187,20 @@ while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins three m
             purchase = input("\nUp ahead lies a hastily-constructed shelter. Do you wish to enter the Merchant's Tent? Y/N ").upper()
             if purchase == "Y":
                 shop(theHero)
+        # Give user option of accessing inventory
+        accessingInv = True
+        while accessingInv:
+            print("You have the option to sit and rest. Would you like to: \n\tAccess Inventory (type inventory) \n\tContinue Journey (type continue)")
+            valid = False
+            while not valid:
+                choice = input()
+                if choice.lower() == "continue":
+                    accessingInv = False
+                    valid = True
+                elif choice.lower() == "inventory":
+                    valid = True
+                else:
+                    print("{}Please enter a valid choice.{}".format(txt.warning,txt.sty.reset))
     else:
         print(theHero.get_name() + ", you are dead. Death Trap Dungeon claims another victim.")
 if victories == 10: # Check if hero won the game
