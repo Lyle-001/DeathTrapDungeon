@@ -187,6 +187,20 @@ while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins ten mat
             purchase = input("\nUp ahead lies a hastily-constructed shelter. Do you wish to enter the Merchant's Tent? Y/N ").upper()
             if purchase == "Y":
                 shop(theHero)
+        # Give user option of accessing inventory
+        accessingInv = True
+        while accessingInv:
+            print("You have the option to sit and rest. Would you like to: \n\tAccess Inventory (type inventory) \n\tContinue Journey (type continue)")
+            valid = False
+            while not valid:
+                choice = input()
+                if choice.lower() == "continue":
+                    accessingInv = False
+                    valid = True
+                elif choice.lower() == "inventory":
+                    valid = True
+                else:
+                    print("{}Please enter a valid choice.{}".format(txt.warning,txt.sty.reset))
     else:
         print(theHero.get_name() + ", you are dead. Death Trap Dungeon claims another victim.")
 if victories == 10: # Check if hero won the game
