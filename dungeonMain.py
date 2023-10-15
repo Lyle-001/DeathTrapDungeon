@@ -20,8 +20,8 @@ def RandomColour(): # Choose random colour for monster.
     return Colour
 
 def RandomAdjective():
-    array = [" strong"," big"," huge"," small"," silly"]
-    intensifiers = ["very","not very"]
+    array = ["Strong","Big","Huge","Small","Silly","Putrid","Godless"]
+    intensifiers = ["Very ","Not Very ", ""]
     return intensifiers[random.randint(0,len(intensifiers)-1)] + array[random.randint(0,len(array)-1)]
 
 # Run one fight until either hero or monster is dead
@@ -176,7 +176,7 @@ while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins ten mat
         theMonster = Slime(RandomColour(),RandomAdjective())
     else:
         theMonster = RogueWarrior(RandomColour(),RandomAdjective())
-    print("You are attacked by a {}".format(theMonster.getCode()) +  theMonster.get_colour() + " "
+    print("You are attacked by a {}".format(theMonster.getCode()) +  theMonster.get_adj() + " "
           + theMonster.get_species() + ".{}".format(txt.sty.reset))
     theMonster.talk()
     Combat(theHero, weapon, theMonster)
