@@ -1,5 +1,6 @@
 from ansi_codes import txt
 from validation import validate_int_input_with_bounds
+from Weapons import Weapon
 
 class inventory:
     def __init__(self):
@@ -12,11 +13,11 @@ class inventory:
 
         self.weapons = []
         for i in range(0,self.weaponSlots,1):
-            self.weapons.append("blank")
+            self.weapons.append("")
         
         self.equipment = []
         for i in range(0,self.equipmentSlots,1):
-            self.equipment.append("blank")
+            self.equipment.append("")
 
 
 
@@ -26,7 +27,7 @@ class inventory:
 
     def add_weapon(self,weaponID):
         for i in range(0,self.weaponSlots,1):
-            if self.weapons[i] == "blank":
+            if self.weapons[i] == "":
                 self.weapons[i] = weaponID
                 return True
         print("Weapon slots full. Consider removing some old weapons.")
@@ -35,7 +36,7 @@ class inventory:
     def remove_weapon(self,weaponID):
         for i in range(0,self.weaponSlots,1):
             if self.weapons[i] == weaponID:
-                self.weapons[i] = "blank"
+                self.weapons[i] = ""
                 return True
         print("You are not in possession of such a weapon.")
         return False
@@ -69,7 +70,7 @@ class inventory:
             print("equipmentID not recognised.")
             return False
 
-        if self.equipment[slot] == "blank":
+        if self.equipment[slot] == "":
             self.equipment[slot] = equipmentID
             return True
         else:

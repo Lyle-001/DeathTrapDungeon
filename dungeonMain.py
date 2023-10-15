@@ -201,6 +201,20 @@ while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins ten mat
                     valid = True
                 else:
                     print("{}Please enter a valid choice.{}".format(txt.warning,txt.sty.reset))
+            # Access inventory
+            print("Weapons")
+            for item in inv.get_weapons():
+                if item != "":
+                    print("\t" + item.get_name())
+                else:
+                    print("\tBlank weapon slot.")
+            print("Equipment")
+            for item in inv.get_equipment():
+                if item != "":
+                    print("\t" + item.get_name())
+                else:
+                    print("\tBlank equipment slot.")
+
     else:
         print(theHero.get_name() + ", you are dead. Death Trap Dungeon claims another victim.")
 if victories == 10: # Check if hero won the game
