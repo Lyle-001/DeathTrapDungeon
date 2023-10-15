@@ -19,6 +19,10 @@ class inventory:
         for i in range(0,self.equipmentSlots,1):
             self.equipment.append("")
 
+        self.general = []
+        for i in range(0,self.generalSlots,1):
+            self.general.append[""]
+
 
 
 
@@ -83,3 +87,9 @@ class inventory:
                 return True
             else:
                 return False
+
+
+
+
+    def get_general_slots(self):
+        return self.general
