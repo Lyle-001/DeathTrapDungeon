@@ -14,6 +14,7 @@ class Weapon:
 
 
     def __init__(self):
+        self.attacks = ["slash"]
         self.name = "unknown weapon"
         self.damage = randint(1,100)
         self.damageChance = randint(1,100)
@@ -23,7 +24,8 @@ class Weapon:
         self.modifiers = [["unobtainable",0,0]]
 
 
-
+    def get_attacks(self):
+        return self.attacks
 
     def get_name(self):
         try:
@@ -102,6 +104,7 @@ class Weapon:
 
 class ClassicSword(Weapon):
     def __init__(self):
+        self.attacks = ["slash","pierce"]
         self.name = "sword"
         self.damage = 6
         self.damageChance = 90
@@ -120,6 +123,7 @@ class ClassicSword(Weapon):
 
 class Axe(Weapon):
     def __init__(self):
+        self.attacks = ["slash"]
         self.name = "axe"
         self.damage = 8
         self.damageChance = 70
@@ -138,6 +142,7 @@ class Axe(Weapon):
 
 class Dagger(Weapon):
     def __init__(self):
+        self.attacks = ["pierce"]
         self.name = "dagger"
         self.damage = 5
         self.damageChance = 100
@@ -156,6 +161,7 @@ class Dagger(Weapon):
 
 class Scimitar(Weapon):
     def __init__(self):
+        self.attacks = ["slash"]
         self.name = "scimitar"
         self.damage = 6
         self.damageChance = 90
@@ -174,6 +180,7 @@ class Scimitar(Weapon):
 
 class Mace(Weapon):
     def __init__(self):
+        self.attacks = ["slash"]
         self.name = "mace"
         self.damage = 6
         self.damageChance = 90
@@ -192,6 +199,7 @@ class Mace(Weapon):
 
 class Hammer(Weapon):
     def __init__(self):
+        self.attacks = ["smash"]
         self.name = "hammer"
         self.damage = 9
         self.damageChance = 60
@@ -210,6 +218,7 @@ class Hammer(Weapon):
 
 class AxeOfFlames(Weapon):
     def __init__(self):
+        self.attacks = ["slash","smash","pierce"]
         self.name = "Axe of Flames"
         self.damage = 8
         self.damageChance = 80
@@ -228,6 +237,7 @@ class AxeOfFlames(Weapon):
 
 class SwordOfSouls(Weapon):
     def __init__(self):
+        self.attacks = ["slash","smash","pierce"]
         self.name = "Sword of Souls"
         self.damage = 10
         self.damageChance = 95
