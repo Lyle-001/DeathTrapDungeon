@@ -15,9 +15,14 @@ import math
 ############################### Subroutines ##################################
 
 def RandomColour(): # Choose random colour for monster.
-    ColourList = ["black","red","green","yellow","blue","magenta","cyan","white"]
+    ColourList = get_list_of_colours_fg()[0]
     Colour = ColourList[random.randint(0,len(ColourList)-1)]
     return Colour
+
+def RandomAdjective():
+    array = [" strong"," big"," huge"," small"," silly"]
+    intensifiers = ["very","not very"]
+    return intensifiers[random.randint(0,len(intensifiers)-1)] + array[random.randint(0,len(array)-1)]
 
 # Run one fight until either hero or monster is dead
 def Combat(myHero, myWeapon, myMonster ):
@@ -162,15 +167,15 @@ victories = 0
 while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins ten matches or dies
     monsterChoice = random.randint(0,4)
     if monsterChoice == 0:
-        theMonster = Monster(RandomColour())
+        theMonster = Monster(RandomColour(),RandomAdjective())
     elif monsterChoice == 1:
-        theMonster = Goblin(RandomColour())
+        theMonster = Goblin(RandomColour(),RandomAdjective())
     elif monsterChoice == 2:
-        theMonster = Vampire(RandomColour())
+        theMonster = Vampire(RandomColour(),RandomAdjective())
     elif monsterChoice == 3:
-        theMonster = Slime(RandomColour())
+        theMonster = Slime(RandomColour(),RandomAdjective())
     else:
-        theMonster = RogueWarrior(RandomColour())
+        theMonster = RogueWarrior(RandomColour(),RandomAdjective())
     print("You are attacked by a {}".format(theMonster.getCode()) +  theMonster.get_colour() + " "
           + theMonster.get_species() + ".{}".format(txt.sty.reset))
     theMonster.talk()
