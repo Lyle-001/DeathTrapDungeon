@@ -4,15 +4,9 @@ from ansi_codes import txt,get_list_of_colours_fg,icons
 # Currently, only the Monster has random pre-attack talking lines depending on mental states. This will be extended to all enemies soon but im lazy rn whoops!
 # Fort and Ego checks because later there will be additional dialogue for scenarios like high ego and low fortitude and etc. 
 
-def colourcode(colour):
-    colourarray = ["black","red","green","yellow","blue","magenta","cyan","white"]
-    for loop in range(len(colourarray)):
-        if colourarray[loop] == colour:
-            return get_list_of_colours_fg()[0][loop]
-
 class Monster:
     # Construction
-    def __init__(self,colour):
+    def __init__(self,colour,adj):
         monsterMessageBank = [
             'He stabs you with his knife-like talons!',
             'He catches you by surprise and tenderises you with his massive club!',
@@ -24,8 +18,8 @@ class Monster:
             'His scary aura engulfs you!!',
             'He whispers "scuderia" in your ear, shocking you to the bone.'
         ]
-        self.colour = colour
-        self.colourcode = colourcode(colour)
+        self.adj = adj
+        self.colourcode = colour
         self.species = "monster"
         self.hitPoints = 10
         self.maxDamage = 5
@@ -35,8 +29,8 @@ class Monster:
         self.ego = randint(0,100)
 
     # Getters
-    def get_colour(self):
-        return self.colour
+    def get_adj(self):
+        return self.adj
 
     def get_species(self):
         return self.species
@@ -130,7 +124,7 @@ class Monster:
 
 class Goblin(Monster):
     # Construction
-    def __init__(self,colour):
+    def __init__(self,colour,adj):
         goblinMessageBank = [
             'He vocalises menacingly!',
             'He starts spinning around in a frightening manner!',
@@ -143,8 +137,8 @@ class Goblin(Monster):
             'He beats your shins!',
             'He fires a falafaluten!'
         ]
-        self.colour = colour
-        self.colourcode = colourcode(colour)
+        self.adj = adj
+        self.colourcode = colour
         self.species = "goblin"
         self.hitPoints = 12
         self.maxDamage = 6
@@ -206,9 +200,9 @@ class Goblin(Monster):
 class Vampire(Monster):
 
     # Construction
-    def __init__(self,colour):
-        self.colour = colour
-        self.colourcode = colourcode(colour)
+    def __init__(self,colour,adj):
+        self.adj = adj
+        self.colourcode = colour
         self.species = "vampire"
         self.hitPoints = 20
         self.maxDamage = 7
@@ -224,9 +218,9 @@ class Vampire(Monster):
 class Slime(Monster):
 
     # Construction
-    def __init__(self,colour):
-        self.colour = colour
-        self.colourcode = colourcode(colour)
+    def __init__(self,colour,adj):
+        self.adj = adj
+        self.colourcode = colour
         self.species = "slime"
         self.hitPoints = 8
         self.maxDamage = 4
@@ -242,8 +236,8 @@ class Slime(Monster):
 class RogueWarrior(Monster):
 
     # Construction
-    def __init__(self,colour):
-        self.colour = colour +  "-shielded"
+    def __init__(self,colour,adj):
+        self.adj = adj
         self.colourcode = colourcode(colour)
         self.species = "rogue warrior"
         self.hitPoints = 25
