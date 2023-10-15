@@ -1,13 +1,5 @@
 from ansi_codes import txt
-
-def validate_int_input_with_bounds(lowbound,upperbound,message=""):#upper bound is exclusive lower bound inclusive
-    while True:
-        try:
-            answer = int(input(message))
-            if answer >= lowbound and answer < upperbound:
-                return answer
-        except:
-            print("{}Please choose a valid number.{}".format(txt.col.fg.strg.red,txt.sty.reset))
+from validation import validate_int_input_with_bounds
 
 class inventory:
     def __init__(self):

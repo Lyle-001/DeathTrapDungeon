@@ -4,6 +4,8 @@ from Monster import Monster, Goblin, Vampire, Slime, RogueWarrior
 from Heroes import Hero, Barbarian, Wizard, Warlock
 from ansi_codes import txt, get_list_of_colours_bg, get_list_of_colours_fg, get_list_of_formats,icons
 from merchant import shop
+from validation import validate_int_input,validate_int_input_with_bounds,validate_not_empty_input
+
 import Weapons
 import Items
 
@@ -11,33 +13,6 @@ import random
 import math
 
 ############################### Subroutines ##################################
-def validate_not_empty_input(message=""):#asks until non empty input entered
-    while True:
-        answer = input(message)
-        if answer != "":
-            return answer
-        else:
-            print("{}Type something!{}".format(txt.warning,txt.sty.reset))
-
-
-def validate_int_input(message=""):
-    while True:
-        try:
-            answer = int(input(message))
-            return answer
-        except:
-            print("{}Please choose a numeral.{}".format(txt.warning,txt.sty.reset))
-
-def validate_int_input_with_bounds(lowbound,upperbound,message=""):#upper bound is exclusive lower bound inclusive
-    while True:
-        try:
-            answer = int(input(message))
-            if answer >= lowbound and answer < upperbound:
-                return answer
-            else:
-                print("{}Please choose a valid number.{}".format(txt.warning,txt.sty.reset))
-        except:
-            print("{}Please choose a valid number.{}".format(txt.warning,txt.sty.reset))
 
 def RandomColour(): # Choose random colour for monster.
     ColourList = ["black","red","green","yellow","blue","magenta","cyan","white"]
