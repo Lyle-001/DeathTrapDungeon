@@ -1,8 +1,12 @@
 from random import randint
 from ansi_codes import txt
-#####################################
-########## Healing Potions ##########
-#####################################
+from inventoryfile import inventory
+
+
+
+#############################
+########## Potions ##########
+#############################
 
 class DilutedHealingElixir:
     def __init__(self):
@@ -46,10 +50,6 @@ class DistilledHealingElixir(DilutedHealingElixir):
         self.maxStack = 5
         self.healingPower = [15,20]
 
-####################################
-########## Mystery Elixir ##########
-####################################
-
 class MysteryElixir:
     def __init__(self):
         self.name = "{}{}Mystery Elixir{}".format(txt.col.fg.nml.magenta,txt.sty.bold,txt.sty.reset)
@@ -72,3 +72,22 @@ class MysteryElixir:
             print("Too late you realise the recklessness of your drinking as poison spills down your throat, taking its effect in seconds.")
             hero.receiveDamage(1000) #there's more elegant ways to kill you, yes. there's also more elegant ways to make a game and i don't see them used here
             return
+
+
+
+####################################
+########## Clothier Items ##########
+####################################
+
+class PotionPouch:
+    def __init__(self):
+        self.name = "Potion Pouch"
+        self.description = "Use this item to put on the pouch, giving you 5 potion slots."
+        self.inspect = "A leather satchel in which you can store your vials and flasks."
+        self.value = 5
+        self.maxStack = 1
+
+    def use(self,inv):
+        inv.potionPouchCurrentSlots = inv.potionPouchSlots
+        inv.hasPotionPouch = True
+        return True

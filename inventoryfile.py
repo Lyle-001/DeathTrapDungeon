@@ -10,6 +10,7 @@ class inventory:
         self.generalSlots = 15
         self.hasPotionPouch = False
         self.potionPouchSlots = 5
+        self.potionPouchCurrentSlots = 0
 
         self.weapons = []
         for i in range(0,self.weaponSlots,1):
@@ -22,6 +23,157 @@ class inventory:
         self.general = []
         for i in range(0,self.generalSlots,1):
             self.general.append("")
+
+        self.potionPouch = []
+        for i in range(0,self.potionPouchSlots,1):
+            self.potionPouch.append("")
+
+
+
+
+    def access_inventory(self):
+        itemIncrement = 1
+
+        print("Weapons") # Weapons section
+        emptySlots = 0
+        for item in self.weapons:
+            if item != "":
+                print("\t" + str(itemIncrement) + ". " + item.get_name() + txt.sty.reset)
+                itemIncrement += 1
+            else:
+                emptySlots += 1
+        if emptySlots == self.weaponSlots:
+                print("\t" + str(self.weaponSlots) + " empty slots.")
+        elif emptySlots != 0:
+            if emptySlots == 1:
+                print("\tWith " + str(emptySlots) + " more empty slot.")
+            else:
+                print("\tWith " + str(emptySlots) + " more empty slot.")
+
+
+        print("Equipment") # Equipment section
+        emptySlots = 0
+        for item in self.equipment:
+            if item != "":
+                print("\t" + str(itemIncrement) + ". " + item.get_name() + txt.sty.reset)
+                itemIncrement += 1
+            else:
+                emptySlots += 1
+        if emptySlots == self.equipmentSlots:
+                print("\t" + str(self.equipmentSlots) + " empty slots.")
+        elif emptySlots != 0:
+            if emptySlots == 1:
+                print("\tWith " + str(emptySlots) + " more empty slot.")
+            else:
+                print("\tWith " + str(emptySlots) + " more empty slot.")
+
+
+        print("General Slots") # General Slots
+        emptySlots = 0
+        for item in self.general:
+            if item != "":
+                print("\t" + str(itemIncrement) + ". " + item.get_name() + txt.sty.reset)
+                itemIncrement += 1
+            else:
+                emptySlots += 1
+        if emptySlots == self.generalSlots:
+                print("\t" + str(self.generalSlots) + " empty slots.")
+        elif emptySlots != 0:
+            if emptySlots == 1:
+                print("\tWith " + str(emptySlots) + " more empty slot.")
+            else:
+                print("\tWith " + str(emptySlots) + " more empty slot.")
+
+
+        if self.hasPotionPouch: # Potion Pouch
+            print("Potion Pouch")
+            emptySlots = 0
+            for item in self.potionPouch:
+                if item != "":
+                    print("\t" + str(itemIncrement) + ". " + item.get_name() + txt.sty.reset)
+                else:
+                    emptySlots += 1
+            if emptySlots == self.potionPouchCurrentSlots:
+                print("\t" + str(self.potionPouchCurrentSlots) + " empty slots.")
+                itemIncrement += 1
+            elif emptySlots != 0:
+                if emptySlots == 1:
+                    print("\tWith " + str(emptySlots) + " more empty slot.")
+                else:
+                    print("\tWith " + str(emptySlots) + " more empty slot.")
+        else:
+            print("You do not have a potion pouch. You might be able to find one at a clothier.")
+
+
+        print("\nWhat would you like to do?")
+        print("Inspect item (\"inspect\" + item number)")
+        print("Use item (\"use\" + item number)")
+        print("Exit (\"exit\")")
+        valid = False
+        while not valid:
+            valid = True
+            choice = input()
+            if choice.lower() == "exit":
+                return
+            choice = choice.split(" ",1) # splits on the space key once. splits the command into the keyword and the target item
+            if len(choice) == 2:
+                command = choice[0].lower()
+                target = choice[1]
+                if command != "inspect" and command != "use":
+                    valid = False
+                if target.isdigit():
+                    target = int(target)
+                    if target < 1 or target >= itemIncrement:
+                        valid = False
+                else:
+                    valid = False
+
+            else:
+                valid = False
+            if not valid:
+                print("Please enter a valid option.")
+
+
+        itemFound = False # Find the item the user is referencing
+        nonBlanks = 0
+        for item in self.weapons:
+            if item != "":
+                nonBlanks += 1
+            if nonBlanks == target:
+                target = item
+                itemFound = True
+        if not itemFound:
+            for item in self.equipment:
+                if item != "":
+                    nonBlanks += 1
+                if nonBlanks == target:
+                    target = item
+                    itemFound = True
+        if not itemFound:
+            for item in self.general:
+                if item != "":
+                    nonBlanks += 1
+                if nonBlanks == target:
+                    target = item
+                    itemFound = True
+        if not itemFound:
+            for item in self.potionPouch:
+                if item != "":
+                    nonBlanks += 1
+                if nonBlanks == target:
+                    target = item
+                    itemFound = True
+
+        if command == "inspect":
+            try:
+                print(target.inspect())
+            except:
+                print("You cannot inspect this item.")
+        elif command == "use":
+            try:
+                print(target.use())
+            except:
+                print("You cannot use this item.")
 
 
 
@@ -93,3 +245,12 @@ class inventory:
 
     def get_general_slots(self):
         return self.general
+
+
+
+
+    def get_potion_pouch(self):
+        if self.hasPotionPouch:
+            return self.potionPouch
+        else:
+            return False

@@ -94,7 +94,7 @@ class Weapon:
 
 
     def inspect(self):
-        print("{}{}{}".format(get_list_of_colours_fg()[0][randint(0,len(get_list_of_colours_fg()[0])-1)],self.inspectMessage,txt.sty.reset))
+         return "{}{}{}".format(get_list_of_colours_fg()[0][randint(0,len(get_list_of_colours_fg()[0])-1)],self.inspectMessage,txt.sty.reset)
 
 ##########################
 ##### Actual Weapons #####

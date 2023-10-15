@@ -3,7 +3,7 @@
 from Monster import Monster, Goblin, Vampire, Slime, RogueWarrior
 from Heroes import Hero, Barbarian, Wizard, Warlock
 from ansi_codes import txt, get_list_of_colours_bg, get_list_of_colours_fg, get_list_of_formats,icons
-from merchant import shop
+from merchant import potion_shop,clothier
 from validation import validate_int_input,validate_int_input_with_bounds,validate_not_empty_input
 
 import Weapons
@@ -189,10 +189,17 @@ while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins ten mat
         print("You have " + str(theHero.gold) + icons.gold + ".\n")
         # Give user option of visiting the dungeon shop if they have another fight next
         if victories < 10:
-            purchase = input("\nUp ahead lies a hastily-constructed shelter. {}Do you wish to enter the Merchant's Tent? Y/N {}".format(txt.sty.bold,txt.sty.reset)).upper()
+            purchase = input("\nUp ahead lies a hastily-constructed shelter. {}Do you wish to enter the Apothecarial Tent? Y/N {}".format(txt.sty.bold,txt.sty.reset)).upper()
             if purchase == "Y":
-                shop(theHero)
+                potion_shop(theHero)
+            #purchase = input("\nYou see a blacksmith in the distance. {}Do you wish to enter? Y/N {}".format(txt.sty.bold,txt.sty.reset)).upper()
+            #if purchase == "Y":
+                #blacksmith(theHero)
+            purchase = input("\nYou see a small house with a sign in front. {}Do you want to enter the Clothier's? Y/N {}".format(txt.sty.bold,txt.sty.reset)).upper()
+            if purchase == "Y":
+                clothier(theHero,inv)
         # Give user option of accessing inventory
+        print("\n")
         accessingInv = True
         while accessingInv:
             print("You have the option to sit and rest. Would you like to: \n\tAccess Inventory (type inventory) \n\tContinue Journey (type continue)")
@@ -207,24 +214,8 @@ while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins ten mat
                 else:
                     print("{}Please enter a valid choice.{}".format(txt.warning,txt.sty.reset))
             # Access inventory
-            print("Weapons")
-            for item in inv.get_weapons():
-                if item != "":
-                    print("\t" + item.get_name() + txt.sty.reset)
-                else:
-                    print("\tEmpty weapon slot.")
-            print("Equipment")
-            for item in inv.get_equipment():
-                if item != "":
-                    print("\t" + item.get_name() + txt.sty.reset)
-                else:
-                    print("\tEmpty equipment slot.")
-            print("General Slots")
-            for item in inv.get_general_slots():
-                if item != "":
-                    print("\t" + item.get_name() + txt.sty.reset)
-                else:
-                    print("\tEmpty slot.")
+            if accessingInv:
+                inv.access_inventory()
 
     else:
         print(theHero.get_name() + ", you are dead. Death Trap Dungeon claims another victim.")
