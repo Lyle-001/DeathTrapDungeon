@@ -199,10 +199,10 @@ while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins ten mat
         if victories < 10:
             purchase = input("\nUp ahead lies a hastily-constructed shelter. {}Do you wish to enter the Apothecarial Tent? Y/N {}".format(txt.sty.bold,txt.sty.reset)).upper()
             if purchase == "Y":
-                potion_shop(theHero)
+                potion_shop(theHero,inv)
             #purchase = input("\nYou see a blacksmith in the distance. {}Do you wish to enter? Y/N {}".format(txt.sty.bold,txt.sty.reset)).upper()
             #if purchase == "Y":
-                #blacksmith(theHero)
+                #blacksmith(theHero,inv)
             purchase = input("\nYou see a small house with a sign in front. {}Do you want to enter the Clothier's? Y/N {}".format(txt.sty.bold,txt.sty.reset)).upper()
             if purchase == "Y":
                 clothier(theHero,inv)
@@ -223,7 +223,7 @@ while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins ten mat
                     print("{}Please enter a valid choice.{}".format(txt.warning,txt.sty.reset))
             # Access inventory
             if accessingInv:
-                inv.access_inventory()
+                inv.access_inventory(theHero)
 
     else:
         print(theHero.get_name() + ", you are dead. Death Trap Dungeon claims another victim.")

@@ -1,6 +1,6 @@
 from ansi_codes import txt
 from validation import validate_int_input_with_bounds
-from Weapons import Weapon
+import Items
 
 class inventory:
     def __init__(self):
@@ -31,7 +31,7 @@ class inventory:
 
 
 
-    def access_inventory(self):
+    def access_inventory(self,hero):
         itemIncrement = 1
 
         print("Weapons") # Weapons section
@@ -171,7 +171,7 @@ class inventory:
                 print("You cannot inspect this item.")
         elif command == "use":
             try:
-                print(target.use())
+                target.use(hero,self)
             except:
                 print("You cannot use this item.")
 
@@ -245,6 +245,23 @@ class inventory:
 
     def get_general_slots(self):
         return self.general
+
+    def add_general_item(self,itemID):
+        for i in range(0,self.generalSlots,1):
+            if self.general[i] == "":
+                self.general[i] = itemID
+                return True
+        print("You do not have space on your person for this item.")
+        return False
+
+    def destroy_general_item(self,itemID):
+        for i in range(0,self.generalSlots,1):
+            if self.general[i] != "":
+                if self.general[i] == itemID:
+                    self.general[i] = ""
+                    return True
+        print("You are trying to throw away an item which you do not have!")
+        return False
 
 
 

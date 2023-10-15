@@ -3,7 +3,7 @@ from ansi_codes import txt,icons
 import Items as it
 from validation import validate_int_input
 
-def potion_shop(hero):
+def potion_shop(hero,inventory):
     #alreadyBought = hero.getItems() - figure this shit out when items are implemented
     print("You enter the dimly lit tent, as a hunch-backed man gestures at the wares around you.")
     mysBought = False
@@ -41,12 +41,14 @@ def potion_shop(hero):
                 if choice == "N":
                     return
         item = wareList[choice]
-        if item == mystElixir:
-            mysBought = True
         print()
-        item.use(hero)
-        if hero.get_hp() == 0:
-            return
+        if inventory.add_general_item(item):
+            if item == mystElixir:
+                mysBought = True
+            print("You successfully bought the item.")
+        else:
+            hero.set_gold(item.value)
+            print("You have been refunded.")
 
 
 
@@ -85,5 +87,12 @@ def clothier(hero,inventory):
                 choice = input("You reconsider if you want any of these wares. (Y/N) ").upper()
                 if choice == "N":
                     return
+        item = wareList[choice]
         print()
-        wareList[choice].use(inventory)
+        if inventory.add_general_item(item):
+            if item == it.PotionPouch():
+                inventory.hasPotionPouch = True
+            print("You successfully bought the item.")
+        else:
+            hero.set_gold(item.value)
+            print("You have been refunded.")
