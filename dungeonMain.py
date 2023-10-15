@@ -7,7 +7,7 @@ from merchant import shop
 from validation import validate_int_input,validate_int_input_with_bounds,validate_not_empty_input
 
 import Weapons
-import Inventory
+import inventoryfile
 
 import random
 import math
@@ -69,7 +69,7 @@ else:
     print("debug set to false")
 
 print("{}{}############# Welcome to Death Trap Dungeon! ############{}\n".format(txt.col.fg.strg.blue,txt.sty.bold,txt.sty.reset))
-inv = Inventory.inventory()
+inv = inventoryfile.inventory()
 detailsConfirmed = False
 while not detailsConfirmed:
 
