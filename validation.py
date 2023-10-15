@@ -28,3 +28,11 @@ def validate_int_input(message=""):#asks until num input entered
             return answer
         except:
             print("{}Please choose a numeral.{}".format(txt.warning,txt.sty.reset))
+
+def validate_input_from_array(array,message=""):
+    while True:
+        answer = input(message)
+        for loop in array:
+            if answer == loop:
+                return answer
+        print("{}Please choose a valid input.{}".format(txt.col.fg.strg.red,txt.sty.reset))
