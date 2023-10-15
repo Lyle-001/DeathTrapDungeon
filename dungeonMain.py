@@ -24,12 +24,12 @@ def Combat(myHero, myWeapon, myMonster ):
     while myHero.get_hp() > 0 and myMonster.get_hitPoints() > 0: #Fight continues until either combatant dies.
         print("\n######### " + name + ": " + str(myHero.get_hp()) + " " + icons.heart + " #########" +
               " " + myMonster.get_species().capitalize() + ": " + str(myMonster.get_hitPoints()) + " " + icons.heart + " #########\n")
-        input("Press enter to attack!")
+        input("{}Press enter to attack!\n{}".format(txt.col.fg.nml.white,txt.sty.reset))
         heroDamage = math.floor(math.sqrt((myWeapon.attack() * myHero.attack())))
         myMonster.receive_damage(heroDamage) # Assign damage to monster
         if myMonster.get_hitPoints() > 0: # Monster only attacks if it's  still alive.
             print("The " + myMonster.get_species() + " attacks...")
-            input("Press enter to defend!")
+            input("{}Press enter to defend!{}\n".format(txt.col.fg.nml.white,txt.sty.reset))
             myHero.receiveDamage(myMonster.attack()) # Subtract damage from hero
 
 def name_and_format():#asks the user what they want their name to be and look like
@@ -69,7 +69,7 @@ while not detailsConfirmed:
 
     valid = False
     while not valid:
-        print("{}What manner of warrior are you?".format(txt.col.fg.nml.blue))
+        print("{}\nWhat manner of warrior are you?".format(txt.col.fg.nml.yellow))
         print("\t1)Barbarian\t({}{} 20-30 | {}{} 0-8)".format(icons.heart,txt.col.fg.nml.yellow,icons.damage,txt.col.fg.nml.yellow))
         print("\t2)Wizard\t({}{} 15-25 | {}{} 0-12)".format(icons.heart,txt.col.fg.nml.yellow,icons.damage,txt.col.fg.nml.yellow))
         print("\t3)Warlock\t({}{} 17-27 | {}{} 0-10)".format(icons.heart,txt.col.fg.nml.yellow,icons.damage,txt.col.fg.nml.yellow))
@@ -136,10 +136,10 @@ while not detailsConfirmed:
     print("\tWeapon: {}{}{}".format(txt.col.fg.nml.green,weapon.get_name().capitalize(),txt.sty.reset))
     print("Y) Yes\nN) No")
     choice = input()
-    if choice.lower()[0] == "y":
+    if choice.lower() == "y":
         detailsConfirmed = True
     else:
-        print("Through the power of a mystical force you are sent back in time.")
+        print("{}Through the power of a mystical force you are sent back in time.{}".format(txt.col.fg.strg.magenta,txt.sty.reset))
 
 weapon.randomise_modifier()
 if debug:

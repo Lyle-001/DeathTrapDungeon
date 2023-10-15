@@ -1,7 +1,7 @@
 from random import randint,random
 from math import e,sqrt,pi
 from tkinter import SEL_FIRST
-from ansi_codes import txt
+from ansi_codes import txt,get_list_of_colours_fg
 
 # Weapons have different stats, such as:
 # damage
@@ -94,7 +94,7 @@ class Weapon:
 
 
     def inspect(self):
-        print(self.inspectMessage)
+        print("{}{}{}".format(get_list_of_colours_fg()[0][randint(0,len(get_list_of_colours_fg()[0])-1)],self.inspectMessage,txt.sty.reset))
 
 ##########################
 ##### Actual Weapons #####
