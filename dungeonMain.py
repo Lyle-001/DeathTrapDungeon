@@ -55,11 +55,13 @@ def name_and_format():#asks the user what they want their name to be and look li
 
 ################################# Main Code ####################################
 
-debuganswer = input("\nDebug?(true or false)")
-if debuganswer.lower == "true":
+debuganswer = input("\nDebug?(true or false) ")
+if debuganswer.lower() == "true":
     debug = True
+    print("debug set to true")
 else:
     debug = False
+    print("debug set to false")
 
 print("{}{}############# Welcome to Death Trap Dungeon! ############{}\n".format(txt.col.fg.strg.blue,txt.sty.bold,txt.sty.reset))
 inv = Inventory.inventory()

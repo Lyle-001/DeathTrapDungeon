@@ -1,24 +1,25 @@
 from random import randint
+from ansi_codes import txt,icons
 import Items as it
+from validation import validate_int_input
 
 def shop(hero):
     #alreadyBought = hero.getItems() - figure this shit out when items are implemented
     print("You enter the dimly lit tent, as a hunch-backed man gestures at the wares around you.")
     mysBought = False
     while True:
-        print("\n" + hero.get_name() + ": " + str(hero.get_hp()) + " Health, " + str(hero.get_gold()) + " ¤")
-        print("1. Diluted Healing Elixir - Heals you for a small amount.\t\t 5 ¤")
-        print("2. Impure Healing Elixir - Heals you for an average amount.\t\t 10 ¤")
-        print("3. Distilled Healing Elixir - Heals you for a great amount.\t\t 20 ¤")
-        priceList = [5,10,20] #keeps track of prices for options
         wareList = [it.DilutedHealingElixir(),it.ImpureHealingElixir(),it.DistilledHealingElixir()] #keeps track of what each option is
         itemNo = 4 # modular shop list - new item? just increment number and you're good to go
 
+        print("\n" + hero.get_name() + ": " + str(hero.get_hp()) + " {}, ".format(icons.heart) + str(hero.get_gold()) + icons.gold)
+        for i in range(0,len(wareList),1):
+            item = wareList[i]
+            print(str(i+1) + ". " + item.name + " - " + item.description + "\t\t " + str(item.value) + icons.gold)
+
         if not mysBought: # if you've not bought the mystery potion
-            mysPrice = randint(3,20) # random price and random effects
-            print(str(itemNo) + ". Mystery Elixir - An unknown elixir. Who knows what it does?\t\t " + str(mysPrice) + " ¤")
-            priceList.append(mysPrice)
-            wareList.append(it.MysteryElixir)
+            mystElixir = it.MysteryElixir()
+            print(str(itemNo) + ". " + mystElixir.name + " - " + mystElixir.description + "\t\t " + str(mystElixir.value) + icons.gold)
+            wareList.append(mystElixir)
             itemNo += 1
 
         choice = input("Does much of anything catch your eye? Y/N ").upper()
@@ -27,9 +28,8 @@ def shop(hero):
         bought = False
         while not bought: #check they've chosen an option that's valid
             try:
-                choice = input("After much deliberation, you decide to take item... ")
-                choice = int(choice) - 1
-                bought = hero.purchase(priceList[choice])
+                choice = validate_int_input("After much deliberation, you decide to take item... ") - 1
+                bought = hero.purchase(wareList[choice].value)
                 if not bought:
                     print("You check your coin pouch, only to find you cannot afford the luxury of that item!")
                     choice = input("You reconsider if you want any of these wares. (Y/N) ").upper()
@@ -41,6 +41,8 @@ def shop(hero):
                 if choice == "N":
                     return
         item = wareList[choice]
+        if item == mystElixir:
+            mysBought = True
         print()
         item.use(hero)
         if hero.get_hp() == 0:

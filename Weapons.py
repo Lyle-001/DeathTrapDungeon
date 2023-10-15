@@ -234,12 +234,12 @@ class SwordOfSouls(Weapon):
         self.hitMessage = ("Your enemy is struck with the blood of thousands.")
         self.missMessage = ("Your enemy hears the souls trapped within the blade.")
         self.inspectMessage = ("You unsheathe the sword. A threatening aura surrounds it.")
-        self.modifiers = [["Broken",[-3,-12]],
-                         ["Awful",[-2,-8]],
-                         ["Shoddy",[-1,-4]],
-                         ["Common",[0,0]],
-                         ["Rare",[1,2]],
-                         ["Mighty",[2,4]],
-                         ["Epic",[3,6]],
-                         ["Godly",[4,8]],
-                         ["Legendary",[5,10]]]
+        self.modifiers = [["Broken",-3,-12],
+                         ["Awful",-2,-8],
+                         ["Shoddy",-1,-4],
+                         ["Common",0,0],
+                         ["Rare",1,2],
+                         ["Mighty",2,4],
+                         ["Epic",3,6],
+                         ["Godly",4,8],
+                         ["Legendary",5,10]]
