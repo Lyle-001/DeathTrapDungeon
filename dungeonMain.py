@@ -99,19 +99,19 @@ while not detailsConfirmed:
             print("What would you enjoy your health to be?")
             theHero.set_max_health(validate_int_input("Health: "))
 
+    print("{}What weapon is of your choosing?".format(txt.col.fg.nml.green))
+    print("\t1) Sword\t({} {}0-6 | {} {}90%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
+    print("\t2) Axe\t\t({} {}0-8 | {} {}70%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
+    print("\t3) Dagger\t({} {}0-5 | {} {}100%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
+    print("\t4) Scimitar\t({} {}0-6 | {} {}90%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
+    print("\t5) Mace\t\t({} {}0-6 | {} {}90%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
+    print("\t6) Hammer\t({} {}0-9 | {} {}60%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
+    if debug:
+        print("#### DEBUG ####")
+        print("\t1000) AxeOfFlames\t({}{} 0-8 | {}{} 80%)".format(icons.damage,txt.col.fg.nml.blue,icons.hitchance,txt.col.fg.nml.blue))
+        print("\t1001) SwordOfSouls\t({}{} 0-10 | {}{} 95%)".format(icons.damage,txt.col.fg.nml.blue,icons.hitchance,txt.col.fg.nml.blue))
     valid = False
-    while not valid:
-        print("{}What weapon is of your choosing?".format(txt.col.fg.nml.green))
-        print("\t1) Sword\t({} {}0-6 | {} {}90%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
-        print("\t2) Axe\t\t({} {}0-8 | {} {}70%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
-        print("\t3) Dagger\t({} {}0-5 | {} {}100%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
-        print("\t4) Scimitar\t({} {}0-6 | {} {}90%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
-        print("\t5) Mace\t\t({} {}0-6 | {} {}90%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
-        print("\t6) Hammer\t({} {}0-9 | {} {}60%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
-        if debug:
-            print("#### DEBUG ####")
-            print("\t1000) AxeOfFlames\t({}{} 0-8 | {}{} 80%)".format(icons.damage,txt.col.fg.nml.blue,icons.hitchance,txt.col.fg.nml.blue))
-            print("\t1001) SwordOfSouls\t({}{} 0-10 | {}{} 95%)".format(icons.damage,txt.col.fg.nml.blue,icons.hitchance,txt.col.fg.nml.blue))
+    while not valid:    
         choice = validate_int_input()
         valid = True
         if choice == 1:
@@ -182,14 +182,14 @@ while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins ten mat
     Combat(theHero, weapon, theMonster)
     if theHero.get_hp() > 0: # Check if the hero has won or lost
         gold = theMonster.getGold()
-        print("The monster dropped " + str(gold) + " gold coins.")
+        print("The monster dropped {}{} gold coins.{}".format(txt.col.fg.nml.yellow,str(gold),txt.sty.reset))
         theHero.set_gold(gold)
         victories += 1
-        anyKey = input("You are victorious! Press enter to descend deeper into the dungeon...\n ")
+        anyKey = input("You are {}victorious!{} Press enter to descend deeper into the dungeon...\n ".format(txt.col.fg.nml.green,txt.sty.reset))
         print("You have " + str(theHero.gold) + icons.gold + ".\n")
         # Give user option of visiting the dungeon shop if they have another fight next
         if victories < 10:
-            purchase = input("\nUp ahead lies a hastily-constructed shelter. Do you wish to enter the Merchant's Tent? Y/N ").upper()
+            purchase = input("\nUp ahead lies a hastily-constructed shelter. {}Do you wish to enter the Merchant's Tent? Y/N {}".format(txt.sty.bold,txt.sty.reset)).upper()
             if purchase == "Y":
                 shop(theHero)
         # Give user option of accessing inventory
@@ -206,26 +206,12 @@ while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins ten mat
                     valid = True
                 else:
                     print("{}Please enter a valid choice.{}".format(txt.warning,txt.sty.reset))
-            # Access inventory
-            print("Weapons")
-            for item in inv.get_weapons():
-                if item != "":
-                    print("\t" + item.get_name())
-                else:
-                    print("\tBlank weapon slot.")
-            print("Equipment")
-            for item in inv.get_equipment():
-                if item != "":
-                    print("\t" + item.get_name())
-                else:
-                    print("\tBlank equipment slot.")
-
     else:
         print(theHero.get_name() + ", you are dead. Death Trap Dungeon claims another victim.")
 if victories == 10: # Check if hero won the game
     print(theHero.get_name() + ", you are the Champion of Champions! Fame and fortune are yours!")
     print("You leave the dungeon with " + str(theHero.get_gold()) + icons.gold + "!")
-print("######## GAME OVER ########")
+print("{}######## GAME OVER ########".format(txt.sty.reset))
 
 
 

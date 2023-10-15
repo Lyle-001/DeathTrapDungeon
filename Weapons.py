@@ -108,15 +108,15 @@ class ClassicSword(Weapon):
         self.hitMessage = "You slash the monster with your sword-like sword."
         self.missMessage = "You slash the air with your sword-like sword."
         self.inspectMessage = "Your sword feels solid in your hands."
-        self.modifiers = [["broken",-3,-12],
-                         ["awful",-2,-8],
-                         ["shoddy",-1,-4],
-                         ["common",0,0],
-                         ["rare",1,2],
-                         ["mighty",2,4],
-                         ["epic",3,6],
-                         ["godly",4,8],
-                         ["legendary",5,10]]
+        self.modifiers = [["{}broken".format(txt.col.fg.strg.grey),-3,-12],
+                         ["{}awful".format(txt.col.fg.nml.black),-2,-8],
+                         ["{}shoddy".format(txt.col.fg.nml.black),-1,-4],
+                         ["{}common".format(txt.col.fg.nml.white),0,0],
+                         ["{}rare".format(txt.col.fg.nml.blue),1,2],
+                         ["{}mighty".format(txt.col.fg.strg.blue),2,4],
+                         ["{}epic".format(txt.col.fg.nml.magenta),3,6],
+                         ["{}godly".format(txt.col.fg.nml.yellow),4,8],
+                         ["{}{}legendary".format(txt.col.fg.strg.yellow,txt.sty.bold),5,10]]
 
 class Axe(Weapon):
     def __init__(self):
@@ -126,15 +126,15 @@ class Axe(Weapon):
         self.hitMessage = "You slice your enemy with your wieldly axe."
         self.missMessage = "You waste energy swinging your axe about."
         self.inspectMessage = "Looking at your axe, you notice a small inscribing on the handle. Probably the craftsman's."
-        self.modifiers = [["broken",-3,-12],
-                         ["awful",-2,-8],
-                         ["shoddy",-1,-4],
-                         ["common",0,0],
-                         ["rare",1,2],
-                         ["mighty",2,4],
-                         ["epic",3,6],
-                         ["godly",4,8],
-                         ["legendary",5,10]]
+        self.modifiers = [["{}broken".format(txt.col.fg.strg.grey),-3,-12],
+                         ["{}awful".format(txt.col.fg.nml.black),-2,-8],
+                         ["{}shoddy".format(txt.col.fg.nml.black),-1,-4],
+                         ["{}common".format(txt.col.fg.nml.white),0,0],
+                         ["{}rare".format(txt.col.fg.nml.blue),1,2],
+                         ["{}mighty".format(txt.col.fg.strg.blue),2,4],
+                         ["{}epic".format(txt.col.fg.nml.magenta),3,6],
+                         ["{}godly".format(txt.col.fg.nml.yellow),4,8],
+                         ["{}{}legendary".format(txt.col.fg.strg.yellow,txt.sty.bold),5,10]]
 
 class Dagger(Weapon):
     def __init__(self):
@@ -144,15 +144,15 @@ class Dagger(Weapon):
         self.hitMessage = "You stab your enemy right in their guts."
         self.missMessage = "You try to stab them but you can't get close enough."
         self.inspectMessage = "You marvel at how lightweight this blade is."
-        self.modifiers = [["broken",-3,-12],
-                         ["awful",-2,-8],
-                         ["shoddy",-1,-4],
-                         ["common",0,0],
-                         ["rare",1,2],
-                         ["mighty",2,4],
-                         ["epic",3,6],
-                         ["godly",4,8],
-                         ["legendary",5,10]]
+        self.modifiers = [["{}broken".format(txt.col.fg.strg.grey),-3,-12],
+                         ["{}awful".format(txt.col.fg.nml.black),-2,-8],
+                         ["{}shoddy".format(txt.col.fg.nml.black),-1,-4],
+                         ["{}common".format(txt.col.fg.nml.white),0,0],
+                         ["{}rare".format(txt.col.fg.nml.blue),1,2],
+                         ["{}mighty".format(txt.col.fg.strg.blue),2,4],
+                         ["{}epic".format(txt.col.fg.nml.magenta),3,6],
+                         ["{}godly".format(txt.col.fg.nml.yellow),4,8],
+                         ["{}{}legendary".format(txt.col.fg.strg.yellow,txt.sty.bold),5,10]]
 
 class Scimitar(Weapon):
     def __init__(self):
@@ -162,15 +162,15 @@ class Scimitar(Weapon):
         self.hitMessage = "You slash the monster with your scimitar."
         self.missMessage = "You slash the air with your scimitar."
         self.inspectMessage = "You notice the exotic shape of your scimitar's blade."
-        self.modifiers = [["broken",-3,-12],
-                         ["awful",-2,-8],
-                         ["shoddy",-1,-4],
-                         ["common",0,0],
-                         ["rare",1,2],
-                         ["mighty",2,4],
-                         ["epic",3,6],
-                         ["godly",4,8],
-                         ["legendary",5,10]]
+        self.modifiers = [["{}broken".format(txt.col.fg.strg.grey),-3,-12],
+                         ["{}awful".format(txt.col.fg.nml.black),-2,-8],
+                         ["{}shoddy".format(txt.col.fg.nml.black),-1,-4],
+                         ["{}common".format(txt.col.fg.nml.white),0,0],
+                         ["{}rare".format(txt.col.fg.nml.blue),1,2],
+                         ["{}mighty".format(txt.col.fg.strg.blue),2,4],
+                         ["{}epic".format(txt.col.fg.nml.magenta),3,6],
+                         ["{}godly".format(txt.col.fg.nml.yellow),4,8],
+                         ["{}{}legendary".format(txt.col.fg.strg.yellow,txt.sty.bold),5,10]]
 
 class Mace(Weapon):
     def __init__(self):
@@ -180,15 +180,15 @@ class Mace(Weapon):
         self.hitMessage = "You slam the monster with your mace"
         self.missMessage = "Your miss your shot with your mace."
         self.inspectMessage = "Your mace is very bumpy and spiky."
-        self.modifiers = [["broken",-3,-12],
-                         ["awful",-2,-8],
-                         ["shoddy",-1,-4],
-                         ["common",0,0],
-                         ["rare",1,2],
-                         ["mighty",2,4],
-                         ["epic",3,6],
-                         ["godly",4,8],
-                         ["legendary",5,10]]
+        self.modifiers = [["{}broken".format(txt.col.fg.strg.grey),-3,-12],
+                         ["{}awful".format(txt.col.fg.nml.black),-2,-8],
+                         ["{}shoddy".format(txt.col.fg.nml.black),-1,-4],
+                         ["{}common".format(txt.col.fg.nml.white),0,0],
+                         ["{}rare".format(txt.col.fg.nml.blue),1,2],
+                         ["{}mighty".format(txt.col.fg.strg.blue),2,4],
+                         ["{}epic".format(txt.col.fg.nml.magenta),3,6],
+                         ["{}godly".format(txt.col.fg.nml.yellow),4,8],
+                         ["{}{}legendary".format(txt.col.fg.strg.yellow,txt.sty.bold),5,10]]
 
 class Hammer(Weapon):
     def __init__(self):
@@ -198,15 +198,15 @@ class Hammer(Weapon):
         self.hitMessage = "The enemy gets a concussion from your hammer's blast"
         self.missMessage = "You waste valuable stamina missing your shot."
         self.inspectMessage = "\"Would you like... another nail?\" - A wise philosopher."
-        self.modifiers = [["broken",-3,-12],
-                         ["awful",-2,-8],
-                         ["shoddy",-1,-4],
-                         ["common",0,0],
-                         ["rare",1,2],
-                         ["mighty",2,4],
-                         ["epic",3,6],
-                         ["godly",4,8],
-                         ["legendary",5,10]]
+        self.modifiers = [["{}broken".format(txt.col.fg.strg.grey),-3,-12],
+                         ["{}awful".format(txt.col.fg.nml.black),-2,-8],
+                         ["{}shoddy".format(txt.col.fg.nml.black),-1,-4],
+                         ["{}common".format(txt.col.fg.nml.white),0,0],
+                         ["{}rare".format(txt.col.fg.nml.blue),1,2],
+                         ["{}mighty".format(txt.col.fg.strg.blue),2,4],
+                         ["{}epic".format(txt.col.fg.nml.magenta),3,6],
+                         ["{}godly".format(txt.col.fg.nml.yellow),4,8],
+                         ["{}{}legendary".format(txt.col.fg.strg.yellow,txt.sty.bold),5,10]]
 
 class AxeOfFlames(Weapon):
     def __init__(self):
@@ -216,15 +216,15 @@ class AxeOfFlames(Weapon):
         self.hitMessage = ("The cold metal hacks the enemy, while the fire burns their wound.")
         self.missMessage = ("Your enemy is intimated by a wall of flames.")
         self.inspectMessage = ("You examine the flaming axe. Your enemies will surely know fear.")
-        self.modifiers = [["Broken",-3,-12],
-                         ["Awful",-2,-8],
-                         ["Shoddy",-1,-4],
-                         ["Common",0,0],
-                         ["Rare",1,2],
-                         ["Mighty",2,4],
-                         ["Epic",3,6],
-                         ["Godly",4,8],
-                         ["Legendary",5,10]]
+        self.modifiers = [["{}Broken".format(txt.col.fg.strg.grey),-3,-12],
+                         ["{}Awful".format(txt.col.fg.nml.black),-2,-8],
+                         ["{}Shoddy".format(txt.col.fg.nml.black),-1,-4],
+                         ["{}Common".format(txt.col.fg.nml.white),0,0],
+                         ["{}Rare".format(txt.col.fg.nml.blue),1,2],
+                         ["{}Mighty".format(txt.col.fg.strg.blue),2,4],
+                         ["{}Epic".format(txt.col.fg.nml.magenta),3,6],
+                         ["{}Godly".format(txt.col.fg.nml.yellow),4,8],
+                         ["{}{}Legendary".format(txt.col.fg.strg.yellow,txt.sty.bold),5,10]]
 
 class SwordOfSouls(Weapon):
     def __init__(self):
@@ -234,12 +234,12 @@ class SwordOfSouls(Weapon):
         self.hitMessage = ("Your enemy is struck with the blood of thousands.")
         self.missMessage = ("Your enemy hears the souls trapped within the blade.")
         self.inspectMessage = ("You unsheathe the sword. A threatening aura surrounds it.")
-        self.modifiers = [["Broken",-3,-12],
-                         ["Awful",-2,-8],
-                         ["Shoddy",-1,-4],
-                         ["Common",0,0],
-                         ["Rare",1,2],
-                         ["Mighty",2,4],
-                         ["Epic",3,6],
-                         ["Godly",4,8],
-                         ["Legendary",5,10]]
+        self.modifiers = [["{}Broken".format(txt.col.fg.strg.grey),-3,-12],
+                         ["{}Awful".format(txt.col.fg.nml.black),-2,-8],
+                         ["{}Shoddy".format(txt.col.fg.nml.black),-1,-4],
+                         ["{}Common".format(txt.col.fg.nml.white),0,0],
+                         ["{}Rare".format(txt.col.fg.nml.blue),1,2],
+                         ["{}Mighty".format(txt.col.fg.strg.blue),2,4],
+                         ["{}Epic".format(txt.col.fg.nml.magenta),3,6],
+                         ["{}Godly".format(txt.col.fg.nml.yellow),4,8],
+                         ["{}{}Legendary".format(txt.col.fg.strg.yellow,txt.sty.bold),5,10]]
