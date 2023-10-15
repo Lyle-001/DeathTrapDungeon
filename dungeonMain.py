@@ -3,7 +3,7 @@
 from Monster import Monster, Goblin, Vampire, Slime, RogueWarrior
 from Heroes import Hero, Barbarian, Wizard, Warlock
 from ansi_codes import txt, get_list_of_colours_bg, get_list_of_colours_fg, get_list_of_formats,icons
-from merchant import shop
+from merchant import potion_shop,clothier
 from validation import validate_int_input,validate_int_input_with_bounds,validate_not_empty_input,validate_input_from_array
 
 import Weapons
