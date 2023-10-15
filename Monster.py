@@ -238,7 +238,7 @@ class RogueWarrior(Monster):
     # Construction
     def __init__(self,colour,adj):
         self.adj = adj
-        self.colourcode = colourcode(colour)
+        self.colourcode = colour
         self.species = "rogue warrior"
         self.hitPoints = 25
         self.maxDamage = 6

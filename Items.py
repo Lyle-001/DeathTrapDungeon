@@ -1,12 +1,12 @@
 from random import randint
-
+from ansi_codes import txt
 #####################################
 ########## Healing Potions ##########
 #####################################
 
 class DilutedHealingElixir:
     def __init__(self):
-        self.name = "Diluted Healing Elixir"
+        self.name = "{}Diluted Healing Elixir{}".format(txt.col.fg.nml.red,txt.sty.reset)
         self.description = "Heals small wounds."
         self.inspect = "This vial contains a semi-red liquid. There are a few glittery particles inside."
         self.useMessage = "The weak elixir eases you slightly, but isn't the most pleasant..."
@@ -28,7 +28,7 @@ class DilutedHealingElixir:
 
 class ImpureHealingElixir(DilutedHealingElixir):
     def __init__(self):
-        self.name = "Impure Healing Elixir"
+        self.name = "{}Impure Healing Elixir{}".format(txt.col.fg.strg.red,txt.sty.reset)
         self.description = "Heals wounds."
         self.inspect = "This conical flask contains a red liquid. There are a few glittery particles inside."
         self.useMessage = "Your wounds feel somewhat better, and you feel full of a new vigour."
@@ -38,7 +38,7 @@ class ImpureHealingElixir(DilutedHealingElixir):
 
 class DistilledHealingElixir(DilutedHealingElixir):
     def __init__(self):
-        self.name = "Distilled Healing Elixir"
+        self.name = "{}{}Distilled Healing Elixir{}".format(txt.col.fg.nml.red,txt.sty.bold,txt.sty.reset)
         self.description = "Heals major wounds."
         self.inspect = "This boiling flask contains a deep crimson liquid. There is a whirlpool of glistening particles inside."
         self.useMessage = "As the formulation pours down your throat, you feel better in body and soul, ready to take on the next fight!"
@@ -52,7 +52,7 @@ class DistilledHealingElixir(DilutedHealingElixir):
 
 class MysteryElixir:
     def __init__(self):
-        self.name = "Mystery Elixir"
+        self.name = "{}{}Mystery Elixir{}".format(txt.col.fg.nml.magenta,txt.sty.bold,txt.sty.reset)
         self.description = "An unknown elixir. Who knows what it does?"
         self.inspect = "This flask contains a greyish fluid. You cannot see anything through it."
         self.value = randint(3,20)
