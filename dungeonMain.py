@@ -210,19 +210,19 @@ while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins ten mat
             print("Weapons")
             for item in inv.get_weapons():
                 if item != "":
-                    print("\t" + item.get_name())
+                    print("\t" + item.get_name() + txt.sty.reset)
                 else:
                     print("\tEmpty weapon slot.")
             print("Equipment")
             for item in inv.get_equipment():
                 if item != "":
-                    print("\t" + item.get_name())
+                    print("\t" + item.get_name() + txt.sty.reset)
                 else:
                     print("\tEmpty equipment slot.")
             print("General Slots")
             for item in inv.get_general_slots():
                 if item != "":
-                    print("\t" + item.get_name())
+                    print("\t" + item.get_name() + txt.sty.reset)
                 else:
                     print("\tEmpty slot.")
 

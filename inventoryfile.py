@@ -21,7 +21,7 @@ class inventory:
 
         self.general = []
         for i in range(0,self.generalSlots,1):
-            self.general.append[""]
+            self.general.append("")
 
 
 
