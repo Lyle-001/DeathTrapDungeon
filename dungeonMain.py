@@ -7,7 +7,7 @@ from merchant import shop
 from validation import validate_int_input,validate_int_input_with_bounds,validate_not_empty_input
 
 import Weapons
-import Inventory
+import inventoryfile
 
 import random
 import math
@@ -15,21 +15,26 @@ import math
 ############################### Subroutines ##################################
 
 def RandomColour(): # Choose random colour for monster.
-    ColourList = ["black","red","green","yellow","blue","magenta","cyan","white"]
+    ColourList = get_list_of_colours_fg()[0]
     Colour = ColourList[random.randint(0,len(ColourList)-1)]
     return Colour
+
+def RandomAdjective():
+    array = [" strong"," big"," huge"," small"," silly"]
+    intensifiers = ["very","not very"]
+    return intensifiers[random.randint(0,len(intensifiers)-1)] + array[random.randint(0,len(array)-1)]
 
 # Run one fight until either hero or monster is dead
 def Combat(myHero, myWeapon, myMonster ):
     while myHero.get_hp() > 0 and myMonster.get_hitPoints() > 0: #Fight continues until either combatant dies.
         print("\n######### " + name + ": " + str(myHero.get_hp()) + " " + icons.heart + " #########" +
               " " + myMonster.get_species().capitalize() + ": " + str(myMonster.get_hitPoints()) + " " + icons.heart + " #########\n")
-        input("Press enter to attack!")
+        input("{}Press enter to attack!\n{}".format(txt.col.fg.nml.white,txt.sty.reset))
         heroDamage = math.floor(math.sqrt((myWeapon.attack() * myHero.attack())))
         myMonster.receive_damage(heroDamage) # Assign damage to monster
         if myMonster.get_hitPoints() > 0: # Monster only attacks if it's  still alive.
             print("The " + myMonster.get_species() + " attacks...")
-            input("Press enter to defend!")
+            input("{}Press enter to defend!{}\n".format(txt.col.fg.nml.white,txt.sty.reset))
             myHero.receiveDamage(myMonster.attack()) # Subtract damage from hero
 
 def name_and_format():#asks the user what they want their name to be and look like
@@ -64,7 +69,7 @@ else:
     print("debug set to false")
 
 print("{}{}############# Welcome to Death Trap Dungeon! ############{}\n".format(txt.col.fg.strg.blue,txt.sty.bold,txt.sty.reset))
-inv = Inventory.inventory()
+inv = inventoryfile.inventory()
 detailsConfirmed = False
 while not detailsConfirmed:
 
@@ -72,7 +77,7 @@ while not detailsConfirmed:
 
     valid = False
     while not valid:
-        print("{}What manner of warrior are you?".format(txt.col.fg.nml.blue))
+        print("{}\nWhat manner of warrior are you?".format(txt.col.fg.nml.yellow))
         print("\t1)Barbarian\t({}{} 20-30 | {}{} 0-8)".format(icons.heart,txt.col.fg.nml.yellow,icons.damage,txt.col.fg.nml.yellow))
         print("\t2)Wizard\t({}{} 15-25 | {}{} 0-12)".format(icons.heart,txt.col.fg.nml.yellow,icons.damage,txt.col.fg.nml.yellow))
         print("\t3)Warlock\t({}{} 17-27 | {}{} 0-10)".format(icons.heart,txt.col.fg.nml.yellow,icons.damage,txt.col.fg.nml.yellow))
@@ -139,10 +144,10 @@ while not detailsConfirmed:
     print("\tWeapon: {}{}{}".format(txt.col.fg.nml.green,weapon.get_name().capitalize(),txt.sty.reset))
     print("Y) Yes\nN) No")
     choice = input()
-    if choice.lower()[0] == "y":
+    if choice.lower() == "y":
         detailsConfirmed = True
     else:
-        print("Through the power of a mystical force you are sent back in time.")
+        print("{}Through the power of a mystical force you are sent back in time.{}".format(txt.col.fg.strg.magenta,txt.sty.reset))
 
 weapon.randomise_modifier()
 if debug:
@@ -162,15 +167,15 @@ victories = 0
 while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins ten matches or dies
     monsterChoice = random.randint(0,4)
     if monsterChoice == 0:
-        theMonster = Monster(RandomColour())
+        theMonster = Monster(RandomColour(),RandomAdjective())
     elif monsterChoice == 1:
-        theMonster = Goblin(RandomColour())
+        theMonster = Goblin(RandomColour(),RandomAdjective())
     elif monsterChoice == 2:
-        theMonster = Vampire(RandomColour())
+        theMonster = Vampire(RandomColour(),RandomAdjective())
     elif monsterChoice == 3:
-        theMonster = Slime(RandomColour())
+        theMonster = Slime(RandomColour(),RandomAdjective())
     else:
-        theMonster = RogueWarrior(RandomColour())
+        theMonster = RogueWarrior(RandomColour(),RandomAdjective())
     print("You are attacked by a {}".format(theMonster.getCode()) +  theMonster.get_colour() + " "
           + theMonster.get_species() + ".{}".format(txt.sty.reset))
     theMonster.talk()
