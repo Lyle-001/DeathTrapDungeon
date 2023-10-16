@@ -24,6 +24,9 @@ class DilutedHealingElixir:
     def get_name(self):
         return self.name
 
+    def get_type(self):
+        return "potion"
+
     def inspect(self):
         return self.inspectMessage
 
@@ -65,6 +68,9 @@ class MysteryElixir:
         self.value = randint(3,20)
         self.maxStack = 1
 
+    def get_type(self):
+        return "potion"
+
     def use(self,hero):
         effect = randint(1,6)
         if effect <= 3: #weighted towards nothing
@@ -90,15 +96,21 @@ class MysteryElixir:
 class PotionPouch:
     def __init__(self):
         self.name = "Potion Pouch"
-        self.description = "Use this item to put on the pouch, giving you 5 potion slots."
-        self.inspectMessage = "A leather satchel in which you can store your vials and flasks."
+        self.description = "A leather satchel in which you can store your vials and flasks."
+        self.inspectMessage = "Use this item to put on the pouch, giving you 5 potion slots."
         self.value = 5
         self.maxStack = 1
 
     def use(self,hero,inv):
+        print("You put on the potion pouch, now you can store 5 more types of potion.")
         inv.potionPouchCurrentSlots = inv.potionPouchSlots
         inv.hasPotionPouch = True
+        inv.update_potion_pouch()
+        inv.destroy_general_item(self)
         return True
+
+    def get_type(self):
+        return "potion pouch"
 
     def inspect(self):
         return self.inspectMessage

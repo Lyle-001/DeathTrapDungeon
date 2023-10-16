@@ -52,7 +52,9 @@ def potion_shop(hero,inventory):
 
 
 
+
 def clothier(hero,inventory):
+    potionPouchBought = False
     #alreadyBought = hero.getItems() - figure this shit out when items are implemented
     print("You enter the homely building. An old man is sitting behind the counter, sewing together a boy's shirt.")
     while True:
@@ -64,9 +66,10 @@ def clothier(hero,inventory):
             item = wareList[i]
             print(str(i+1) + ". " + item.name + " - " + item.description + "\t\t " + str(item.value) + icons.gold)
 
-        if not inventory.hasPotionPouch: # if you've not bought the potion pouch
-            wareList.append(it.PotionPouch())
-            print(str(itemNo) + ". " + it.PotionPouch().name + " - " + it.PotionPouch().description + "\t\t " + str(it.PotionPouch().value) + icons.gold)
+        if not potionPouchBought: # if you've not bought the potion pouch
+            potionPouch = it.PotionPouch()
+            wareList.append(potionPouch)
+            print(str(itemNo) + ". " + potionPouch.name + " - " + potionPouch.description + "\t\t " + str(potionPouch.value) + icons.gold)
             itemNo += 1
 
         choice = input("Does much of anything catch your eye? Y/N ").upper()
@@ -90,8 +93,8 @@ def clothier(hero,inventory):
         item = wareList[choice]
         print()
         if inventory.add_general_item(item):
-            if item == it.PotionPouch():
-                inventory.hasPotionPouch = True
+            if item == potionPouch:
+                potionPouchBought = True
             print("You successfully bought the item.")
         else:
             hero.set_gold(item.value)
