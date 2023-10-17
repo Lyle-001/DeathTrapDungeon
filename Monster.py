@@ -137,7 +137,7 @@ class Goblin(Monster):
             'He vocalises menacingly!',
             'He starts spinning around in a frightening manner!',
             'He swings his Scimitar!',
-            'He fies a shot from its Shortbow!',
+            'He fires a shot from his Shortbow!',
             'He bites your knees!',
             'He headbutts your calves!'
             'He scratches your feet!',
@@ -210,13 +210,25 @@ class Vampire(Monster):
 
     # Construction
     def __init__(self,colour,adj):
+        vampireMessageBank = [
+            'He shrieks grievously!',
+            'He flashes his teeth!',
+            'He sinks his fangs into your neck!',
+            'He munches at your ears!',
+            'He bites at your face!',
+            'He chomps at torso!'
+            'He swings his rapier!!',
+            'He bashes you with his mace!',
+            'He sweeps you off his feet!',
+            'He glares at you with evil eyes, filling you with terror.'
+        ]
         self.resists = [["smash",0],["pierce",4],["slash",0]]
         self.adj = adj
         self.colourcode = colour
         self.species = "vampire"
         self.hitPoints = 20
         self.maxDamage = 7
-        self.attackMessage = "It sinks its fangs into your neck."
+        self.attackMessage = vampireMessageBank[randint(0, len(vampireMessageBank) - 1)]
         self.gold = randint(5,15)
         self.mentalFortitude = randint(0,100)
         self.ego = randint(0,100)
