@@ -202,9 +202,9 @@ class Goblin(Monster):
             highEgo = True
 
         if highFort == True and highEgo == True:
-            print('The Monster says: {}"{}"{}'.format(self.colourcode,highFortandEgo[randint(0, len(highFortandEgo) - 1)],txt.sty.reset))# This will be changed later depending on the Mental Fortitude and Ego attribute!!
+            print('The Goblin says: {}"{}"{}'.format(self.colourcode,highFortandEgo[randint(0, len(highFortandEgo) - 1)],txt.sty.reset))# This will be changed later depending on the Mental Fortitude and Ego attribute!!
         else:
-            print('The Monster says: {}"{}"{}'.format(self.colourcode,normalMonster[randint(0, len(normalMonster) - 1)],txt.sty.reset)) # This will be changed later depending on the Mental Fortitude and Ego attribute!!
+            print('The Goblin says: {}"{}"{}'.format(self.colourcode,normalMonster[randint(0, len(normalMonster) - 1)],txt.sty.reset)) # This will be changed later depending on the Mental Fortitude and Ego attribute!!
 
 class Vampire(Monster):
 
@@ -235,7 +235,56 @@ class Vampire(Monster):
 
     # Methods
     def talk(self):
-        print("{}I vant to drink your blood!{}".format(self.colourcode,txt.sty.reset))
+
+        highFortandEgo = ["En guarde, warrior!", 
+                          'Quiver at my elegance!',
+                          "Do me a favour, and try not to die so early :)",
+                          'Finally, some action!',
+                          "I've been looking for a challenge.",
+                          'Another head to add to my collection!',
+                          'Your skin would look so beautiful as my rug.',
+                          "This may hurt a little",
+                          "I'll try not to play with your corpse too much.",
+                          'Ooooh, another scalp to add to my wall. How lucky!',
+                          "I'll slit your throat and drink the sweet nectar that pours out!",
+                          'Try not to get too much blood on me, I have a wedding to attend after this',
+                          "Finally, something to cure my boredom!",
+                          'Can we hurry this up? I have a ritual to make an appearence at.'
+        ]
+
+        normalMonster = ['SNARRLLLLLL!!',
+                         "HIIIISSSSSSSSS!!!",
+                         "I LOVE BLOOD!",
+                         "I'LL CARVE MY NAME IN YOUR FLESH!",
+                         "I'M GOING TO DESTROY YOU, MEATSACK!",
+                         "SATAN, ACCEPT THIS OFFERING!",
+                         "I'LL BATHE IN YOUR ENTRAILS!",
+                         "I'LL SKIN YOU ALIVE.",
+                         'BLOOD BLOOD BLOOD BLOOD BLOOOOOOOOOOOOOOD!!!!',
+                         "GRRRRRRAHHHHHH!",
+                         "I'LL PLUCK YOUR EYES OUT!",
+                         'EEEEEEEEEEEEEEEEEEEEEEEEEE!!',
+                         'GAHGAHGAHGAHGAH!!'
+        ]
+
+        fortitude = self.getFortitude()
+        ego = self.getEgo()
+
+        bothCheck = False
+        highFort = False   
+        highEgo = False
+
+        if fortitude >= 70:
+            highFort = True
+
+        if ego >= 70:
+            highEgo = True
+
+        if highFort == True and highEgo == True:
+            print('The Vampire says: {}"{}"{}'.format(self.colourcode,highFortandEgo[randint(0, len(highFortandEgo) - 1)],txt.sty.reset))# This will be changed later depending on the Mental Fortitude and Ego attribute!!
+        else:
+            print('The Vampire says: {}"{}"{}'.format(self.colourcode,normalMonster[randint(0, len(normalMonster) - 1)],txt.sty.reset)) # This will be changed later depending on the Mental Fortitude and Ego attribute!!
+
 
 class Slime(Monster):
 
