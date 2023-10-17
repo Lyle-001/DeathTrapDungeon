@@ -3,7 +3,7 @@
 from Monster import Monster, Goblin, Vampire, Slime, RogueWarrior
 from Heroes import Hero, Barbarian, Wizard, Warlock
 from ansi_codes import txt, get_list_of_colours_bg, get_list_of_colours_fg, get_list_of_formats,icons
-from merchant import potion_shop,clothier
+from merchant import potion_shop,blacksmith,clothier
 from validation import validate_int_input,validate_int_input_with_bounds,validate_not_empty_input,validate_input_from_array
 
 import Weapons
@@ -77,7 +77,7 @@ else:
     print("debug set to false")
 
 print("{}{}############# Welcome to Death Trap Dungeon! ############{}\n".format(txt.col.fg.strg.blue,txt.sty.bold,txt.sty.reset))
-inv = inventoryfile.inventory()
+inv = inventoryfile.inventory(debug)
 detailsConfirmed = False
 while not detailsConfirmed:
 
@@ -200,9 +200,9 @@ while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins ten mat
             purchase = input("\nUp ahead lies a hastily-constructed shelter. {}Do you wish to enter the Apothecarial Tent? Y/N {}".format(txt.sty.bold,txt.sty.reset)).upper()
             if purchase == "Y":
                 potion_shop(theHero,inv)
-            #purchase = input("\nYou see a blacksmith in the distance. {}Do you wish to enter? Y/N {}".format(txt.sty.bold,txt.sty.reset)).upper()
-            #if purchase == "Y":
-                #blacksmith(theHero,inv)
+            purchase = input("\nYou see a blacksmith in the distance. {}Do you wish to enter? Y/N {}".format(txt.sty.bold,txt.sty.reset)).upper()
+            if purchase == "Y":
+                blacksmith(theHero,inv)
             purchase = input("\nYou see a small house with a sign in front. {}Do you want to enter the Clothier's? Y/N {}".format(txt.sty.bold,txt.sty.reset)).upper()
             if purchase == "Y":
                 clothier(theHero,inv)

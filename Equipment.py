@@ -1,9 +1,13 @@
 class Armour:
     def __init__(self):
+        self.inspectMessage = "ignore this"
         self.armour = 0
         self.projProt = 0
         self.slashProt = 0
         self.pierceProt = 0
+
+    def inspect(self):
+        return self.inspectMessage
 
     def protect_proj(self,damage):
         return damage - self.projProt
@@ -14,6 +18,12 @@ class Armour:
     def protect_pierce(self,damage):
         return damage - self.pierceProt
 
+    def get_type(self):
+        return "equipment"
+
+    def use(self,hero,inv):
+        inv.swap_equipment(self)
+        inv.destroy_general_item(self)
 
 class Helmet(Armour):
     def __init__(self):
@@ -25,7 +35,7 @@ class Helmet(Armour):
         self.slashProt = 0
         self.pierceProt = 0
 
-    def get_type(self):
+    def get_equipment_type(self):
         return "head"
 
 class MailHood(Helmet):
@@ -33,6 +43,7 @@ class MailHood(Helmet):
         self.name = "mail hood"
         self.description = "A hood made of chainmail."
         self.inspectMessage = "A simple hood made of chain links. Will protect from slashes, not so much arrows or stabs."
+        self.value = 1
         self.armour = 1
         self.projProt = 1
         self.slashProt = 4

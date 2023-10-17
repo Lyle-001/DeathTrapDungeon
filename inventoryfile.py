@@ -1,9 +1,10 @@
+from sys import getswitchinterval
 from ansi_codes import txt
 from validation import validate_int_input_with_bounds
 import Items
 
 class inventory:
-    def __init__(self):
+    def __init__(self,isDebug):
         self.weaponSlots = 2
         self.equipmentSlots = 5
         self.quiverSize = 10
@@ -11,6 +12,11 @@ class inventory:
         self.hasPotionPouch = False
         self.potionPouchSlots = 5
         self.potionPouchCurrentSlots = 0
+
+        if isDebug:
+            self.isDebug = True
+        else:
+            self.isDebug = False
 
         self.weapons = []
         for i in range(0,self.weaponSlots,1):
@@ -58,7 +64,7 @@ class inventory:
         emptySlots = 0
         for item in self.equipment:
             if item != "":
-                print("\t" + str(itemIncrement) + ". " + item.get_name() + txt.sty.reset)
+                print("\t" + str(itemIncrement) + ". " + item.name + txt.sty.reset)
                 itemIncrement += 1
             else:
                 emptySlots += 1
@@ -75,7 +81,7 @@ class inventory:
         emptySlots = 0
         for item in self.general:
             if item != "":
-                print("\t" + str(itemIncrement) + ". " + item.get_name() + txt.sty.reset)
+                print("\t" + str(itemIncrement) + ". " + item.name + txt.sty.reset)
                 itemIncrement += 1
             else:
                 emptySlots += 1
@@ -217,7 +223,7 @@ class inventory:
         return self.equipment
     
     def swap_equipment(self,equipmentID):
-        slot = equipmentID.get_type()
+        slot = equipmentID.get_equipment_type()
         if slot == "head":
             slot = 0
         elif slot == "torso":
@@ -229,7 +235,7 @@ class inventory:
         elif slot == "feet":
             slot = 4
         else:
-            print("equipmentID not recognised.")
+            print("equipment type not recognised.")
             return False
 
         if self.equipment[slot] == "":
@@ -242,6 +248,7 @@ class inventory:
             if choice == 1:
                 temp = self.equipment[slot]
                 self.equipment[slot] = equipmentID
+                self.add_general_item(temp)
                 return True
             else:
                 return False

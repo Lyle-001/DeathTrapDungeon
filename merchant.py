@@ -1,6 +1,7 @@
 from random import randint
 from ansi_codes import txt,icons
 import Items as it
+import Equipment as eq
 from validation import validate_int_input
 
 def potion_shop(hero,inventory):
@@ -95,6 +96,44 @@ def clothier(hero,inventory):
         if inventory.add_general_item(item):
             if item == potionPouch:
                 potionPouchBought = True
+            print("You successfully bought the item.")
+        else:
+            hero.set_gold(item.value)
+            print("You have been refunded.")
+
+def blacksmith(hero,inventory):
+    #alreadyBought = hero.getItems() - figure this shit out when items are implemented
+    print("You enter the workshop to find a young man hammering at a piece of glowing iron.")
+    while True:
+        wareList = [eq.MailHood()] #keeps track of what each option is
+        itemNo = 1 # modular shop list - new item? just increment number and you're good to go
+
+        print("\n" + hero.get_name() + ": " + str(hero.get_hp()) + " {}, ".format(icons.heart) + str(hero.get_gold()) + icons.gold)
+        for i in range(0,len(wareList),1):
+            item = wareList[i]
+            print(str(i+1) + ". " + item.name + " - " + item.description + "\t\t " + str(item.value) + icons.gold)
+
+        choice = input("Does much of anything catch your eye? Y/N ").upper()
+        if choice == "N":
+            return
+        bought = False
+        while not bought: #check they've chosen an option that's valid
+            try:
+                choice = validate_int_input("After much deliberation, you decide to take item... ") - 1
+                bought = hero.purchase(wareList[choice].value)
+                if not bought:
+                    print("You check your coin pouch, only to find you cannot afford the luxury of that item!")
+                    choice = input("You reconsider if you want any of these wares. (Y/N) ").upper()
+                    if choice == "N":
+                        return
+            except:
+                print("That's not right, you think, there is no option " + str(choice + 1) + "!")
+                choice = input("You reconsider if you want any of these wares. (Y/N) ").upper()
+                if choice == "N":
+                    return
+        item = wareList[choice]
+        print()
+        if inventory.add_general_item(item):
             print("You successfully bought the item.")
         else:
             hero.set_gold(item.value)
