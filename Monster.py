@@ -361,7 +361,7 @@ class Slime(Monster):
         if highFort == True and highEgo == True:
             print('The slime says: {}"{}"{}'.format(self.colourcode,highFortandEgo[randint(0, len(highFortandEgo) - 1)],txt.sty.reset))# This will be changed later depending on the Mental Fortitude and Ego attribute!!
         else:
-            print('The Vampire says: {}"{}"{}'.format(self.colourcode,normalMonster[randint(0, len(normalMonster) - 1)],txt.sty.reset)) # This will be changed later depending on the Mental Fortitude and Ego attribute!!
+            print('The slime says: {}"{}"{}'.format(self.colourcode,normalMonster[randint(0, len(normalMonster) - 1)],txt.sty.reset)) # This will be changed later depending on the Mental Fortitude and Ego attribute!!
 
 class RogueWarrior(Monster):
 
