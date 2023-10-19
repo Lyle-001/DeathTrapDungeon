@@ -59,7 +59,9 @@ def clothier(hero,inventory):
     #alreadyBought = hero.getItems() - figure this shit out when items are implemented
     print("You enter the homely building. An old man is sitting behind the counter, sewing together a boy's shirt.")
     while True:
-        wareList = [] #keeps track of what each option is
+        wareList = [eq.LeatherGauntlets(),eq.LeatherShoes(),
+                    eq.WoolGambeson(),
+                    eq.ClothHat(),eq.ClothShirt(),eq.ClothGloves(),eq.ClothTrousers(),eq.ClothCloths()] #keeps track of what each option is
         itemNo = 1 # modular shop list - new item? just increment number and you're good to go
 
         print("\n" + hero.get_name() + ": " + str(hero.get_hp()) + " {}, ".format(icons.heart) + str(hero.get_gold()) + icons.gold)
@@ -105,7 +107,8 @@ def blacksmith(hero,inventory):
     #alreadyBought = hero.getItems() - figure this shit out when items are implemented
     print("You enter the workshop to find a young man hammering at a piece of glowing iron.")
     while True:
-        wareList = [eq.MailHood()] #keeps track of what each option is
+        wareList = [eq.MailHood(),eq.MailHauberk(),eq.MailGloves(),eq.MailChausse(),eq.MailBoots(),
+                    eq.SteelHelm(),eq.SteelBreastplate(),eq.SteelGauntlets(),eq.SteelGreaves(),eq.SteelSabatons()] #keeps track of what each option is
         itemNo = 1 # modular shop list - new item? just increment number and you're good to go
 
         print("\n" + hero.get_name() + ": " + str(hero.get_hp()) + " {}, ".format(icons.heart) + str(hero.get_gold()) + icons.gold)

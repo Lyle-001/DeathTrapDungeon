@@ -171,7 +171,7 @@ weapon.inspect()
 inv.add_weapon([weapon,1])
 
 if debug:
-    print("#### DEBUG #### do you want some money?")
+    print(txt.sty.reset + "#### DEBUG #### do you want some money?")
     print("\tY) Yes\n\tN) No")
     if input().lower() == "y":
         valid = False
