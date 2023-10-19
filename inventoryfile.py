@@ -5,6 +5,7 @@ import Items
 
 class inventory:
     def __init__(self,isDebug):
+        # config stats. may be used for rebalancing later on
         self.weaponSlots = 2
         self.equipmentSlots = 5
         self.quiverSize = 10
@@ -12,29 +13,34 @@ class inventory:
         self.hasPotionPouch = False
         self.potionPouchSlots = 5
         self.potionPouchCurrentSlots = 0
-
+        
+        # :smile:
         if isDebug:
             self.isDebug = True
         else:
             self.isDebug = False
 
+        # initialise the weapons part of the inventory
         self.weapons = []
         for i in range(0,self.weaponSlots,1):
             slot = ["",0]
             self.weapons.append(slot)
         self.weaponsFull = False
         
+        # initialise the equipment part of the inventory
         self.equipment = []
         for i in range(0,self.equipmentSlots,1):
             slot = ["",0]
             self.equipment.append(slot)
 
+        # initialise the general part of the inventory
         self.general = []
         for i in range(0,self.generalSlots,1):
             slot = ["",0]
             self.general.append(slot)
         self.generalFull = False
 
+        # initialise the potions part of the inventory
         self.potionPouch = []
         for i in range(0,self.potionPouchSlots,1):
             slot = ["",0]
@@ -45,9 +51,10 @@ class inventory:
 
 
     def access_inventory(self,hero):
-        itemIncrement = 1
+        itemIncrement = 1 # used for the numbering of the items
 
-        print("Weapons") # Weapons section
+        # print the weapons part of the inventory
+        print("Weapons")
         emptySlots = 0
         for item in self.weapons:
             if item[0] != "":
@@ -63,8 +70,8 @@ class inventory:
             else:
                 print("\tWith " + str(emptySlots) + " more empty slots.")
 
-
-        print("Equipment") # Equipment section
+        # print the equipment part of the inventory
+        print("Equipment")
         emptySlots = 0
         for item in self.equipment:
             if item[0] != "":
@@ -80,8 +87,8 @@ class inventory:
             else:
                 print("\tWith " + str(emptySlots) + " more empty slots.")
 
-
-        print("General Slots") # General Slots
+        # print the general part of the inventory
+        print("General Slots")
         emptySlots = 0
         for item in self.general:
             if item[0] != "":
@@ -97,8 +104,8 @@ class inventory:
             else:
                 print("\tWith " + str(emptySlots) + " more empty slots.")
 
-
-        if self.hasPotionPouch: # Potion Pouch
+        # print the potions part of the inventory
+        if self.hasPotionPouch:
             print("Potion Pouch")
             emptySlots = 0
             for item in self.potionPouch:
@@ -118,6 +125,7 @@ class inventory:
             print("You do not have a potion pouch. You might be able to find one at a clothier.")
 
 
+        # give options
         print("\nWhat would you like to do?")
         print("Inspect item (\"inspect\" + item number)")
         print("Use item (\"use\" + item number)")
@@ -126,9 +134,9 @@ class inventory:
         while not valid:
             valid = True
             choice = input()
-            if choice.lower() == "exit":
+            if choice.lower() == "exit": # deals with the exit command
                 return
-            choice = choice.split(" ",1) # splits on the space key once. splits the command into the keyword and the target item
+            choice = choice.split(" ",1) # splits the command into 2 sections: the command and the target item
             if len(choice) == 2:
                 command = choice[0].lower()
                 target = choice[1]
@@ -144,7 +152,7 @@ class inventory:
             else:
                 valid = False
             if not valid:
-                print("Please enter a valid option.")
+                print("Please enter a valid option.") # now the user input is validated
 
 
         itemFound = False # Find the item the user is referencing
@@ -177,6 +185,8 @@ class inventory:
                     target = item[0]
                     itemFound = True
 
+
+        # actually run the commands
         if command == "inspect":
             try:
                 print(target.inspect())

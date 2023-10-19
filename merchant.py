@@ -20,7 +20,26 @@ class Shop:
                 stock.append([item,1])
         for item in self.exclusiveWareList:
             if randint(0,100) < 30: # NEED TO IMPLEMENT CHECKING THE INVENTORY FOR THE PIECE OF EQUIPMENT
-                stock.append([item,1])
+                inInv = False
+                for weapon in inv.get_weapons():
+                    if weapon[0] != "":
+                        if weapon[0].name == item.name:
+                            inInv = True
+                for equipment in inv.get_equipment():
+                    if equipment[0] != "":
+                        if equipment[0].name == item.name:
+                            inInv = True
+                for generalItem in inv.get_general_slots():
+                    if generalItem[0] != "":
+                        if generalItem[0].name == item.name:
+                            inInv = True
+                if inv.hasPotionPouch:
+                    for potion in inv.get_potion_pouch():
+                        if potion[0] != "":
+                            if potion[0].name == item.name:
+                                inInv = True
+                if not inInv:
+                    stock.append([item,1])
         return stock
 
     def shop(self,hero,inventory):
