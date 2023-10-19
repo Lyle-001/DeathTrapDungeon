@@ -216,10 +216,10 @@ class Vampire(Monster):
             'He sinks his fangs into your neck!',
             'He munches at your ears!',
             'He bites at your face!',
-            'He chomps at torso!'
+            'He chomps at your torso!'
             'He swings his rapier!!',
             'He bashes you with his mace!',
-            'He sweeps you off his feet!',
+            'He sweeps you off your feet!',
             'He glares at you with evil eyes, filling you with terror.'
         ]
         self.resists = [["smash",0],["pierce",4],["slash",0]]
@@ -290,20 +290,78 @@ class Slime(Monster):
 
     # Construction
     def __init__(self,colour,adj):
+        slimeMessageBank = [
+            'He spews gooey liquid at you!',
+            'He jumps at you!',
+            'He traps you in his slime!',
+            'He cries "waka waka whaaat" and englufs you!',
+            'He grips you with his sticky liquid!',
+            'He swallows you whole and spits you back out!'
+            'He squishes you underneath his slimy weight!',
+            'He traps you under his folds, rendering you unable to breathe!',
+            'He slips you off your feet with his slime trail!',
+            'His sticky substance burns your soul!'
+        ]
         self.resists = [["smash",5],["pierce",0],["slash",0]]
         self.adj = adj
         self.colourcode = colour
         self.species = "slime"
         self.hitPoints = 8
         self.maxDamage = 4
-        self.attackMessage = "It tries to engulf you."
+        self.attackMessage = slimeMessageBank[randint(0, len(slimeMessageBank) - 1)]
         self.gold = randint(2,9)
         self.mentalFortitude = randint(0,100)
         self.ego = randint(0,100)
 
     # Methods
-    def talk(self):
-        print("{}Boooiiinnnggg!{}".format(self.colourcode,txt.sty.reset))
+        highFortandEgo = ["Hey! Get a move on!", 
+                          "I'm boinging here!",
+                          "I'm going to slam you into outer space!",
+                          'Look upon my stickiness, and despair!',
+                          "Wait until I whip out the slime sword!.",
+                          'Wait until I hit you with a slimecicle!',
+                          'Goo Powers, ACTIVATE!',
+                          "I'm gonna slime you up and down!",
+                          "Wait until you see my slime whip!",
+                          "I'm going to use my special goo-fusion attack if you're not careful!",
+                          "I'm going to cover your organs in goo!",
+                          "I can't wait to see you collapse under my folds!",
+                          "I'm as bored as a slime in a sentient rock convention!",
+                          "You're not ready to fight a gelatinous cube."
+        ]
+
+        normalMonster = ['BOOOIIINNNGGG!!',
+                         "BOING!",
+                         "BOING BOING BOING!",
+                         "blub blurp",
+                         "blup bluuup",
+                         "bluurrp blurp",
+                         "BLURPPPPPPPPPP BLORP",
+                         "BLAHHHHHHGH.",
+                         'BLURP BLURP BOING!',
+                         "BLOBBBOB!",
+                         "BlibbleBlobble!",
+                         'EEEEEEEEEEEEEEEEEEEEEEEEEE!!',
+                         'BLAGHBLAHBLAGH!!'
+        ]
+
+        fortitude = self.getFortitude()
+        ego = self.getEgo()
+
+        bothCheck = False
+        highFort = False   
+        highEgo = False
+
+        if fortitude >= 70:
+            highFort = True
+
+        if ego >= 70:
+            highEgo = True
+
+        if highFort == True and highEgo == True:
+            print('The slime says: {}"{}"{}'.format(self.colourcode,highFortandEgo[randint(0, len(highFortandEgo) - 1)],txt.sty.reset))# This will be changed later depending on the Mental Fortitude and Ego attribute!!
+        else:
+            print('The Vampire says: {}"{}"{}'.format(self.colourcode,normalMonster[randint(0, len(normalMonster) - 1)],txt.sty.reset)) # This will be changed later depending on the Mental Fortitude and Ego attribute!!
 
 class RogueWarrior(Monster):
 
