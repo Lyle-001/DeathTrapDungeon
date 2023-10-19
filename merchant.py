@@ -43,7 +43,7 @@ def potion_shop(hero,inventory):
                     return
         item = wareList[choice]
         print()
-        if inventory.add_general_item(item):
+        if inventory.add_general_item([item,1]):
             if item == mystElixir:
                 mysBought = True
             print("You successfully bought the item.")
@@ -93,7 +93,7 @@ def clothier(hero,inventory):
                     return
         item = wareList[choice]
         print()
-        if inventory.add_general_item(item):
+        if inventory.add_general_item([item,1]):
             if item == potionPouch:
                 potionPouchBought = True
             print("You successfully bought the item.")
@@ -133,7 +133,7 @@ def blacksmith(hero,inventory):
                     return
         item = wareList[choice]
         print()
-        if inventory.add_general_item(item):
+        if inventory.add_general_item([item,1]):
             print("You successfully bought the item.")
         else:
             hero.set_gold(item.value)

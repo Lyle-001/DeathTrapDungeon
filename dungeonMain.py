@@ -151,8 +151,8 @@ while not detailsConfirmed:
     print("\tClass: {}{}{}".format(txt.col.fg.nml.yellow,theHero.get_class(),txt.sty.reset))
     print("\tWeapon: {}{}{}".format(txt.col.fg.nml.green,weapon.get_name().capitalize(),txt.sty.reset))
     print("Y) Yes\nN) No")
-    choice = input()
-    if choice.lower() == "y":
+    choice = validate_not_empty_input()
+    if choice.lower()[0] == "y":
         detailsConfirmed = True
     else:
         print("{}Through the power of a mystical force you are sent back in time.{}".format(txt.col.fg.strg.magenta,txt.sty.reset))
@@ -168,7 +168,7 @@ if debug:
                 valid = weapon.set_modifier(input("Modifier: "))
 print("You pick up a " + weapon.get_name())
 weapon.inspect()
-inv.add_weapon(weapon)
+inv.add_weapon([weapon,1])
 
 print()
 victories = 0

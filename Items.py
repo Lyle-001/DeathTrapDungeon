@@ -35,7 +35,7 @@ class DilutedHealingElixir:
         hero.heal(healAmount)
         print(self.useMessage)
         if self.destroyOnUse:
-            inventory.destroy_general_item(self)
+            inventory.destroy_general_item([self,1])
         return healAmount
 
 class ImpureHealingElixir(DilutedHealingElixir):
@@ -71,7 +71,7 @@ class MysteryElixir:
     def get_type(self):
         return "potion"
 
-    def use(self,hero):
+    def use(self,hero,inventory):
         effect = randint(1,6)
         if effect <= 3: #weighted towards nothing
             print("As you drink it, you realise it is a phony elixir, with no effects other than an unpleasant taste.")
@@ -85,7 +85,7 @@ class MysteryElixir:
             print("Too late you realise the recklessness of your drinking as poison spills down your throat, taking its effect in seconds.")
             hero.receiveDamage(1000) #there's more elegant ways to kill you, yes. there's also more elegant ways to make a game and i don't see them used here
             return
-        inventory.destroy_general_item(self)
+        inventory.destroy_general_item([self,1])
 
 
 
@@ -106,7 +106,7 @@ class PotionPouch:
         inv.potionPouchCurrentSlots = inv.potionPouchSlots
         inv.hasPotionPouch = True
         inv.update_potion_pouch()
-        inv.destroy_general_item(self)
+        inv.destroy_general_item([self,1])
         return True
 
     def get_type(self):

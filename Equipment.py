@@ -22,8 +22,8 @@ class Armour:
         return "equipment"
 
     def use(self,hero,inv):
-        inv.swap_equipment(self)
-        inv.destroy_general_item(self)
+        inv.swap_equipment([self,1])
+        inv.destroy_general_item([self,1])
 
 class Helmet(Armour):
     def __init__(self):
