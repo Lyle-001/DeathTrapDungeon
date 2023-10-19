@@ -143,8 +143,8 @@ class MailGloves(Hands):
 class MailChausse(Legs):
     def __init__(self):
         self.name = "mail chausse"
-        self.description = "mail chausse"
-        self.inspectMessage = "mail chausse"
+        self.description = "Leg armour of mobile linked chains."
+        self.inspectMessage = "Agile and protected, the best of both worlds! At least when it comes to slashes, these aren't good for much else."
         self.value = 1
         self.armour = 1
         self.projProt = 1
@@ -155,8 +155,8 @@ class MailChausse(Legs):
 class MailBoots(Feet):
     def __init__(self):
         self.name = "mail boots"
-        self.description = "mail boots"
-        self.inspectMessage = "mail boots"
+        self.description = "Mail boots built around a leather sole."
+        self.inspectMessage = "Best hope the leather doesn't stain. Handy for slashes and not much else."
         self.value = 1
         self.armour = 1
         self.projProt = 1
@@ -167,26 +167,26 @@ class MailBoots(Feet):
 class LeatherGauntlets(Hands):
     def __init__(self):
         self.name = "leather gloves"
-        self.description = "leather gloves"
-        self.inspectMessage = "leather gloves"
+        self.description = "A pair of leather gloves."
+        self.inspectMessage = "Decent for the cold, or for committing crimes. That and some smashing or slashing done to you."
         self.value = 1
         self.armour = 1
         self.projProt = 0
-        self.slashProt = 3
+        self.slashProt = 2
         self.pierceProt = 0
-        self.smashProt = 2
+        self.smashProt = 3
 
 class LeatherShoes(Feet):
     def __init__(self):
         self.name = "leather shoes"
-        self.description = "leather shoes"
-        self.inspectMessage = "leather shoes"
+        self.description = "Some real leather shoes."
+        self.inspectMessage = "The day for foot protection has come, sans trench foot! Useful for blunt blows and some slashes."
         self.value = 1
         self.armour = 1
         self.projProt = 0
-        self.slashProt = 3
+        self.slashProt = 2
         self.pierceProt = 0
-        self.smashProt = 2
+        self.smashProt = 3
 
 class WoolGambeson(Torso):
     def __init__(self):
@@ -203,8 +203,8 @@ class WoolGambeson(Torso):
 class ClothHat(Helmet):
     def __init__(self):
         self.name = "hat"
-        self.description = "Will protect your head from the rain."
-        self.inspectMessage = "A cloth hat. Provides no aid in the midst of battle."
+        self.description = "Headwear from tailored cloth."
+        self.inspectMessage = "It's useless for defence, but you'll look good while bleeding out!"
         self.value = 1
         self.armour = 0
         self.projProt = 0
@@ -227,8 +227,8 @@ class ClothShirt(Torso):
 class ClothGloves(Hands):
     def __init__(self):
         self.name = "gloves"
-        self.description = "gloves"
-        self.inspectMessage = "gloves"
+        self.description = "A comfy pair of gloves."
+        self.inspectMessage = "They'll help against the cold, I guess. Not any attacks though. Fit like a- hang on..."
         self.value = 1
         self.armour = 0
         self.projProt = 0
@@ -239,8 +239,8 @@ class ClothGloves(Hands):
 class ClothTrousers(Legs):
     def __init__(self):
         self.name = "trousers"
-        self.description = "trousers"
-        self.inspectMessage = "trousers"
+        self.description = "Some nicely fitting trousers."
+        self.inspectMessage = "Hey, there's some change in here! Actually, it's just a button. Could've afforded some actual protection instead of these."
         self.value = 1
         self.armour = 0
         self.projProt = 0
@@ -251,8 +251,8 @@ class ClothTrousers(Legs):
 class ClothCloths(Feet):
     def __init__(self):
         self.name = "cloths"
-        self.description = "cloths"
-        self.inspectMessage = "cloths"
+        self.description = "Shoes for those who can't afford shoes."
+        self.inspectMessage = "One day these'll protect your feet. Or give you trench foot. There's not much protection today though."
         self.value = 1
         self.armour = 0
         self.projProt = 0
@@ -275,8 +275,8 @@ class SteelHelm(Helmet):
 class SteelBreastplate(Torso):
     def __init__(self):
         self.name = "steel breastplate"
-        self.description = "a breastplate made of steel."
-        self.inspectMessage = "i cant be bothered to make up these messages anymore someone else do it please."
+        self.description = "A breastplate made of steel."
+        self.inspectMessage = "A well crafted steel breastplate. Useful against blades and blows, but not so much points or projectiles."
         self.value = 1
         self.armour = 2
         self.projProt = 2
@@ -287,8 +287,8 @@ class SteelBreastplate(Torso):
 class SteelGauntlets(Hands):
     def __init__(self):
         self.name = "steel gauntlets"
-        self.description = "steel gauntlets"
-        self.inspectMessage = "steel gauntlets"
+        self.description = "A pair of steel gauntlets."
+        self.inspectMessage = "These will definitely help with the cold! And even blade strokes and blunt strikes!"
         self.value = 1
         self.armour = 2
         self.projProt = 2
@@ -298,9 +298,9 @@ class SteelGauntlets(Hands):
 
 class SteelGreaves(Legs):
     def __init__(self):
-        self.name = "steel greeves"
-        self.description = "steel greeves"
-        self.inspectMessage = "steel greeves"
+        self.name = "steel greaves"
+        self.description = "Steel armour for your shins."
+        self.inspectMessage = "Shinpads made for proper footie! Handy for tackles- I mean blunts strikes and slashes."
         self.value = 1
         self.armour = 2
         self.projProt = 2
@@ -311,8 +311,8 @@ class SteelGreaves(Legs):
 class SteelSabatons(Feet):
     def __init__(self):
         self.name = "steel sabatons"
-        self.description = "steel sabatons"
-        self.inspectMessage = "steel sabatons"
+        self.description = "Steel-forged boots."
+        self.inspectMessage = "Good for stomping on things really hard. And for protecting against slashes and smashes."
         self.value = 1
         self.armour = 2
         self.projProt = 2
