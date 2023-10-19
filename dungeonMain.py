@@ -211,18 +211,21 @@ while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins ten mat
         print("You have " + str(theHero.gold) + icons.gold + ".\n")
         # Give user option of visiting the dungeon shop if they have another fight next
         if victories < 10:
-            purchase = input("\nUp ahead lies a hastily-constructed shelter. {}Do you wish to enter the Apothecarial Tent? Y/N {}".format(txt.sty.bold,txt.sty.reset)).upper()
-            if purchase == "Y":
-                theShop = merchant.Apothecary()
-                theShop.shop(theHero,inv)
-            purchase = input("\nYou see a blacksmith in the distance. {}Do you wish to enter? Y/N {}".format(txt.sty.bold,txt.sty.reset)).upper()
-            if purchase == "Y":
-                theShop = merchant.Blacksmith()
-                theShop.shop(theHero,inv)
-            purchase = input("\nYou see a small house with a sign in front. {}Do you want to enter the Clothier's? Y/N {}".format(txt.sty.bold,txt.sty.reset)).upper()
-            if purchase == "Y":
-                theShop = merchant.Clothier()
-                theShop.shop(theHero,inv)
+            if random.randint(1,100) < 70:
+                purchase = input("\nUp ahead lies a hastily-constructed shelter. {}Do you wish to enter the Apothecarial Tent? Y/N {}".format(txt.sty.bold,txt.sty.reset)).upper()
+                if purchase == "Y":
+                    theShop = merchant.Apothecary()
+                    theShop.shop(theHero,inv)
+            if random.randint(1,100) < 70:
+                purchase = input("\nYou see a blacksmith in the distance. {}Do you wish to enter? Y/N {}".format(txt.sty.bold,txt.sty.reset)).upper()
+                if purchase == "Y":
+                    theShop = merchant.Blacksmith()
+                    theShop.shop(theHero,inv)
+            if random.randint(1,100) < 70:
+                purchase = input("\nYou see a small house with a sign in front. {}Do you want to enter the Clothier's? Y/N {}".format(txt.sty.bold,txt.sty.reset)).upper()
+                if purchase == "Y":
+                    theShop = merchant.Clothier()
+                    theShop.shop(theHero,inv)
         # Give user option of accessing inventory
         print("\n")
         accessingInv = True

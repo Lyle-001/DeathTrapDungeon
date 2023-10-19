@@ -16,10 +16,10 @@ class Shop:
         for item in self.persistentWareList:
             stock.append([item,randint(20,50)])
         for item in self.strangeWareList:
-            if randint(0,100) < 70:
+            if randint(1,100) < 70:
                 stock.append([item,1])
         for item in self.exclusiveWareList:
-            if randint(0,100) < 30: # NEED TO IMPLEMENT CHECKING THE INVENTORY FOR THE PIECE OF EQUIPMENT
+            if randint(1,100) < 30:
                 inInv = False
                 for weapon in inv.get_weapons():
                     if weapon[0] != "":
