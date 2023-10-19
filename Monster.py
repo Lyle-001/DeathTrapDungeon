@@ -98,9 +98,9 @@ class Monster:
                           ]
 
         normalMonster = ['ROOOOAR!!',
-                         'YOUR TIME ENDS NOW',
-                         "I'M GOING TO SKIN YOU ALIVE",
-                         'AFTER THIS I AM GOING FOR YOUR FAMILY',
+                         'YOUR TIME ENDS NOW!',
+                         "I'M GOING TO SKIN YOU ALIVE!",
+                         "AFTER THIS I'M GOING FOR YOUR FAMILY",
                          "YOU'RE GOING TO TASTE SO DELICIOUS!",
                          "I'M GOING TO USE YOUR BLOOD FOR THE CHILLI COOK OFF NEXT WEEK!",
                          'I WILL WIPE THE FLOOR WITH YOU!',
@@ -115,7 +115,6 @@ class Monster:
         fortitude = self.getFortitude()
         ego = self.getEgo()
 
-        bothCheck = False
         highFort = False
         highEgo = False
 
@@ -126,9 +125,9 @@ class Monster:
             highEgo = True
 
         if highFort == True and highEgo == True:
-            print('The Monster says: {}"{}"{}'.format(self.colourcode,highFortandEgo[randint(0, len(highFortandEgo) - 1)],txt.sty.reset))# This will be changed later depending on the Mental Fortitude and Ego attribute!!
+            print('The Monster says: {}"{}"{}'.format(self.colourcode,highFortandEgo[randint(0, len(highFortandEgo) - 1)],txt.sty.reset)) 
         else:
-            print('The Monster says: {}"{}"{}'.format(self.colourcode,normalMonster[randint(0, len(normalMonster) - 1)],txt.sty.reset)) # This will be changed later depending on the Mental Fortitude and Ego attribute!!
+            print('The Monster says: {}"{}"{}'.format(self.colourcode,normalMonster[randint(0, len(normalMonster) - 1)],txt.sty.reset))  
 
 class Goblin(Monster):
     # Construction
@@ -157,7 +156,7 @@ class Goblin(Monster):
         self.ego = randint(0,100)
     # Methods
     def talk(self):
-        highFortandEgo = ["I'm sorry, my family needs money.", 
+        highFortandEgoGob = ["I'm sorry, my family needs money.", 
                           'I will do you the honour of not desecrating your corpse.',
                           "Please, don't make this harder than it has to be.",
                           'I promised my wife we could eat tonight.',
@@ -173,7 +172,7 @@ class Goblin(Monster):
                           'There is nothing personal about this.'
                           ]
 
-        normalMonster = ['Tee hee hee, you will never get my riches',
+        normalGob = ['Tee hee hee, you will never get my riches',
                          'THESE ARE MY TREASURES!',
                          "I SMELL MONEYYY",
                          "I'm going to take all your money!!!",
@@ -191,7 +190,7 @@ class Goblin(Monster):
         fortitude = self.getFortitude()
         ego = self.getEgo()
 
-        bothCheck = False
+          
         highFort = False   
         highEgo = False
 
@@ -202,9 +201,9 @@ class Goblin(Monster):
             highEgo = True
 
         if highFort == True and highEgo == True:
-            print('The Goblin says: {}"{}"{}'.format(self.colourcode,highFortandEgo[randint(0, len(highFortandEgo) - 1)],txt.sty.reset))# This will be changed later depending on the Mental Fortitude and Ego attribute!!
+            print('The Goblin says: {}"{}"{}'.format(self.colourcode,highFortandEgoGob[randint(0, len(highFortandEgoGob) - 1)],txt.sty.reset)) 
         else:
-            print('The Goblin says: {}"{}"{}'.format(self.colourcode,normalMonster[randint(0, len(normalMonster) - 1)],txt.sty.reset)) # This will be changed later depending on the Mental Fortitude and Ego attribute!!
+            print('The Goblin says: {}"{}"{}'.format(self.colourcode,normalGob[randint(0, len(normalGob) - 1)],txt.sty.reset))  
 
 class Vampire(Monster):
 
@@ -236,7 +235,7 @@ class Vampire(Monster):
     # Methods
     def talk(self):
 
-        highFortandEgo = ["En guarde, warrior!", 
+        highFortandEgoVamp = ["En guarde, warrior!", 
                           'Quiver at my elegance!',
                           "Do me a favour, and try not to die so early :)",
                           'Finally, some action!',
@@ -252,7 +251,7 @@ class Vampire(Monster):
                           'Can we hurry this up? I have a ritual to make an appearence at.'
         ]
 
-        normalMonster = ['SNARRLLLLLL!!',
+        normalVamp = ['SNARRLLLLLL!!',
                          "HIIIISSSSSSSSS!!!",
                          "I LOVE BLOOD!",
                          "I'LL CARVE MY NAME IN YOUR FLESH!",
@@ -270,7 +269,7 @@ class Vampire(Monster):
         fortitude = self.getFortitude()
         ego = self.getEgo()
 
-        bothCheck = False
+          
         highFort = False   
         highEgo = False
 
@@ -281,9 +280,9 @@ class Vampire(Monster):
             highEgo = True
 
         if highFort == True and highEgo == True:
-            print('The Vampire says: {}"{}"{}'.format(self.colourcode,highFortandEgo[randint(0, len(highFortandEgo) - 1)],txt.sty.reset))# This will be changed later depending on the Mental Fortitude and Ego attribute!!
+            print('The Vampire says: {}"{}"{}'.format(self.colourcode,highFortandEgoVamp[randint(0, len(highFortandEgoVamp) - 1)],txt.sty.reset)) 
         else:
-            print('The Vampire says: {}"{}"{}'.format(self.colourcode,normalMonster[randint(0, len(normalMonster) - 1)],txt.sty.reset)) # This will be changed later depending on the Mental Fortitude and Ego attribute!!
+            print('The Vampire says: {}"{}"{}'.format(self.colourcode,normalVamp[randint(0, len(normalVamp) - 1)],txt.sty.reset))  
 
 
 class Slime(Monster):
@@ -314,7 +313,10 @@ class Slime(Monster):
         self.ego = randint(0,100)
 
     # Methods
-        highFortandEgo = ["Hey! Get a move on!", 
+
+    def talk(self):
+
+        highFortandEgoSlime = ["Hey! Get a move on!", 
                           "I'm boinging here!",
                           "I'm going to slam you into outer space!",
                           'Look upon my stickiness, and despair!',
@@ -330,7 +332,7 @@ class Slime(Monster):
                           "You're not ready to fight a gelatinous cube."
         ]
 
-        normalMonster = ['BOOOIIINNNGGG!!',
+        normalSlime = ['BOOOIIINNNGGG!!',
                          "BOING!",
                          "BOING BOING BOING!",
                          "blub blurp",
@@ -348,7 +350,7 @@ class Slime(Monster):
         fortitude = self.getFortitude()
         ego = self.getEgo()
 
-        bothCheck = False
+          
         highFort = False   
         highEgo = False
 
@@ -359,9 +361,10 @@ class Slime(Monster):
             highEgo = True
 
         if highFort == True and highEgo == True:
-            print('The slime says: {}"{}"{}'.format(self.colourcode,highFortandEgo[randint(0, len(highFortandEgo) - 1)],txt.sty.reset))# This will be changed later depending on the Mental Fortitude and Ego attribute!!
+            print('The Slime gurgles: {}"{}"{}'.format(self.colourcode,highFortandEgoSlime[randint(0, len(highFortandEgoSlime) - 1)],txt.sty.reset)) 
         else:
-            print('The slime says: {}"{}"{}'.format(self.colourcode,normalMonster[randint(0, len(normalMonster) - 1)],txt.sty.reset)) # This will be changed later depending on the Mental Fortitude and Ego attribute!!
+            print('The Slime gurgles: {}"{}"{}'.format(self.colourcode,normalSlime[randint(0, len(normalSlime) - 1)],txt.sty.reset))  
+
 
 class RogueWarrior(Monster):
 
