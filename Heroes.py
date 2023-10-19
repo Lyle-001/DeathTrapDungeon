@@ -25,6 +25,7 @@ class Hero():
     # Setters
     def set_gold(self,gold):
         self.gold += gold
+        return True
 
     def setMaxDamage(self,damage):
         self.maxDamage += damage

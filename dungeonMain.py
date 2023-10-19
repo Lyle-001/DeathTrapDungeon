@@ -159,16 +159,25 @@ while not detailsConfirmed:
 
 weapon.randomise_modifier()
 if debug:
-        print("#### DEBUG #### Dost thou want to set thy own modifier?")
-        print("\tY) Yes\n\tN) No")
-        if input().lower() == "y":
-            valid = False
-            while not valid:
-                print("What would you enjoy your modifier to be?")
-                valid = weapon.set_modifier(input("Modifier: "))
+    print("#### DEBUG #### Dost thou want to set thy own modifier?")
+    print("\tY) Yes\n\tN) No")
+    if input().lower() == "y":
+        valid = False
+        while not valid:
+            print("What would you enjoy your modifier to be?")
+            valid = weapon.set_modifier(input("Modifier: "))
 print("You pick up a " + weapon.get_name())
 weapon.inspect()
 inv.add_weapon([weapon,1])
+
+if debug:
+    print("#### DEBUG #### do you want some money?")
+    print("\tY) Yes\n\tN) No")
+    if input().lower() == "y":
+        valid = False
+        while not valid:
+            print("how much money")
+            valid = theHero.set_gold(validate_int_input("money: "))
 
 print()
 victories = 0

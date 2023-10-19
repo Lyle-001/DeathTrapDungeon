@@ -33,6 +33,9 @@ class Weapon:
         except:
             return self.name
 
+    def get_type(self):
+        return ("weapon")
+
     ####################################
     ##### Modifier-Related Methods #####
     ####################################

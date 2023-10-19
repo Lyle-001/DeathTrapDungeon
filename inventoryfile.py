@@ -51,7 +51,7 @@ class inventory:
         emptySlots = 0
         for item in self.weapons:
             if item[0] != "":
-                print("\t" + str(itemIncrement) + ". " + item[0].get_name() + txt.sty.reset)
+                print("\t" + str(itemIncrement) + ". " + item[0].get_name() + txt.sty.reset + "\t" + str(item[1]))
                 itemIncrement += 1
             else:
                 emptySlots += 1
@@ -68,7 +68,7 @@ class inventory:
         emptySlots = 0
         for item in self.equipment:
             if item[0] != "":
-                print("\t" + str(itemIncrement) + ". " + item[0].name + txt.sty.reset)
+                print("\t" + str(itemIncrement) + ". " + item[0].name + txt.sty.reset + "\t" + str(item[1]))
                 itemIncrement += 1
             else:
                 emptySlots += 1
@@ -85,7 +85,7 @@ class inventory:
         emptySlots = 0
         for item in self.general:
             if item[0] != "":
-                print("\t" + str(itemIncrement) + ". " + item[0].name + txt.sty.reset)
+                print("\t" + str(itemIncrement) + ". " + item[0].name + txt.sty.reset + "\t" + str(item[1]))
                 itemIncrement += 1
             else:
                 emptySlots += 1
@@ -103,7 +103,7 @@ class inventory:
             emptySlots = 0
             for item in self.potionPouch:
                 if item[0] != "":
-                    print("\t" + str(itemIncrement) + ". " + item[0].get_name() + txt.sty.reset)
+                    print("\t" + str(itemIncrement) + ". " + item[0].get_name() + txt.sty.reset + "\t" + str(item[1]))
                     itemIncrement += 1
                 else:
                     emptySlots += 1
@@ -266,9 +266,11 @@ class inventory:
 
     def add_general_item(self,itemID):
         for i in range(0,self.generalSlots,1):
-            if self.general[i][0] == itemID[0]:
-                self.general[i][1] += itemID[1]
-                return True
+            if self.general[i][0] != "" and itemID[0].get_type != "weapon" and itemID[0].get_type != "equipment":
+                if self.general[i][0].name == itemID[0].name:
+                    if self.general[i][0].maxStack > self.general[i][1]:
+                        self.general[i][1] += itemID[1]
+                        return True
         for i in range(0,self.generalSlots,1):
             if self.general[i][0] == "":
                 if i + 1 == self.generalSlots:
@@ -282,7 +284,7 @@ class inventory:
     def destroy_general_item(self,itemID):
         for i in range(0,self.generalSlots,1):
             if self.general[i][0] != "":
-                if self.general[i] == itemID:
+                if self.general[i][0] == itemID[0]:
                     self.general[i][1] -= itemID[1]
                     if self.general[i][1] == 0:
                         self.generalFull = False
