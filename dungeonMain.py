@@ -47,25 +47,30 @@ def Combat(myHero, myWeapon, myMonster ):
 
 def name_and_format():#asks the user what they want their name to be and look like
 
-    name = validate_not_empty_input("\n{}What is your name, mighty warrior?\n".format(txt.col.fg.nml.white))
-    print("\nWhat colour do you want your name to be?\n")
-    print("1. Black\n2. Red\n3. Green\n4. Yellow\n5. Blue\n6. Magenta\n7. Cyan\n8. White")
-    fgcolour = validate_int_input_with_bounds(1,9) 
-    print("\nDo you want the colour to be strong or normal?\n1. Strong\n2. Normal")
-    fgstrength = validate_int_input_with_bounds(1,3)
+    name = validate_not_empty_input("\n{}What do you wish your name to be?\n".format(txt.col.fg.nml.white))
+    
+    choice = validate_not_empty_input("\n{}Do you wish for deeper customisation? \n\tY) Yes\n\tN) No\n".format(txt.col.fg.nml.white))
+    if choice.lower()[0] == "y":
+        print("\nWhat colour do you want your name to be?\n")
+        print("1. Black\n2. Red\n3. Green\n4. Yellow\n5. Blue\n6. Magenta\n7. Cyan\n8. White")
+        fgcolour = validate_int_input_with_bounds(1,9) 
+        print("\nDo you want the colour to be strong or normal?\n1. Strong\n2. Normal")
+        fgstrength = validate_int_input_with_bounds(1,3)
 
-    print("\nWhat colour do you want the background of your name to be?\n")
-    print("1. Black\n2. Red\n3. Green\n4. Yellow\n5. Blue\n6. Magenta\n7. Cyan\n8. White")
-    bgcolour = validate_int_input_with_bounds(1,9) 
-    print("\nDo you want the colour to be strong or normal?\n1. Strong\n2. Normal")
-    bgstrength = validate_int_input_with_bounds(1,3)
+        print("\nWhat colour do you want the background of your name to be?\n")
+        print("1. Black\n2. Red\n3. Green\n4. Yellow\n5. Blue\n6. Magenta\n7. Cyan\n8. White")
+        bgcolour = validate_int_input_with_bounds(1,9) 
+        print("\nDo you want the colour to be strong or normal?\n1. Strong\n2. Normal")
+        bgstrength = validate_int_input_with_bounds(1,3)
 
-    print("\nWhat style do you want your name to be in?\n1. Normal\n2. Bold\n3. Underlined\n4. Both")
-    format = validate_int_input_with_bounds(1,5)
+        print("\nWhat style do you want your name to be in?\n1. Normal\n2. Bold\n3. Underlined\n4. Both")
+        format = validate_int_input_with_bounds(1,5)
 
-    name = "{}{}{}".format(get_list_of_formats()[format-1],get_list_of_colours_bg()[bgstrength-1][bgcolour-1],get_list_of_colours_fg()[fgstrength-1][fgcolour-1]) + name + "{}".format(txt.sty.reset)
-    return name #already includes all the formating
-
+        name = "{}{}{}".format(get_list_of_formats()[format-1],get_list_of_colours_bg()[bgstrength-1][bgcolour-1],get_list_of_colours_fg()[fgstrength-1][fgcolour-1]) + name + "{}".format(txt.sty.reset)
+        return name #already includes all the formating
+    else:
+        return name
+    
 ################################# Main Code ####################################
 
 debuganswer = input("\nDebug?(true or false) ")
