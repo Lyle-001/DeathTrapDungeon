@@ -85,6 +85,7 @@ def shops_and_inventory():
         print("You see a small house with a sign in front. In its windowsill are spools of sewing thread.")
         shops.append(merchant.Clothier(inv))
     resting = True
+    input("Press enter to continue...")
     while resting:
         print("Shop options:") # shoptions haha
         for i in range(0,len(shops),1):
@@ -122,13 +123,11 @@ def shops_and_inventory():
     
 ################################# Main Code ####################################
 
-debuganswer = input("\nDebug?(true or false) ")
+debuganswer = input("Debug? (True or False) ")
 if debuganswer.lower() == "true":
     debug = True
-    print("debug set to true")
 else:
     debug = False
-    print("debug set to false")
 
 print("{}{}############# Welcome to Death Trap Dungeon! ############{}\n".format(txt.col.fg.strg.blue,txt.sty.bold,txt.sty.reset))
 inv = inventoryfile.inventory(debug)

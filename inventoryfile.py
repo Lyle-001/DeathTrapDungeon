@@ -1,6 +1,6 @@
 from sys import getswitchinterval
-from ansi_codes import txt
-from validation import validate_int_input_with_bounds
+from ansi_codes import txt,icons
+from validation import validate_not_empty_input
 import Items
 
 class inventory:
@@ -51,152 +51,167 @@ class inventory:
 
 
     def access_inventory(self,hero):
-        itemIncrement = 1 # used for the numbering of the items
+        while True:
+            itemIncrement = 1 # used for the numbering of the items
 
-        # print the weapons part of the inventory
-        print("Weapons")
-        emptySlots = 0
-        for item in self.weapons:
-            if item[0] != "":
-                print("\t" + str(itemIncrement) + ". " + item[0].get_name() + txt.sty.reset + "\t" + str(item[1]))
-                itemIncrement += 1
-            else:
-                emptySlots += 1
-        if emptySlots == self.weaponSlots:
-            print("\t" + str(self.weaponSlots) + " empty slots.")
-        elif emptySlots != 0:
-            if emptySlots == 1:
-                print("\tWith " + str(emptySlots) + " more empty slot.")
-            else:
-                print("\tWith " + str(emptySlots) + " more empty slots.")
+            print("\n" + hero.get_name() + ": " + str(hero.get_hp()) + " {}, ".format(icons.heart) + str(hero.get_gold()) + icons.gold)
 
-        # print the equipment part of the inventory
-        print("Equipment")
-        emptySlots = 0
-        for item in self.equipment:
-            if item[0] != "":
-                print("\t" + str(itemIncrement) + ". " + item[0].name + txt.sty.reset + "\t" + str(item[1]))
-                itemIncrement += 1
-            else:
-                emptySlots += 1
-        if emptySlots == self.equipmentSlots:
-            print("\t" + str(self.equipmentSlots) + " empty slots.")
-        elif emptySlots != 0:
-            if emptySlots == 1:
-                print("\tWith " + str(emptySlots) + " more empty slot.")
-            else:
-                print("\tWith " + str(emptySlots) + " more empty slots.")
-
-        # print the general part of the inventory
-        print("General Slots")
-        emptySlots = 0
-        for item in self.general:
-            if item[0] != "":
-                print("\t" + str(itemIncrement) + ". " + item[0].name + txt.sty.reset + "\t" + str(item[1]))
-                itemIncrement += 1
-            else:
-                emptySlots += 1
-        if emptySlots == self.generalSlots:
-            print("\t" + str(self.generalSlots) + " empty slots.")
-        elif emptySlots != 0:
-            if emptySlots == 1:
-                print("\tWith " + str(emptySlots) + " more empty slot.")
-            else:
-                print("\tWith " + str(emptySlots) + " more empty slots.")
-
-        # print the potions part of the inventory
-        if self.hasPotionPouch:
-            print("Potion Pouch")
+            # print the weapons part of the inventory
+            print("Weapons")
             emptySlots = 0
-            for item in self.potionPouch:
+            for item in self.weapons:
                 if item[0] != "":
-                    print("\t" + str(itemIncrement) + ". " + item[0].get_name() + txt.sty.reset + "\t" + str(item[1]))
+                    if item[0].maxStack != 1:
+                        print("\t" + str(itemIncrement) + ". " + item[0].name + txt.sty.reset + "\t" + str(item[1]))
+                    else:
+                        print("\t" + str(itemIncrement) + ". " + item[0].name + txt.sty.reset)
                     itemIncrement += 1
                 else:
                     emptySlots += 1
-            if emptySlots == self.potionPouchCurrentSlots:
-                print("\t" + str(self.potionPouchCurrentSlots) + " empty slots.")
+            if emptySlots == self.weaponSlots:
+                print("\t" + str(self.weaponSlots) + " empty slots.")
             elif emptySlots != 0:
                 if emptySlots == 1:
                     print("\tWith " + str(emptySlots) + " more empty slot.")
                 else:
                     print("\tWith " + str(emptySlots) + " more empty slots.")
-        else:
-            print("You do not have a potion pouch. You might be able to find one at a clothier.")
 
-
-        # give options
-        print("\nWhat would you like to do?")
-        print("Inspect item (\"inspect\" + item number)")
-        print("Use item (\"use\" + item number)")
-        print("Exit (\"exit\")")
-        valid = False
-        while not valid:
-            valid = True
-            choice = input()
-            if choice.lower() == "exit": # deals with the exit command
-                return
-            choice = choice.split(" ",1) # splits the command into 2 sections: the command and the target item
-            if len(choice) == 2:
-                command = choice[0].lower()
-                target = choice[1]
-                if command != "inspect" and command != "use":
-                    valid = False
-                if target.isdigit():
-                    target = int(target)
-                    if target < 1 or target >= itemIncrement:
-                        valid = False
-                else:
-                    valid = False
-
-            else:
-                valid = False
-            if not valid:
-                print("Please enter a valid option.") # now the user input is validated
-
-
-        itemFound = False # Find the item the user is referencing
-        nonBlanks = 0
-        for item in self.weapons:
-            if item[0] != "":
-                nonBlanks += 1
-            if nonBlanks == target:
-                target = item[0]
-                itemFound = True
-        if not itemFound:
+            # print the equipment part of the inventory
+            print("Equipment")
+            emptySlots = 0
             for item in self.equipment:
                 if item[0] != "":
-                    nonBlanks += 1
-                if nonBlanks == target:
-                    target = item[0]
-                    itemFound = True
-        if not itemFound:
+                    if item[0].maxStack != 1:
+                        print("\t" + str(itemIncrement) + ". " + item[0].name + txt.sty.reset + "\t" + str(item[1]))
+                    else:
+                        print("\t" + str(itemIncrement) + ". " + item[0].name + txt.sty.reset)
+                    itemIncrement += 1
+                else:
+                    emptySlots += 1
+            if emptySlots == self.equipmentSlots:
+                print("\t" + str(self.equipmentSlots) + " empty slots.")
+            elif emptySlots != 0:
+                if emptySlots == 1:
+                    print("\tWith " + str(emptySlots) + " more empty slot.")
+                else:
+                    print("\tWith " + str(emptySlots) + " more empty slots.")
+
+            # print the general part of the inventory
+            print("General Slots")
+            emptySlots = 0
             for item in self.general:
                 if item[0] != "":
-                    nonBlanks += 1
-                if nonBlanks == target:
-                    target = item[0]
-                    itemFound = True
-        if not itemFound:
-            for item in self.potionPouch:
+                    if item[0].maxStack != 1:
+                        print("\t" + str(itemIncrement) + ". " + item[0].name + txt.sty.reset + "\t" + str(item[1]))
+                    else:
+                        print("\t" + str(itemIncrement) + ". " + item[0].name + txt.sty.reset)
+                    itemIncrement += 1
+                else:
+                    emptySlots += 1
+            if emptySlots == self.generalSlots:
+                print("\t" + str(self.generalSlots) + " empty slots.")
+            elif emptySlots != 0:
+                if emptySlots == 1:
+                    print("\tWith " + str(emptySlots) + " more empty slot.")
+                else:
+                    print("\tWith " + str(emptySlots) + " more empty slots.")
+
+            # print the potions part of the inventory
+            if self.hasPotionPouch:
+                print("Potion Pouch")
+                emptySlots = 0
+                for item in self.potionPouch:
+                    if item[0] != "":
+                        if item[0].maxStack != 1:
+                            print("\t" + str(itemIncrement) + ". " + item[0].name + txt.sty.reset + "\t" + str(item[1]))
+                        else:
+                            print("\t" + str(itemIncrement) + ". " + item[0].name + txt.sty.reset)
+                        itemIncrement += 1
+                    else:
+                        emptySlots += 1
+                if emptySlots == self.potionPouchCurrentSlots:
+                    print("\t" + str(self.potionPouchCurrentSlots) + " empty slots.")
+                elif emptySlots != 0:
+                    if emptySlots == 1:
+                        print("\tWith " + str(emptySlots) + " more empty slot.")
+                    else:
+                        print("\tWith " + str(emptySlots) + " more empty slots.")
+            else:
+                print("You do not have a potion pouch. You might be able to find one at a clothier.")
+
+
+            # give options
+            print("\nWhat would you like to do?")
+            print("Inspect item (\"inspect\" + item number)")
+            print("Use item (\"use\" + item number)")
+            print("Exit (\"exit\")")
+            valid = False
+            while not valid:
+                valid = True
+                choice = input()
+                if choice.lower() == "exit": # deals with the exit command
+                    return
+                choice = choice.split(" ",1) # splits the command into 2 sections: the command and the target item
+                if len(choice) == 2:
+                    command = choice[0].lower()
+                    target = choice[1]
+                    if command != "inspect" and command != "use":
+                        valid = False
+                    if target.isdigit():
+                        target = int(target)
+                        if target < 1 or target >= itemIncrement:
+                            valid = False
+                    else:
+                        valid = False
+
+                else:
+                    valid = False
+                if not valid:
+                    print("Please enter a valid option.") # now the user input is validated
+
+
+            itemFound = False # Find the item the user is referencing
+            nonBlanks = 0
+            for item in self.weapons:
                 if item[0] != "":
                     nonBlanks += 1
                 if nonBlanks == target:
                     target = item[0]
                     itemFound = True
+            if not itemFound:
+                for item in self.equipment:
+                    if item[0] != "":
+                        nonBlanks += 1
+                    if nonBlanks == target:
+                        target = item[0]
+                        itemFound = True
+            if not itemFound:
+                for item in self.general:
+                    if item[0] != "":
+                        nonBlanks += 1
+                    if nonBlanks == target:
+                        target = item[0]
+                        itemFound = True
+            if not itemFound:
+                for item in self.potionPouch:
+                    if item[0] != "":
+                        nonBlanks += 1
+                    if nonBlanks == target:
+                        target = item[0]
+                        itemFound = True
 
 
-        # actually run the commands
-        if command == "inspect":
-            try:
-                print(target.inspect())
-            except:
-                print("You cannot inspect this item.")
-        elif command == "use":
-            try:
-                target.use(hero,self)
-            except:
-                print("You cannot use this item.")
+            # actually run the commands
+            if command == "inspect":
+                try:
+                    print(target.inspect())
+                except:
+                    print("You cannot inspect this item.")
+            elif command == "use":
+                try:
+                    target.use(hero,self)
+                except:
+                    print("You cannot use this item.")
 
 
 
@@ -258,9 +273,9 @@ class inventory:
             return True
         else:
             print("You have donned an alternative already. Would you like to replace this?")
-            print("\t1) Yes\n\t2) No")
-            choice = validate_int_input_with_bounds(1,3)
-            if choice == 1:
+            print("\tY) Yes\n\tN) No")
+            choice = validate_not_empty_input()
+            if choice[0].lower == "y":
                 temp = self.equipment[slot]
                 self.equipment[slot] = equipmentID
                 self.add_general_item(temp)

@@ -109,5 +109,6 @@ class Clothier(Shop):
         self.strangeWareList = []
         self.exclusiveWareList = [eq.LeatherGauntlets(),eq.LeatherShoes(),
                     eq.WoolGambeson(),
-                    eq.ClothHat(),eq.ClothShirt(),eq.ClothGloves(),eq.ClothTrousers(),eq.ClothCloths()]
+                    eq.ClothHat(),eq.ClothShirt(),eq.ClothGloves(),eq.ClothTrousers(),eq.ClothCloths(),
+                    it.PotionPouch()]
         self.wareList = self.generate_stock(inv)

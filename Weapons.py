@@ -22,6 +22,7 @@ class Weapon:
         self.missMessage = "Even I don't even know what weapon this is, of course you wouldn't be able to swing it!"
         self.inspectMessage = "It looks unexplainable. How did you get this?"
         self.modifiers = [["unobtainable",0,0]]
+        self.maxStack = 1
 
 
     def get_attacks(self):
@@ -114,6 +115,7 @@ class ClassicSword(Weapon):
         self.hitMessage = "You slash the monster with your sword-like sword."
         self.missMessage = "You slash the air with your sword-like sword."
         self.inspectMessage = "Your sword feels solid in your hands."
+        self.maxStack = 1
         self.modifiers = [["{}broken".format(txt.col.fg.strg.grey),-3,-12],
                          ["{}awful".format(txt.col.fg.nml.black),-2,-8],
                          ["{}shoddy".format(txt.col.fg.nml.black),-1,-4],
@@ -133,6 +135,7 @@ class Axe(Weapon):
         self.hitMessage = "You slice your enemy with your wieldly axe."
         self.missMessage = "You waste energy swinging your axe about."
         self.inspectMessage = "Looking at your axe, you notice a small inscribing on the handle. Probably the craftsman's."
+        self.maxStack = 1
         self.modifiers = [["{}broken".format(txt.col.fg.strg.grey),-3,-12],
                          ["{}awful".format(txt.col.fg.nml.black),-2,-8],
                          ["{}shoddy".format(txt.col.fg.nml.black),-1,-4],
@@ -152,6 +155,7 @@ class Dagger(Weapon):
         self.hitMessage = "You stab your enemy right in their guts."
         self.missMessage = "You try to stab them but you can't get close enough."
         self.inspectMessage = "You marvel at how lightweight this blade is."
+        self.maxStack = 1
         self.modifiers = [["{}broken".format(txt.col.fg.strg.grey),-3,-12],
                          ["{}awful".format(txt.col.fg.nml.black),-2,-8],
                          ["{}shoddy".format(txt.col.fg.nml.black),-1,-4],
@@ -171,6 +175,7 @@ class Scimitar(Weapon):
         self.hitMessage = "You slash the monster with your scimitar."
         self.missMessage = "You slash the air with your scimitar."
         self.inspectMessage = "You notice the exotic shape of your scimitar's blade."
+        self.maxStack = 1
         self.modifiers = [["{}broken".format(txt.col.fg.strg.grey),-3,-12],
                          ["{}awful".format(txt.col.fg.nml.black),-2,-8],
                          ["{}shoddy".format(txt.col.fg.nml.black),-1,-4],
@@ -190,6 +195,7 @@ class Mace(Weapon):
         self.hitMessage = "You slam the monster with your mace"
         self.missMessage = "Your miss your shot with your mace."
         self.inspectMessage = "Your mace is very bumpy and spiky."
+        self.maxStack = 1
         self.modifiers = [["{}broken".format(txt.col.fg.strg.grey),-3,-12],
                          ["{}awful".format(txt.col.fg.nml.black),-2,-8],
                          ["{}shoddy".format(txt.col.fg.nml.black),-1,-4],
@@ -209,6 +215,7 @@ class Hammer(Weapon):
         self.hitMessage = "The enemy gets a concussion from your hammer's blast"
         self.missMessage = "You waste valuable stamina missing your shot."
         self.inspectMessage = "\"Would you like... another nail?\" - A wise philosopher."
+        self.maxStack = 1
         self.modifiers = [["{}broken".format(txt.col.fg.strg.grey),-3,-12],
                          ["{}awful".format(txt.col.fg.nml.black),-2,-8],
                          ["{}shoddy".format(txt.col.fg.nml.black),-1,-4],
@@ -228,6 +235,7 @@ class AxeOfFlames(Weapon):
         self.hitMessage = ("The cold metal hacks the enemy, while the fire burns their wound.")
         self.missMessage = ("Your enemy is intimated by a wall of flames.")
         self.inspectMessage = ("You examine the flaming axe. Your enemies will surely know fear.")
+        self.maxStack = 1
         self.modifiers = [["{}Broken".format(txt.col.fg.strg.grey),-3,-12],
                          ["{}Awful".format(txt.col.fg.nml.black),-2,-8],
                          ["{}Shoddy".format(txt.col.fg.nml.black),-1,-4],
@@ -247,6 +255,7 @@ class SwordOfSouls(Weapon):
         self.hitMessage = ("Your enemy is struck with the blood of thousands.")
         self.missMessage = ("Your enemy hears the souls trapped within the blade.")
         self.inspectMessage = ("You unsheathe the sword. A threatening aura surrounds it.")
+        self.maxStack = 1
         self.modifiers = [["{}Broken".format(txt.col.fg.strg.grey),-3,-12],
                          ["{}Awful".format(txt.col.fg.nml.black),-2,-8],
                          ["{}Shoddy".format(txt.col.fg.nml.black),-1,-4],
