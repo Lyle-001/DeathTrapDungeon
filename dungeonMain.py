@@ -70,6 +70,54 @@ def name_and_format():#asks the user what they want their name to be and look li
         return name #already includes all the formating
     else:
         return name
+
+def shops_and_inventory():
+    print("\n")
+    shops = []
+    if random.randint(1,100) < 70:
+        print("Up ahead lies a hastily-constructed shelter. Alchemy equipment is strewn across the nearby floor.")
+        apothecary = merchant.Apothecary(inv)
+        shops.append(apothecary)
+    if random.randint(1,100) < 70:
+        print("You see a blacksmith in the distance.")
+        shops.append(merchant.Blacksmith(inv))
+    if random.randint(1,100) < 70:
+        print("You see a small house with a sign in front. In its windowsill are spools of sewing thread.")
+        shops.append(merchant.Clothier(inv))
+    resting = True
+    while resting:
+        print("Shop options:")
+        for i in range(0,len(shops),1):
+            print("\t" + str(i + 1) + ") Enter the " + shops[i].name)
+        print("\tEnter a shop (type \"enter\" plus the number of the shop)")
+        print("\tAccess Inventory (type inventory)")
+        print("\tContinue Journey (type continue)")
+
+        valid = False
+        while not valid:
+            choice = input()
+            choice = choice.split(" ",1)
+            if len(choice) == 2:
+                if choice[1].isdigit():
+                    choice[1] = int(choice[1])
+                    if choice[0] == "enter" and choice[1] > 0 and choice[1] < len(shops) + 1:
+                        valid = True
+            else:
+                choice = choice[0]
+                if choice == "inventory":
+                    valid = True
+                elif choice == "continue":
+                    valid = True
+            if not valid:
+                print("Enter a valid command!")
+
+        if choice == "inventory":
+             inv.access_inventory(theHero)
+        elif choice == "continue":
+             resting = False
+        else:
+            theShop = shops[choice[1] - 1]
+            theShop.shop(theHero,inv)
     
 ################################# Main Code ####################################
 
@@ -211,39 +259,7 @@ while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins ten mat
         print("You have " + str(theHero.gold) + icons.gold + ".\n")
         # Give user option of visiting the dungeon shop if they have another fight next
         if victories < 10:
-            if random.randint(1,100) < 70:
-                purchase = input("\nUp ahead lies a hastily-constructed shelter. {}Do you wish to enter the Apothecarial Tent? Y/N {}".format(txt.sty.bold,txt.sty.reset)).upper()
-                if purchase == "Y":
-                    theShop = merchant.Apothecary()
-                    theShop.shop(theHero,inv)
-            if random.randint(1,100) < 70:
-                purchase = input("\nYou see a blacksmith in the distance. {}Do you wish to enter? Y/N {}".format(txt.sty.bold,txt.sty.reset)).upper()
-                if purchase == "Y":
-                    theShop = merchant.Blacksmith()
-                    theShop.shop(theHero,inv)
-            if random.randint(1,100) < 70:
-                purchase = input("\nYou see a small house with a sign in front. {}Do you want to enter the Clothier's? Y/N {}".format(txt.sty.bold,txt.sty.reset)).upper()
-                if purchase == "Y":
-                    theShop = merchant.Clothier()
-                    theShop.shop(theHero,inv)
-        # Give user option of accessing inventory
-        print("\n")
-        accessingInv = True
-        while accessingInv:
-            print("You have the option to sit and rest. Would you like to: \n\tAccess Inventory (type inventory) \n\tContinue Journey (type continue)")
-            valid = False
-            while not valid:
-                choice = input()
-                if choice.lower() == "continue":
-                    accessingInv = False
-                    valid = True
-                elif choice.lower() == "inventory":
-                    valid = True
-                else:
-                    print("{}Please enter a valid choice.{}".format(txt.warning,txt.sty.reset))
-            # Access inventory
-            if accessingInv:
-                inv.access_inventory(theHero)
+            shops_and_inventory()
 
     else:
         print(theHero.get_name() + ", you are dead. Death Trap Dungeon claims another victim.")
