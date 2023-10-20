@@ -86,9 +86,10 @@ def shops_and_inventory():
         shops.append(merchant.Clothier(inv))
     resting = True
     while resting:
-        print("Shop options:")
+        print("Shop options:") # shoptions haha
         for i in range(0,len(shops),1):
             print("\t" + str(i + 1) + ") Enter the " + shops[i].name)
+        print("Options:")
         print("\tEnter a shop (type \"enter\" plus the number of the shop)")
         print("\tAccess Inventory (type inventory)")
         print("\tContinue Journey (type continue)")
@@ -257,7 +258,7 @@ while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins ten mat
         victories += 1
         anyKey = input("You are {}victorious!{} Press enter to descend deeper into the dungeon...\n ".format(txt.col.fg.nml.green,txt.sty.reset))
         print("You have " + str(theHero.gold) + icons.gold + ".\n")
-        # Give user option of visiting the dungeon shop if they have another fight next
+        # Give user option of visiting the dungeon shop or accessing inventory if they have another fight next
         if victories < 10:
             shops_and_inventory()
 
