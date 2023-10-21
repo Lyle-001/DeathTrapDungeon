@@ -89,7 +89,7 @@ class MysteryElixir:
 
 class UnidentifiedElixir:
     def __init__(self):
-        self.potions = [DilutedHealingElixir(),ImpureHealingElixir(),DistilledHealingElixir(),MysteryElixir()]
+        self.potions = [DilutedHealingElixir,ImpureHealingElixir,DistilledHealingElixir,MysteryElixir]
         self.identity = self.potions[randint(0,len(self.potions)-1)]
         self.description = "You can't seem to decypher what kind of potion this is..."
         self.value = randint(3,20)
@@ -103,21 +103,46 @@ class UnidentifiedElixir:
 
     def inspect(self):
 
-        if self.identity == DilutedHealingElixir():
-            messages = ["The potion doesn't smell of much. It has a slight tinge of red to it though..."]
-            return messages[randint(0,len(messages)-1)]
+        if randint(1,100) < 70:
+            if self.identity == DilutedHealingElixir:
+                messages = ["doesn't smell of much","has a slight tinge of red to it"]
 
-        elif self.identity == ImpureHealingElixir():
-            messages = ["The potion smells somewhat sweet. It looks red..."]
-            return messages[randint(0,len(messages)-1)]
+            elif self.identity == ImpureHealingElixir:
+                messages = ["smells somewhat sweet","looks red"]
 
-        elif self.identity == DistilledHealingElixir():
-            messages = ["The potion smells very sweet. It is dark crimson."]
-            return messages[randint(0,len(messages)-1)]
+            elif self.identity == DistilledHealingElixir:
+                messages = ["smells very sweet","is dark crimson"]
 
-        elif self.identity == MysteryElixir():
-            messages = ["The potion smells bad. It looks almost grey..."]
-            return messages[randint(0,len(messages)-1)]
+            elif self.identity == MysteryElixir:
+                messages = ["smells bad","looks almost grey"]
+
+            inspectMessage = "The potion "
+            conjoiners = [". It ",", it "]
+            enders = [".", "..."]
+            thoughEnders = [" though.", " though..."]
+            usedStatements = []
+
+            length = randint(1,2)
+            for i in range(0,length,1):
+                candidateFound = False
+                while not candidateFound:
+                    if len(usedStatements) >= len(messages):
+                        break
+                    candidate = randint(0,len(messages)-1)
+                    if not candidate in usedStatements:
+                        candidateFound = True
+                if candidateFound:
+                    if i != length and i != 0:
+                        inspectMessage += conjoiners[randint(0,len(conjoiners)-1)]
+                    inspectMessage += messages[candidate]
+                    usedStatements.append(candidate)
+            if length > 1 and randint(1,100) < 50:
+                inspectMessage += thoughEnders[randint(0,len(thoughEnders)-1)]
+            else:
+                inspectMessage += enders[randint(0,len(enders)-1)]
+        else:
+            inspectMessage = "You can't make out much through the murky glass of the flask."
+        return inspectMessage
 
 
 
