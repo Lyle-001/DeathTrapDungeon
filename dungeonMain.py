@@ -235,7 +235,7 @@ if debug:
 print()
 victories = 0
 while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins ten matches or dies
-    monsterChoice = 3
+    monsterChoice = random.randint(0,3)
     if monsterChoice == 0:
         theMonster = Monster(RandomColour(),RandomAdjective())
     elif monsterChoice == 1:

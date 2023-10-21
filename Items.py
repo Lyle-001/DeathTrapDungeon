@@ -83,9 +83,41 @@ class MysteryElixir:
             hero.receiveDamage(randint(3,5))
         elif effect == 6:
             print("Too late you realise the recklessness of your drinking as poison spills down your throat, taking its effect in seconds.")
-            hero.receiveDamage(1000) #there's more elegant ways to kill you, yes. there's also more elegant ways to make a game and i don't see them used here
+            hero.receiveDamage(1000000000) #there's more elegant ways to kill you, yes. there's also more elegant ways to make a game and i don't see them used here
             return
         inventory.destroy_general_item([self,1])
+
+class UnidentifiedElixir:
+    def __init__(self):
+        self.potions = [DilutedHealingElixir(),ImpureHealingElixir(),DistilledHealingElixir(),MysteryElixir()]
+        self.identity = self.potions[randint(0,len(self.potions)-1)]
+        self.description = "You can't seem to decypher what kind of potion this is..."
+        self.value = randint(3,20)
+        self.maxStack = 1
+
+    def get_type(self):
+        return "potion"
+
+    def use(self,player,inventory):
+        self.identity.use(player,inventory)
+
+    def inspect(self):
+
+        if self.identity == DilutedHealingElixir():
+            messages = ["The potion doesn't smell of much. It has a slight tinge of red to it though..."]
+            return messages[randint(0,len(messages)-1)]
+
+        elif self.identity == ImpureHealingElixir():
+            messages = ["The potion smells somewhat sweet. It looks red..."]
+            return messages[randint(0,len(messages)-1)]
+
+        elif self.identity == DistilledHealingElixir():
+            messages = ["The potion smells very sweet. It is dark crimson."]
+            return messages[randint(0,len(messages)-1)]
+
+        elif self.identity == MysteryElixir():
+            messages = ["The potion smells bad. It looks almost grey..."]
+            return messages[randint(0,len(messages)-1)]
 
 
 

@@ -275,7 +275,7 @@ class inventory:
             print("You have donned an alternative already. Would you like to replace this?")
             print("\tY) Yes\n\tN) No")
             choice = validate_not_empty_input()
-            if choice[0].lower == "y":
+            if choice[0].lower() == "y":
                 temp = self.equipment[slot]
                 self.equipment[slot] = equipmentID
                 self.add_general_item(temp)
