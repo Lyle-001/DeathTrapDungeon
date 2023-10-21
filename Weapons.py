@@ -1,6 +1,5 @@
 from random import randint,random
 from math import e,sqrt,pi
-from tkinter import SEL_FIRST
 from ansi_codes import txt,get_list_of_colours_fg
 
 # Weapons have different stats, such as:

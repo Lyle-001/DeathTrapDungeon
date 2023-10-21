@@ -1,4 +1,4 @@
-from sys import getswitchinterval
+from struct import pack
 from ansi_codes import txt,icons
 from validation import validate_not_empty_input
 import Items
@@ -25,47 +25,31 @@ def get_items_with_tags(tags):
 
 
 class inventory:
-    def __init__(self,isDebug):
+    def __init__(self):
         # config stats. may be used for rebalancing later on
-        self.weaponSlots = 2
-        self.equipmentSlots = 5
+        self.weaponSlotCount = 2
+        self.equipmentSlotCount = 5
+        self.generalSlotCount = 15
+        self.potionPouchSlotCount = 5
         self.quiverSize = 10
-        self.generalSlots = 15
+
         self.hasPotionPouch = False
-        self.potionPouchSlots = 5
-        self.potionPouchCurrentSlots = 0
-        
-        # :smile:
-        if isDebug:
-            self.isDebug = True
-        else:
-            self.isDebug = False
+        self.inv = []
+        self.activeSlotCount = 0
 
         # initialise the weapons part of the inventory
-        self.weapons = []
-        for i in range(0,self.weaponSlots,1):
-            slot = ["",0]
-            self.weapons.append(slot)
-        self.weaponsFull = False
+        self.inv.append([[0,"",0] for i in range(self.weaponSlotCount)])
+        self.weaponsSectionFull = False
         
         # initialise the equipment part of the inventory
-        self.equipment = []
-        for i in range(0,self.equipmentSlots,1):
-            slot = ["",0]
-            self.equipment.append(slot)
+        self.inv.append([[0,"",0] for i in range(self.equipmentSlotCount)])
 
         # initialise the general part of the inventory
-        self.general = []
-        for i in range(0,self.generalSlots,1):
-            slot = ["",0]
-            self.general.append(slot)
+        self.inv.append([[0,"",0] for i in range(self.generalSlotCount)])
         self.generalFull = False
 
         # initialise the potions part of the inventory
-        self.potionPouch = []
-        for i in range(0,self.potionPouchSlots,1):
-            slot = ["",0]
-            self.potionPouch.append(slot)
+        self.inv.append([[0,"",0] for i in range(self.potionPouchSlotCount)])
         self.potionPouchFull = False
 
 
@@ -74,117 +58,107 @@ class inventory:
     def get_items_with_tags(self,tags):
         items = []
         for tag in tags:
-            for item in self.weapons:
-                if tag in item[0].tags:
-                    if not item[0] in items:
-                        items.append(item[0])
-            for item in self.equipment:
-                if tag in item[0].tags:
-                    if not item[0] in items:
-                        items.append(item[0])
-            for item in self.general:
-                if tag in item[0].tags:
-                    if not item[0] in items:
-                        items.append(item[0])
-            for item in self.potionPouch:
-                if tag in item[0].tags:
-                    if not item[0] in items:
-                        items.append(item[0])
+            for section in self.inv:
+                for item in section:
+                    if item[1] != "":
+                        if tag in item[1].tags and not item[1] in items:
+                            items.append(item[1])
         return items
 
 
 
 
-    def access_inventory(self,hero):
-        while True:
-            itemIncrement = 1 # used for the numbering of the items
 
-            print("\n" + hero.get_name() + ": " + str(hero.get_hp()) + " {}, ".format(icons.heart) + str(hero.get_gold()) + icons.gold)
+    def print_inventory(self,hero): # deals with the printing of the inventory. separate procedure because its so massive
 
-            # print the weapons part of the inventory
-            print("Weapons")
-            emptySlots = 0
-            for item in self.weapons:
-                if item[0] != "":
-                    if item[0].maxStack != 1:
-                        print("\t" + str(itemIncrement) + ". " + item[0].name + txt.sty.reset + "\t" + str(item[1]))
-                    else:
-                        print("\t" + str(itemIncrement) + ". " + item[0].name + txt.sty.reset)
-                    itemIncrement += 1
-                else:
-                    emptySlots += 1
-            if emptySlots == self.weaponSlots:
-                print("\t" + str(self.weaponSlots) + " empty slots.")
-            elif emptySlots != 0:
-                if emptySlots == 1:
-                    print("\tWith " + str(emptySlots) + " more empty slot.")
-                else:
-                    print("\tWith " + str(emptySlots) + " more empty slots.")
-
-            # print the equipment part of the inventory
-            print("Equipment")
-            emptySlots = 0
-            for item in self.equipment:
-                if item[0] != "":
-                    if item[0].maxStack != 1:
-                        print("\t" + str(itemIncrement) + ". " + item[0].name + txt.sty.reset + "\t" + str(item[1]))
-                    else:
-                        print("\t" + str(itemIncrement) + ". " + item[0].name + txt.sty.reset)
-                    itemIncrement += 1
-                else:
-                    emptySlots += 1
-            if emptySlots == self.equipmentSlots:
-                print("\t" + str(self.equipmentSlots) + " empty slots.")
-            elif emptySlots != 0:
-                if emptySlots == 1:
-                    print("\tWith " + str(emptySlots) + " more empty slot.")
-                else:
-                    print("\tWith " + str(emptySlots) + " more empty slots.")
-
-            # print the general part of the inventory
-            print("General Slots")
-            emptySlots = 0
-            for item in self.general:
-                if item[0] != "":
-                    if item[0].maxStack != 1:
-                        print("\t" + str(itemIncrement) + ". " + item[0].name + txt.sty.reset + "\t" + str(item[1]))
-                    else:
-                        print("\t" + str(itemIncrement) + ". " + item[0].name + txt.sty.reset)
-                    itemIncrement += 1
-                else:
-                    emptySlots += 1
-            if emptySlots == self.generalSlots:
-                print("\t" + str(self.generalSlots) + " empty slots.")
-            elif emptySlots != 0:
-                if emptySlots == 1:
-                    print("\tWith " + str(emptySlots) + " more empty slot.")
-                else:
-                    print("\tWith " + str(emptySlots) + " more empty slots.")
-
-            # print the potions part of the inventory
-            if self.hasPotionPouch:
-                print("Potion Pouch")
-                emptySlots = 0
-                for item in self.potionPouch:
-                    if item[0] != "":
-                        if item[0].maxStack != 1:
-                            print("\t" + str(itemIncrement) + ". " + item[0].name + txt.sty.reset + "\t" + str(item[1]))
-                        else:
-                            print("\t" + str(itemIncrement) + ". " + item[0].name + txt.sty.reset)
-                        itemIncrement += 1
-                    else:
-                        emptySlots += 1
-                if emptySlots == self.potionPouchCurrentSlots:
-                    print("\t" + str(self.potionPouchCurrentSlots) + " empty slots.")
-                elif emptySlots != 0:
-                    if emptySlots == 1:
-                        print("\tWith " + str(emptySlots) + " more empty slot.")
-                    else:
-                        print("\tWith " + str(emptySlots) + " more empty slots.")
+        def print_item(colour,item): # function-ception. i bet you didn't know you could do this
+            if item[1].maxStack == 1:
+                print("\t{}{}. {}{}".format(colour,str(item[0]),txt.sty.reset,item[1].get_name()))
             else:
-                print("You do not have a potion pouch. You might be able to find one at a clothier.")
+                print("\t{}{}. {}{}\t{}".format(colour,str(item[0]),txt.sty.reset,item[1].get_name(),str(item[2])))
+
+        # print the player's health and gold
+        print(txt.sty.reset + "\n" + hero.get_name() + ": " + str(hero.get_hp()) + " {}, ".format(icons.heart) + str(hero.get_gold()) + icons.gold)
+
+        # print the inventory contents
+        itemIncrement = 1
+
+        # NEED TO MAKE THE QUANTITY VALUES ALIGN PROPERLY SOMEHOW
+
+        # print the weapons. main colour for weapons is green
+        sectColNorm = txt.col.fg.nml.green
+        sectColStrong = txt.col.fg.strg.green
+        print(sectColNorm + "Weapons" + txt.sty.reset)
+        for item in self.inv[0]:
+            if item[1] != "":
+                print_item(sectColStrong,item)
+            else:
+                print("\t   {}Weapon{}".format(txt.col.fg.strg.grey,txt.sty.reset))
+
+        # print the equipment. main colour for equipment is cyan
+        sectColNorm = txt.col.fg.nml.cyan
+        sectColStrong = txt.col.fg.strg.cyan
+        print(sectColNorm + "Equipment" + txt.sty.reset)
+        for index in range(len(self.inv[1])):
+            item = self.inv[1][index]
+            if item[1] != "":
+                print_item(sectColStrong,item)
+            else:
+                if index == 0:
+                    print("\t   {}Head{}".format(txt.col.fg.strg.grey,txt.sty.reset))
+                elif index == 1:
+                    print("\t   {}Torso{}".format(txt.col.fg.strg.grey,txt.sty.reset))
+                elif index == 2:
+                    print("\t   {}Hands{}".format(txt.col.fg.strg.grey,txt.sty.reset))
+                elif index == 3:
+                    print("\t   {}Legs{}".format(txt.col.fg.strg.grey,txt.sty.reset))
+                else:
+                    print("\t   {}Feet{}".format(txt.col.fg.strg.grey,txt.sty.reset))
+
+        # print the general items. main colour for general items is yellow
+        sectColNorm = txt.col.fg.nml.yellow
+        sectColStrong = txt.col.fg.strg.yellow
+        print(sectColNorm + "General Items" + txt.sty.reset)
+        blankSlots = 0
+        for item in self.inv[2]:
+            if item[1] != "":
+                print_item(sectColStrong,item)
+            else:
+                blankSlots += 1
+        if blankSlots == 1:
+            print("\t   {}With 1 slot remaining.{}".format(txt.col.fg.strg.grey,txt.sty.reset))
+        elif blankSlots == self.generalSlotCount:
+            print("\t   {}{} slots remaining.{}".format(txt.col.fg.strg.grey,str(blankSlots),txt.sty.reset))
+        else:
+            print("\t   {}With {} slots remaining.{}".format(txt.col.fg.strg.grey,str(blankSlots),txt.sty.reset))
+
+        # print the potion pouch if the player has it. main colour for potion pouch is magenta
+        sectColNorm = txt.col.fg.nml.magenta
+        sectColStrong = txt.col.fg.strg.magenta
+        if self.hasPotionPouch:
+            print(sectColNorm + "Potion Pouch" + txt.sty.reset)
+            blankSlots = 0
+            for item in self.inv[3]:
+                if item[1] != "":
+                    print_item(sectColStrong,item)
+                else:
+                    blankSlots += 1
+            if blankSlots == 1:
+                print("\t   {}With 1 slot remaining.{}".format(txt.col.fg.strg.grey,txt.sty.reset))
+            elif blankSlots == self.potionPouchSlotCount:
+                print("\t   {}{} slots remaining.{}".format(txt.col.fg.strg.grey,str(blankSlots),txt.sty.reset))
+            else:
+                print("\t   {}With {} slots remaining.{}".format(txt.col.fg.strg.grey,str(blankSlots),txt.sty.reset))
+        else:
+            print(sectColNorm + "\nYou do not have a potion pouch. You might be able to find one at a clothier's.\n" + txt.sty.reset)
 
 
+
+
+
+    def access_inventory(self,hero): # this is called when the user types "inventory". the backbone of the inventory
+        self.print_inventory(hero)
+        while True:
             # give options
             print("\nWhat would you like to do?")
             print("Inspect item (\"inspect\" + item number)")
@@ -204,7 +178,7 @@ class inventory:
                         valid = False
                     if target.isdigit():
                         target = int(target)
-                        if target < 1 or target >= itemIncrement:
+                        if target < 1 or target >= self.activeSlotCount:
                             valid = False
                     else:
                         valid = False
@@ -214,37 +188,18 @@ class inventory:
                 if not valid:
                     print("Please enter a valid option.") # now the user input is validated
 
+            # find the referenced item
+            itemFound = False
+            for section in self.inv:
+                for item in section:
+                    if item[0] == target:
+                        target = item[1]
+                        itemFound = True
+                        break
+                if itemFound:
+                    break
 
-            itemFound = False # Find the item the user is referencing
-            nonBlanks = 0
-            for item in self.weapons:
-                if item[0] != "":
-                    nonBlanks += 1
-                if nonBlanks == target:
-                    target = item[0]
-                    itemFound = True
-            if not itemFound:
-                for item in self.equipment:
-                    if item[0] != "":
-                        nonBlanks += 1
-                    if nonBlanks == target:
-                        target = item[0]
-                        itemFound = True
-            if not itemFound:
-                for item in self.general:
-                    if item[0] != "":
-                        nonBlanks += 1
-                    if nonBlanks == target:
-                        target = item[0]
-                        itemFound = True
-            if not itemFound:
-                for item in self.potionPouch:
-                    if item[0] != "":
-                        nonBlanks += 1
-                    if nonBlanks == target:
-                        target = item[0]
-                        itemFound = True
-
+            print("TARGET ITEM IS " + str(target))
 
             # actually run the commands
             if command == "inspect":
@@ -255,14 +210,143 @@ class inventory:
             elif command == "use":
                 try:
                     target.use(hero,self)
+                    if hero.get_hp() <= 0:
+                        return
+                    self.print_inventory(hero)
                 except:
                     print("You cannot use this item.")
 
 
 
 
+    def update_numbering(self): # update the numbering of the items in the inventory
+        itemAddress = 0
+        for sectionIndex in range(len(self.inv)):
+            for itemIndex in range(len(self.inv[sectionIndex])):
+                if self.inv[sectionIndex][itemIndex][1] != "":
+                    itemAddress += 1
+                    self.inv[sectionIndex][itemIndex][0] = itemAddress
+                else:
+                    self.inv[sectionIndex][itemIndex][0] = 0
+        self.activeSlotCount = itemAddress + 1
+
+
+
+
+    def add_item(self,section,itemID,count): # add an item to a specified section of the inventory
+        if section == "weapons":
+            section = 0
+        elif section == "equipment":
+
+            # Equip equipment. This works differently to the rest of the equipping that's why its here.
+            section = 1
+            itemTags = itemID.tags # this is me when i save cpu time at the expense of memory usage
+            # find what slot to put the item in
+            if "head" in itemTags:
+                slot = 0
+            elif "torso" in itemTags:
+                slot = 1
+            elif "hands" in itemTags:
+                slot = 2
+            elif "legs" in itemTags:
+                slot = 3
+            elif "feet" in itemTags:
+                slot = 4
+            else:
+                # if there is no slot to put the item in
+                print("You are trying to equip a non-equipment item!")
+                return False
+
+            # if the slot it should go in is empty
+            if self.inv[section][slot][1] == "":
+                self.inv[section][slot][1] = itemID
+                self.inv[section][slot][2] = count
+                self.update_numbering()
+                return True
+            # if this slot already has an armour piece in
+            else:
+                print("You have donned an alternative already. Would you like to replace this?")
+                print("\tY) Yes\n\tN) No")
+                choice = validate_not_empty_input()
+                if choice[0].lower() == "y":
+                    # swap them, putting the old piece in the general inventory
+                    cachedItem = self.inv[section][slot][:]
+                    self.inv[section][slot][1] = itemID
+                    self.inv[section][slot][2] = count
+                    self.add_item("general",cachedItem[1],cachedItem[2])
+                    return True
+                else:
+                    return False
+            
+        elif section == "general":
+            section = 2
+        elif section == "potions":
+            section = 3
+        else:
+            print("Invalid section when trying to add item. Please choose from \"weapons\", \"equipment\", \"general\" or \"potions\" LUCA.") # only luca would make this mistake
+            return False
+
+        for itemIndex in range(len(self.inv[section])): # check if the item can go in a stack
+            if self.inv[section][itemIndex][1] != "":
+                if self.inv[section][itemIndex][1].get_name() == itemID.get_name() and self.inv[section][itemIndex][2] < itemID.maxStack: # if an item is found to stack it with
+                    self.inv[section][itemIndex][2] += count
+                    return True
+        for itemIndex in range(len(self.inv[section])): # place the item in a blank spot
+            if self.inv[section][itemIndex][1] == "":
+                self.inv[section][itemIndex] = [0,itemID,count]
+                self.update_numbering()
+                return True
+        return False
+
+
+
+
+
+    def delete_item(self,itemID,count,startingSection="weapons"): # Removes a specified object from the inventory
+        if startingSection == "weapons":
+            startingSection = 0
+        elif startingSection == "equipment":
+            startinSection = 1
+        elif startingSection == "general":
+            startingSection = 2
+        elif startingSection == "potions":
+            startingSection = 3
+        else:
+            print("Invalid section when trying to add item. Please choose from \"weapons\", \"equipment\", \"general\" or \"potions\" LUCA.") # only luca would make this mistake
+            return False
+
+        for section in range(startingSection,len(self.inv)):
+            for itemIndex in range(len(self.inv[section])):
+                item = self.inv[section][itemIndex]
+                if item[1] != "":
+                    if item[1] == itemID:
+                        self.inv[section][itemIndex][2] -= count
+                        if self.inv[section][itemIndex][2] == 0:
+                            self.inv[section][itemIndex][1] = ""
+                        self.update_numbering()
+                        return True
+        
+        print("You are trying to throw away an item which you do not have!")
+        return False
+
+
+
+
+    def update_potion_pouch(self): # Moves any potions from the general inventory to the potion pouch
+        if self.hasPotionPouch:
+            for itemIndex in range(len(self.inv[2])):
+                item = self.inv[2][itemIndex]
+                if item[1] != "":
+                    if "potion" in item[1].tags: # if theres a potion in the general part
+                        cachedItem = item[:]
+                        self.delete_item(item[1],item[2]) # delete it from the general part
+                        self.add_item("potions",cachedItem[1],cachedItem[2]) # add it to the pouch
+
+
+
+
     def is_in_inv(self,target):
-        for item in self.weapons:
+        for item in self.weaponsSection:
             if item[0] == target:
                 return True
         for item in self.equipment:
@@ -278,144 +362,9 @@ class inventory:
 
 
 
-    def get_weapons(self):
-        return self.weapons
-
-    def add_weapon(self,weaponID):
-        for i in range(0,self.weaponSlots,1):
-            if self.weapons[i][0] == "":
-                if i + 1 == self.weaponSlots:
-                    self.weaponsFull = True
-                self.weapons[i] = weaponID
-                return True
-        self.weaponsFull = True
-        print("Weapon slots full. Consider removing some old weapons.")
-        return False
-
-    def remove_weapon(self,weaponID):
-        for i in range(0,self.weaponSlots,1):
-            if self.weapons[i] == weaponID:
-                self.weapons[i][0] = ""
-                return True
-        print("You are not in possession of such a weapon.")
-        return False
-
     def switch_active_weapon(self,weaponID):
-        for i in range(0,self.weaponSlots,1):
-            if self.weapons[i] == weaponID:
-                return True,self.weapons[i]
+        for i in range(0,self.weaponSlotCount,1):
+            if self.weaponsSection[i] == weaponID:
+                return True,self.weaponsSection[i]
         print("You are not in possession of such a weapon.")
         return False
-
-
-
-
-    def get_equipment(self):
-        return self.equipment
-    
-    def swap_equipment(self,equipmentID):
-        slot = equipmentID[0].get_equipment_type()
-        if slot == "head":
-            slot = 0
-        elif slot == "torso":
-            slot = 1
-        elif slot == "hands":
-            slot = 2
-        elif slot == "legs":
-            slot = 3
-        elif slot == "feet":
-            slot = 4
-        else:
-            print("equipment type not recognised.")
-            return False
-
-        if self.equipment[slot][0] == "":
-            self.equipment[slot] = equipmentID
-            print("Equipment equipped.")
-            return True
-        else:
-            print("You have donned an alternative already. Would you like to replace this?")
-            print("\tY) Yes\n\tN) No")
-            choice = validate_not_empty_input()
-            if choice[0].lower() == "y":
-                temp = self.equipment[slot]
-                self.equipment[slot] = equipmentID
-                self.add_general_item(temp)
-                return True
-            else:
-                return False
-
-
-
-
-    def get_general_slots(self):
-        return self.general
-
-    def add_general_item(self,itemID):
-        for i in range(0,self.generalSlots,1):
-            if self.general[i][0] != "" and itemID[0].get_type != "weapon" and itemID[0].get_type != "equipment":
-                if self.general[i][0].name == itemID[0].name:
-                    if self.general[i][0].maxStack > self.general[i][1]:
-                        self.general[i][1] += itemID[1]
-                        return True
-        for i in range(0,self.generalSlots,1):
-            if self.general[i][0] == "":
-                if i + 1 == self.generalSlots:
-                    self.generalFull = True
-                self.general[i] = itemID
-                return True
-        self.generalFull = True
-        print("You do not have space on your person for this item.")
-        return False
-
-    def destroy_general_item(self,itemID):
-        for i in range(0,self.generalSlots,1):
-            if self.general[i][0] != "":
-                if self.general[i][0] == itemID[0]:
-                    self.general[i][1] -= itemID[1]
-                    if self.general[i][1] == 0:
-                        self.generalFull = False
-                        self.general[i][0] = ""
-                    return True
-        print("You are trying to throw away an item which you do not have!")
-        return False
-
-
-
-
-    def get_potion_pouch(self):
-        if self.hasPotionPouch:
-            return self.potionPouch
-        else:
-            return False
-
-    def add_potion(self,itemID):
-        for i in range(0,self.potionPouchSlots,1):
-            if self.potionPouch[i][0] == "":
-                if i + 1 == self.potionPouchSlots:
-                    self.potionPouchFull = True
-                self.potionPouch[i] = itemID
-                return True
-        print("You do not have space on your person for this potion.")
-        return False
-
-    def destroy_potion(self,itemID):
-        for i in range(0,self.potionPouchSlots,1):
-            if self.potionPouch[i][0] != "":
-                if self.potionPouch[i][0] == itemID:
-                    self.potionPouch[i][1] -= itemID[1]
-                    if self.potionPouch[i][1] == 0:
-                        self.potionPouchFull = False
-                        self.potionPouch[i][0] = ""
-                    return True
-        print("You are trying to throw away an item which you do not have!")
-        return False
-
-
-    def update_potion_pouch(self):
-        if not self.potionPouchFull:
-            for item in self.general:
-                if item[0] != "":
-                    if item[0].get_type() == "potion": # potion in general slot found
-                        self.add_potion(item)
-                        self.destroy_general_item(item)

@@ -1,5 +1,6 @@
 class Armour:
     def __init__(self):
+        self.name = "ignore this"
         self.inspectMessage = "ignore this"
         self.armour = 0
         self.projProt = 0
@@ -7,6 +8,9 @@ class Armour:
         self.pierceProt = 0
         self.smashProt = 0
         self.tags = ["armour"]
+
+    def get_name(self):
+        return self.name
 
     def inspect(self):
         return self.inspectMessage
@@ -27,8 +31,8 @@ class Armour:
         return "equipment"
 
     def use(self,hero,inv):
-        if inv.swap_equipment([self,1]):
-            inv.destroy_general_item([self,1])
+        if inv.add_item("equipment",self,1):
+            inv.delete_item(self,1,"general")
 
 class Helmet(Armour):
     def __init__(self):
