@@ -2,6 +2,27 @@ from sys import getswitchinterval
 from ansi_codes import txt,icons
 from validation import validate_not_empty_input
 import Items
+import Equipment
+import Weapons
+
+
+def get_items_with_tags(tags):
+    items = []
+    for tag in tags:
+        for item in Weapons.list:
+            if tag in item.tags:
+                if not item in items:
+                    items.append(item)
+        for item in Equipment.list:
+            if tag in item.tags:
+                if not item in items:
+                    items.append(item)
+        for item in Items.list:
+            if tag in item.tags:
+                if not item in items:
+                    items.append(item)
+    return items
+
 
 class inventory:
     def __init__(self,isDebug):
@@ -46,6 +67,30 @@ class inventory:
             slot = ["",0]
             self.potionPouch.append(slot)
         self.potionPouchFull = False
+
+
+
+
+    def get_items_with_tags(self,tags):
+        items = []
+        for tag in tags:
+            for item in self.weapons:
+                if tag in item[0].tags:
+                    if not item[0] in items:
+                        items.append(item[0])
+            for item in self.equipment:
+                if tag in item[0].tags:
+                    if not item[0] in items:
+                        items.append(item[0])
+            for item in self.general:
+                if tag in item[0].tags:
+                    if not item[0] in items:
+                        items.append(item[0])
+            for item in self.potionPouch:
+                if tag in item[0].tags:
+                    if not item[0] in items:
+                        items.append(item[0])
+        return items
 
 
 
@@ -213,6 +258,23 @@ class inventory:
                 except:
                     print("You cannot use this item.")
 
+
+
+
+    def is_in_inv(self,target):
+        for item in self.weapons:
+            if item[0] == target:
+                return True
+        for item in self.equipment:
+            if item[0] == target:
+                return True
+        for item in self.general:
+            if item[0] == target:
+                return True
+        for item in self.potionPouch:
+            if item[0] == target:
+                return True
+        return False
 
 
 
