@@ -1,4 +1,3 @@
-from struct import pack
 from ansi_codes import txt,icons
 from validation import validate_not_empty_input
 import Items
