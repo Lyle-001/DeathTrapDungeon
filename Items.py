@@ -36,7 +36,7 @@ class DilutedHealingElixir:
         hero.heal(healAmount)
         print(self.useMessage)
         if self.destroyOnUse:
-            inventory.destroy_general_item([self,1])
+            inventory.delete_item(self,1)
         return healAmount
 
 class ImpureHealingElixir(DilutedHealingElixir):
@@ -73,6 +73,9 @@ class MysteryElixir:
         self.maxStack = 1
         self.tags = ["potion","unidentifiedElixirUsable"]
 
+    def get_name(self):
+        return self.name
+
     def get_type(self):
         return "potion"
 
@@ -91,10 +94,11 @@ class MysteryElixir:
             hero.receiveDamage(1000000000) #there's more elegant ways to kill you, yes. there's also more elegant ways to make a game and i don't see them used here
             return
         if self.destroyOnUse:
-            inventory.destroy_general_item([self,1])
+            inventory.delete_item(self,1)
 
 class UnidentifiedElixir:
     def __init__(self,inventory):
+        self.name = "Unidentified Elixir"
         self.potions = inventory.get_items_with_tags(["unidentifiedElixirUsable"])
         self.identity = self.potions[randint(0,len(self.potions)-1)]
         self.description = "You can't seem to decypher what kind of potion this is..."
@@ -102,6 +106,9 @@ class UnidentifiedElixir:
         self.value = randint(3,20)
         self.maxStack = 1
         self.tags = ["potion"]
+
+    def get_name(self):
+        return self.name
 
     def get_type(self):
         return "potion"
@@ -111,7 +118,7 @@ class UnidentifiedElixir:
         potion.destroyOnUse = False # makes it so it doesnt destroy an item it doesnt actually have (its virtualised, not in the inventory)
         potion.use(player,inv) # use the virtualised potion
         if self.destroyOnUse:
-            inv.destroy_general_item([self,1]) # destroy the unidentified potion, not the virtualised one
+            inv.delete_item(self,1) # destroy the unidentified potion, not the virtualised one
 
     def generate_inspect_message(self):
         if randint(1,100) < 30:
@@ -195,10 +202,9 @@ class PotionPouch:
 
     def use(self,hero,inv):
         print("You put on the potion pouch, now you can store 5 more types of potion.")
-        inv.potionPouchCurrentSlots = inv.potionPouchSlots
         inv.hasPotionPouch = True
+        inv.delete_item(self,1)
         inv.update_potion_pouch()
-        inv.destroy_general_item([self,1])
         return True
 
     def get_type(self):

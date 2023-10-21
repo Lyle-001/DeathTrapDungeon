@@ -8,6 +8,7 @@ class Shop:
     def __init__(self,inv):
         self.enterMessage = "you enter the shop"
         self.name = "shop"
+        self.tag = "shopSellable"
         self.persistentWareList = [] # always appears, near infinite available
         self.strangeWareList = [] # appears sometimes and only in one quantity per shop
         self.exclusiveWareList = [] # rare to appear and only in one quantity per shop. never appears if you have it in your inventory
@@ -15,6 +16,7 @@ class Shop:
 
     def generate_stock(self,inv):
         stock = []
+        alreadyOwned = inv.get_items_with_tags([self.tag])
         for item in self.persistentWareList:
             stock.append([item,randint(20,50)])
         for item in self.strangeWareList:
@@ -23,24 +25,7 @@ class Shop:
         for item in self.exclusiveWareList:
             if randint(1,100) < 30:
                 inInv = False
-                for weapon in inv.get_weapons():
-                    if weapon[0] != "":
-                        if weapon[0].name == item.name:
-                            inInv = True
-                for equipment in inv.get_equipment():
-                    if equipment[0] != "":
-                        if equipment[0].name == item.name:
-                            inInv = True
-                for generalItem in inv.get_general_slots():
-                    if generalItem[0] != "":
-                        if generalItem[0].name == item.name:
-                            inInv = True
-                if inv.hasPotionPouch:
-                    for potion in inv.get_potion_pouch():
-                        if potion[0] != "":
-                            if potion[0].name == item.name:
-                                inInv = True
-                if not inInv:
+                if not item in alreadyOwned:
                     stock.append([item,1])
         return stock
 
@@ -73,7 +58,7 @@ class Shop:
                         return
             item = self.wareList[choice][0]
             print()
-            if inventory.add_general_item([item,1]):
+            if inventory.add_item("general",item,1):
                 self.wareList[choice][1] -= 1
                 if self.wareList[choice][1] <= 0:
                     del self.wareList[choice]
@@ -86,6 +71,7 @@ class Apothecary(Shop):
     def __init__(self,inv):
         self.enterMessage = "You enter the dimly lit tent, as a hunch-backed man gestures at the wares around you."
         self.name = "Apothecarial Tent"
+        self.tag = "apothecarySellable"
         self.persistentWareList = [it.DilutedHealingElixir(),it.ImpureHealingElixir(),it.DistilledHealingElixir()]
         self.strangeWareList = [it.MysteryElixir()]
         self.exclusiveWareList = []
@@ -95,6 +81,7 @@ class Blacksmith(Shop):
     def __init__(self,inv):
         self.enterMessage = "You enter the workshop to find a young man hammering at a piece of glowing iron."
         self.name = "Blacksmith"
+        self.tag = "blacksmithSellable"
         self.persistentWareList = []
         self.strangeWareList = []
         self.exclusiveWareList = [eq.MailHood(),eq.MailHauberk(),eq.MailGloves(),eq.MailChausse(),eq.MailBoots(),
@@ -105,6 +92,7 @@ class Clothier(Shop):
     def __init__(self,inv):
         self.enterMessage = "You enter the homely building. An old man is sitting behind the counter, sewing together a boy's shirt."
         self.name = "Clothier's"
+        self.tag = "clothierSellable"
         self.persistentWareList = []
         self.strangeWareList = []
         self.exclusiveWareList = [eq.LeatherGauntlets(),eq.LeatherShoes(),

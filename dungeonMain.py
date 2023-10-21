@@ -115,6 +115,8 @@ def shops_and_inventory():
 
         if choice == "inventory":
              inv.access_inventory(theHero)
+             if theHero.get_hp() <= 0:
+                 return
         elif choice == "continue":
              resting = False
         else:
@@ -130,7 +132,7 @@ else:
     debug = False
 
 print("{}{}############# Welcome to Death Trap Dungeon! ############{}\n".format(txt.col.fg.strg.blue,txt.sty.bold,txt.sty.reset))
-inv = inventoryfile.inventory(debug)
+inv = inventoryfile.inventory()
 detailsConfirmed = False
 while not detailsConfirmed:
 
@@ -221,7 +223,7 @@ if debug:
             valid = weapon.set_modifier(input("Modifier: "))
 print("You pick up a " + weapon.get_name())
 weapon.inspect()
-inv.add_weapon([weapon,1])
+inv.add_item("weapons",weapon,1)
 
 if debug:
     print(txt.sty.reset + "#### DEBUG #### do you want some money?")
