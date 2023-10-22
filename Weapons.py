@@ -22,7 +22,8 @@ class Weapon:
         self.inspectMessage = "It looks unexplainable. How did you get this?"
         self.modifiers = [["unobtainable",0,0]]
         self.maxStack = 1
-        self.tags = ["weapon"]
+    def get_tags(self=None):
+        return ["weapon"]
 
 
     def get_attacks(self):
@@ -33,9 +34,6 @@ class Weapon:
             return self.modifiers[self.modifier][0] + " " + self.name
         except:
             return self.name
-
-    def get_type(self):
-        return ("weapon")
 
     ####################################
     ##### Modifier-Related Methods #####
@@ -125,7 +123,8 @@ class ClassicSword(Weapon):
                          ["{}epic".format(txt.col.fg.nml.magenta),3,6],
                          ["{}godly".format(txt.col.fg.nml.yellow),4,8],
                          ["{}{}legendary".format(txt.col.fg.strg.yellow,txt.sty.bold),5,10]]
-        self.tags = ["weapon","starterWeapon"]
+    def get_tags(self=None):
+        return ["weapon","starterWeapon"]
 
 class Axe(Weapon):
     def __init__(self):
@@ -146,7 +145,8 @@ class Axe(Weapon):
                          ["{}epic".format(txt.col.fg.nml.magenta),3,6],
                          ["{}godly".format(txt.col.fg.nml.yellow),4,8],
                          ["{}{}legendary".format(txt.col.fg.strg.yellow,txt.sty.bold),5,10]]
-        self.tags = ["weapon","starterWeapon"]
+    def get_tags(self=None):
+        return ["weapon","starterWeapon"]
 
 class Dagger(Weapon):
     def __init__(self):
@@ -167,7 +167,8 @@ class Dagger(Weapon):
                          ["{}epic".format(txt.col.fg.nml.magenta),3,6],
                          ["{}godly".format(txt.col.fg.nml.yellow),4,8],
                          ["{}{}legendary".format(txt.col.fg.strg.yellow,txt.sty.bold),5,10]]
-        self.tags = ["weapon","starterWeapon"]
+    def get_tags(self=None):
+        return ["weapon","starterWeapon"]
 
 class Scimitar(Weapon):
     def __init__(self):
@@ -188,7 +189,8 @@ class Scimitar(Weapon):
                          ["{}epic".format(txt.col.fg.nml.magenta),3,6],
                          ["{}godly".format(txt.col.fg.nml.yellow),4,8],
                          ["{}{}legendary".format(txt.col.fg.strg.yellow,txt.sty.bold),5,10]]
-        self.tags = ["weapon","starterWeapon"]
+    def get_tags(self=None):
+        return ["weapon","starterWeapon"]
 
 class Mace(Weapon):
     def __init__(self):
@@ -209,7 +211,8 @@ class Mace(Weapon):
                          ["{}epic".format(txt.col.fg.nml.magenta),3,6],
                          ["{}godly".format(txt.col.fg.nml.yellow),4,8],
                          ["{}{}legendary".format(txt.col.fg.strg.yellow,txt.sty.bold),5,10]]
-        self.tags = ["weapon","starterWeapon"]
+    def get_tags(self=None):
+        return ["weapon","starterWeapon"]
 
 class Hammer(Weapon):
     def __init__(self):
@@ -230,7 +233,8 @@ class Hammer(Weapon):
                          ["{}epic".format(txt.col.fg.nml.magenta),3,6],
                          ["{}godly".format(txt.col.fg.nml.yellow),4,8],
                          ["{}{}legendary".format(txt.col.fg.strg.yellow,txt.sty.bold),5,10]]
-        self.tags = ["weapon","starterWeapon"]
+    def get_tags(self=None):
+        return ["weapon","starterWeapon"]
 
 class AxeOfFlames(Weapon):
     def __init__(self):
@@ -251,7 +255,8 @@ class AxeOfFlames(Weapon):
                          ["{}Epic".format(txt.col.fg.nml.magenta),3,6],
                          ["{}Godly".format(txt.col.fg.nml.yellow),4,8],
                          ["{}{}Legendary".format(txt.col.fg.strg.yellow,txt.sty.bold),5,10]]
-        self.tags = ["weapon","legendaryWeapon"]
+    def get_tags(self=None):
+        return ["weapon","legendaryWeapon"]
 
 class SwordOfSouls(Weapon):
     def __init__(self):
@@ -272,4 +277,11 @@ class SwordOfSouls(Weapon):
                          ["{}Epic".format(txt.col.fg.nml.magenta),3,6],
                          ["{}Godly".format(txt.col.fg.nml.yellow),4,8],
                          ["{}{}Legendary".format(txt.col.fg.strg.yellow,txt.sty.bold),5,10]]
-        self.tags = ["weapon","legendaryWeapon"]
+    def get_tags(self=None):
+        return ["weapon","legendaryWeapon"]
+
+
+
+
+
+weaponList = [ClassicSword,Axe,Dagger,Scimitar,Mace,Hammer,AxeOfFlames,SwordOfSouls]

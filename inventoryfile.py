@@ -8,16 +8,16 @@ import Weapons
 def get_items_with_tags(tags):
     items = []
     for tag in tags:
-        for item in Weapons.list:
-            if tag in item.tags:
+        for item in Weapons.weaponList:
+            if tag in item.get_tags():
                 if not item in items:
                     items.append(item)
-        for item in Equipment.list:
-            if tag in item.tags:
+        for item in Equipment.equipmentList:
+            if tag in item.get_tags():
                 if not item in items:
                     items.append(item)
-        for item in Items.list:
-            if tag in item.tags:
+        for item in Items.itemList:
+            if tag in item.get_tags():
                 if not item in items:
                     items.append(item)
     return items
@@ -60,7 +60,7 @@ class inventory:
             for section in self.inv:
                 for item in section:
                     if item[1] != "":
-                        if tag in item[1].tags and not item[1] in items:
+                        if tag in item[1].get_tags() and not item[1] in items:
                             items.append(item[1])
         return items
 
@@ -198,8 +198,6 @@ class inventory:
                 if itemFound:
                     break
 
-            print("TARGET ITEM IS " + str(target))
-
             # actually run the commands
             if command == "inspect":
                 try:
@@ -239,7 +237,7 @@ class inventory:
 
             # Equip equipment. This works differently to the rest of the equipping that's why its here.
             section = 1
-            itemTags = itemID.tags # this is me when i save cpu time at the expense of memory usage
+            itemTags = itemID.get_tags() # this is me when i save cpu time at the expense of memory usage
             # find what slot to put the item in
             if "head" in itemTags:
                 slot = 0
@@ -305,7 +303,7 @@ class inventory:
         if startingSection == "weapons":
             startingSection = 0
         elif startingSection == "equipment":
-            startinSection = 1
+            startingSection = 1
         elif startingSection == "general":
             startingSection = 2
         elif startingSection == "potions":
@@ -336,7 +334,7 @@ class inventory:
             for itemIndex in range(len(self.inv[2])):
                 item = self.inv[2][itemIndex]
                 if item[1] != "":
-                    if "potion" in item[1].tags: # if theres a potion in the general part
+                    if "potion" in item[1].get_tags(): # if theres a potion in the general part
                         cachedItem = item[:]
                         self.delete_item(item[1],item[2]) # delete it from the general part
                         self.add_item("potions",cachedItem[1],cachedItem[2]) # add it to the pouch

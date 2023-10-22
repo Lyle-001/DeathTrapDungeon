@@ -1,6 +1,6 @@
 from random import randint
+from inventoryfile import get_items_with_tags
 from ansi_codes import txt
-
 
 
 #############################
@@ -17,7 +17,8 @@ class DilutedHealingElixir:
         self.value = 4
         self.maxStack = 5
         self.healingPower = [3,7]
-        self.tags = ["potion","healthPotion","unidentifiedElixirUsable"]
+    def get_tags(self=None):
+        return ["potion","healthPotion","unidentifiedElixirUsable"]
 
     def get_value(self):
         return self.value
@@ -49,7 +50,8 @@ class ImpureHealingElixir(DilutedHealingElixir):
         self.value = 10
         self.maxStack = 5
         self.healingPower = [5,10]
-        self.tags = ["potion","healthPotion","unidentifiedElixirUsable"]
+    def get_tags(self=None):
+        return ["potion","healthPotion","unidentifiedElixirUsable"]
 
 class DistilledHealingElixir(DilutedHealingElixir):
     def __init__(self):
@@ -61,7 +63,8 @@ class DistilledHealingElixir(DilutedHealingElixir):
         self.value = 20
         self.maxStack = 5
         self.healingPower = [15,20]
-        self.tags = ["potion","healthPotion","unidentifiedElixirUsable"]
+    def get_tags(self=None):
+        return ["potion","healthPotion","unidentifiedElixirUsable"]
 
 class MysteryElixir:
     def __init__(self):
@@ -71,7 +74,8 @@ class MysteryElixir:
         self.destroyOnUse = True
         self.value = randint(3,20)
         self.maxStack = 1
-        self.tags = ["potion","unidentifiedElixirUsable"]
+    def get_tags(self=None):
+        return ["potion","unidentifiedElixirUsable"]
 
     def get_name(self):
         return self.name
@@ -97,15 +101,16 @@ class MysteryElixir:
             inventory.delete_item(self,1)
 
 class UnidentifiedElixir:
-    def __init__(self,inventory):
+    def __init__(self):
         self.name = "Unidentified Elixir"
-        self.potions = inventory.get_items_with_tags(["unidentifiedElixirUsable"])
+        self.potions = get_items_with_tags(["unidentifiedElixirUsable"])
         self.identity = self.potions[randint(0,len(self.potions)-1)]
         self.description = "You can't seem to decypher what kind of potion this is..."
         self.destroyOnUse = True
         self.value = randint(3,20)
         self.maxStack = 1
-        self.tags = ["potion"]
+    def get_tags(self=None):
+        return ["potion"]
 
     def get_name(self):
         return self.name
@@ -179,9 +184,9 @@ class UnidentifiedElixir:
     def inspect(self,inventory):
         
         # STILL NEED TO ADD THE CODE FOR CHECKING IF THE POTION'S TRUE IDENTITY IS ALREADY IN THE PLAYER'S INVENTORY!
-        if inventory.is_in_inv(self.identity):
-            if self.destroyOnUse:
-                inventory.destroy_general_item
+        #if inventory.is_in_inv(self.identity):
+            #if self.destroyOnUse:
+                #inventory.destroy_general_item
         
         return self.generate_inspect_message()
 
@@ -198,7 +203,8 @@ class PotionPouch:
         self.inspectMessage = "Use this item to put on the pouch, giving you 5 potion slots."
         self.value = 5
         self.maxStack = 1
-        self.tags = ["clothierSellable"]
+    def get_tags(self=None):
+        return ["clothierSellable"]
 
     def use(self,hero,inv):
         print("You put on the potion pouch, now you can store 5 more types of potion.")
@@ -215,3 +221,9 @@ class PotionPouch:
 
     def get_name(self):
         return self.name
+
+
+
+
+
+itemList = [DilutedHealingElixir,ImpureHealingElixir,DistilledHealingElixir,MysteryElixir,UnidentifiedElixir,PotionPouch]
