@@ -1,6 +1,5 @@
 from random import randint,random
 from math import e,sqrt,pi
-from tkinter import SEL_FIRST
 from ansi_codes import txt,get_list_of_colours_fg
 
 # Weapons have different stats, such as:
@@ -22,6 +21,9 @@ class Weapon:
         self.missMessage = "Even I don't even know what weapon this is, of course you wouldn't be able to swing it!"
         self.inspectMessage = "It looks unexplainable. How did you get this?"
         self.modifiers = [["unobtainable",0,0]]
+        self.maxStack = 1
+    def get_tags(self=None):
+        return ["weapon","shopExclusive"]
 
 
     def get_attacks(self):
@@ -96,7 +98,7 @@ class Weapon:
 
 
     def inspect(self):
-        print("{}{}{}".format(get_list_of_colours_fg()[0][randint(0,len(get_list_of_colours_fg()[0])-1)],self.inspectMessage,txt.sty.reset))
+         return "{}{}{}".format(get_list_of_colours_fg()[0][randint(0,len(get_list_of_colours_fg()[0])-1)],self.inspectMessage,txt.sty.reset)
 
 ##########################
 ##### Actual Weapons #####
@@ -108,9 +110,10 @@ class ClassicSword(Weapon):
         self.name = "sword"
         self.damage = 6
         self.damageChance = 90
-        self.hitMessage = "You slash the monster with your sword-like sword."
-        self.missMessage = "You slash the air with your sword-like sword."
-        self.inspectMessage = "Your sword feels solid in your hands."
+        self.hitMessage = "Your blade strikes the enemy, cutting deep."
+        self.missMessage = "The foul being afore you evades the assault."
+        self.inspectMessage = "The weight of the sword you wield brings comfort."
+        self.maxStack = 1
         self.modifiers = [["{}broken".format(txt.col.fg.strg.grey),-3,-12],
                          ["{}awful".format(txt.col.fg.nml.black),-2,-8],
                          ["{}shoddy".format(txt.col.fg.nml.black),-1,-4],
@@ -120,6 +123,8 @@ class ClassicSword(Weapon):
                          ["{}epic".format(txt.col.fg.nml.magenta),3,6],
                          ["{}godly".format(txt.col.fg.nml.yellow),4,8],
                          ["{}{}legendary".format(txt.col.fg.strg.yellow,txt.sty.bold),5,10]]
+    def get_tags(self=None):
+        return ["weapon","starterWeapon","shopExclusive"]
 
 class Axe(Weapon):
     def __init__(self):
@@ -127,9 +132,10 @@ class Axe(Weapon):
         self.name = "axe"
         self.damage = 8
         self.damageChance = 70
-        self.hitMessage = "You slice your enemy with your wieldly axe."
-        self.missMessage = "You waste energy swinging your axe about."
-        self.inspectMessage = "Looking at your axe, you notice a small inscribing on the handle. Probably the craftsman's."
+        self.hitMessage = "The axe embeds into the enemy with your strong swing."
+        self.missMessage = "You are sent staggering by the momentum of your missed attack."
+        self.inspectMessage = "A small inscription lies on the handle, reading \"M.K\". Probably the blacksmith."
+        self.maxStack = 1
         self.modifiers = [["{}broken".format(txt.col.fg.strg.grey),-3,-12],
                          ["{}awful".format(txt.col.fg.nml.black),-2,-8],
                          ["{}shoddy".format(txt.col.fg.nml.black),-1,-4],
@@ -139,6 +145,8 @@ class Axe(Weapon):
                          ["{}epic".format(txt.col.fg.nml.magenta),3,6],
                          ["{}godly".format(txt.col.fg.nml.yellow),4,8],
                          ["{}{}legendary".format(txt.col.fg.strg.yellow,txt.sty.bold),5,10]]
+    def get_tags(self=None):
+        return ["weapon","starterWeapon","shopExclusive"]
 
 class Dagger(Weapon):
     def __init__(self):
@@ -146,9 +154,10 @@ class Dagger(Weapon):
         self.name = "dagger"
         self.damage = 5
         self.damageChance = 100
-        self.hitMessage = "You stab your enemy right in their guts."
-        self.missMessage = "You try to stab them but you can't get close enough."
-        self.inspectMessage = "You marvel at how lightweight this blade is."
+        self.hitMessage = "You manage to drive your dagger hilt-deep into the enemy."
+        self.missMessage = "Your jab misses entirely, only piercing the air."
+        self.inspectMessage = "Flipping it over your hand, you can't help but remark on the lightness of this dagger."
+        self.maxStack = 1
         self.modifiers = [["{}broken".format(txt.col.fg.strg.grey),-3,-12],
                          ["{}awful".format(txt.col.fg.nml.black),-2,-8],
                          ["{}shoddy".format(txt.col.fg.nml.black),-1,-4],
@@ -158,6 +167,8 @@ class Dagger(Weapon):
                          ["{}epic".format(txt.col.fg.nml.magenta),3,6],
                          ["{}godly".format(txt.col.fg.nml.yellow),4,8],
                          ["{}{}legendary".format(txt.col.fg.strg.yellow,txt.sty.bold),5,10]]
+    def get_tags(self=None):
+        return ["weapon","starterWeapon","shopExclusive"]
 
 class Scimitar(Weapon):
     def __init__(self):
@@ -165,9 +176,10 @@ class Scimitar(Weapon):
         self.name = "scimitar"
         self.damage = 6
         self.damageChance = 90
-        self.hitMessage = "You slash the monster with your scimitar."
-        self.missMessage = "You slash the air with your scimitar."
-        self.inspectMessage = "You notice the exotic shape of your scimitar's blade."
+        self.hitMessage = "The curve of the blade allows for a wider slash at the enemy, which you take advantage of."
+        self.missMessage = "The unorthodox shape of the scimitar doesn't lend itself to your skill, missing entirely."
+        self.inspectMessage = "Running your finger along the curved blade, you recognise what a formidable weapon it truly is."
+        self.maxStack = 1
         self.modifiers = [["{}broken".format(txt.col.fg.strg.grey),-3,-12],
                          ["{}awful".format(txt.col.fg.nml.black),-2,-8],
                          ["{}shoddy".format(txt.col.fg.nml.black),-1,-4],
@@ -177,6 +189,8 @@ class Scimitar(Weapon):
                          ["{}epic".format(txt.col.fg.nml.magenta),3,6],
                          ["{}godly".format(txt.col.fg.nml.yellow),4,8],
                          ["{}{}legendary".format(txt.col.fg.strg.yellow,txt.sty.bold),5,10]]
+    def get_tags(self=None):
+        return ["weapon","starterWeapon","shopExclusive"]
 
 class Mace(Weapon):
     def __init__(self):
@@ -184,9 +198,10 @@ class Mace(Weapon):
         self.name = "mace"
         self.damage = 6
         self.damageChance = 90
-        self.hitMessage = "You slam the monster with your mace"
-        self.missMessage = "Your miss your shot with your mace."
-        self.inspectMessage = "Your mace is very bumpy and spiky."
+        self.hitMessage = "The mace crashes down into the enemy, with audibly broken bones."
+        self.missMessage = "The mace crashes into the ground, missing the enemy by inches."
+        self.inspectMessage = "The heavy implement almost has a mind of its own with its inertia."
+        self.maxStack = 1
         self.modifiers = [["{}broken".format(txt.col.fg.strg.grey),-3,-12],
                          ["{}awful".format(txt.col.fg.nml.black),-2,-8],
                          ["{}shoddy".format(txt.col.fg.nml.black),-1,-4],
@@ -196,6 +211,8 @@ class Mace(Weapon):
                          ["{}epic".format(txt.col.fg.nml.magenta),3,6],
                          ["{}godly".format(txt.col.fg.nml.yellow),4,8],
                          ["{}{}legendary".format(txt.col.fg.strg.yellow,txt.sty.bold),5,10]]
+    def get_tags(self=None):
+        return ["weapon","starterWeapon","shopExclusive"]
 
 class Hammer(Weapon):
     def __init__(self):
@@ -203,9 +220,10 @@ class Hammer(Weapon):
         self.name = "hammer"
         self.damage = 9
         self.damageChance = 60
-        self.hitMessage = "The enemy gets a concussion from your hammer's blast"
-        self.missMessage = "You waste valuable stamina missing your shot."
+        self.hitMessage = "The heavy head of the hammer ploughs into their side."
+        self.missMessage = "The weight of the weapon slows it too much to hit the enemy."
         self.inspectMessage = "\"Would you like... another nail?\" - A wise philosopher."
+        self.maxStack = 1
         self.modifiers = [["{}broken".format(txt.col.fg.strg.grey),-3,-12],
                          ["{}awful".format(txt.col.fg.nml.black),-2,-8],
                          ["{}shoddy".format(txt.col.fg.nml.black),-1,-4],
@@ -215,6 +233,8 @@ class Hammer(Weapon):
                          ["{}epic".format(txt.col.fg.nml.magenta),3,6],
                          ["{}godly".format(txt.col.fg.nml.yellow),4,8],
                          ["{}{}legendary".format(txt.col.fg.strg.yellow,txt.sty.bold),5,10]]
+    def get_tags(self=None):
+        return ["weapon","starterWeapon","shopExclusive"]
 
 class AxeOfFlames(Weapon):
     def __init__(self):
@@ -222,9 +242,10 @@ class AxeOfFlames(Weapon):
         self.name = "Axe of Flames"
         self.damage = 8
         self.damageChance = 80
-        self.hitMessage = ("The cold metal hacks the enemy, while the fire burns their wound.")
-        self.missMessage = ("Your enemy is intimated by a wall of flames.")
-        self.inspectMessage = ("You examine the flaming axe. Your enemies will surely know fear.")
+        self.hitMessage = ("The burning edge sparks fires under the enemy's skin.")
+        self.missMessage = ("Even though the axe misses, the flaming blade still sparks fear.")
+        self.inspectMessage = ("Hefting the axe, even you are intimidated by the fires it could start.")
+        self.maxStack = 1
         self.modifiers = [["{}Broken".format(txt.col.fg.strg.grey),-3,-12],
                          ["{}Awful".format(txt.col.fg.nml.black),-2,-8],
                          ["{}Shoddy".format(txt.col.fg.nml.black),-1,-4],
@@ -234,6 +255,8 @@ class AxeOfFlames(Weapon):
                          ["{}Epic".format(txt.col.fg.nml.magenta),3,6],
                          ["{}Godly".format(txt.col.fg.nml.yellow),4,8],
                          ["{}{}Legendary".format(txt.col.fg.strg.yellow,txt.sty.bold),5,10]]
+    def get_tags(self=None):
+        return ["weapon","legendaryWeapon","shopExclusive"]
 
 class SwordOfSouls(Weapon):
     def __init__(self):
@@ -241,9 +264,10 @@ class SwordOfSouls(Weapon):
         self.name = "Sword of Souls"
         self.damage = 10
         self.damageChance = 95
-        self.hitMessage = ("Your enemy is struck with the blood of thousands.")
-        self.missMessage = ("Your enemy hears the souls trapped within the blade.")
-        self.inspectMessage = ("You unsheathe the sword. A threatening aura surrounds it.")
+        self.hitMessage = ("The blade strikes with the force of a thousand souls.")
+        self.missMessage = ("Singing through the air, you can almost hear the screams of thousands.")
+        self.inspectMessage = ("You look at the gemstones, and watch the spirits echoing around inside them.")
+        self.maxStack = 1
         self.modifiers = [["{}Broken".format(txt.col.fg.strg.grey),-3,-12],
                          ["{}Awful".format(txt.col.fg.nml.black),-2,-8],
                          ["{}Shoddy".format(txt.col.fg.nml.black),-1,-4],
@@ -253,3 +277,11 @@ class SwordOfSouls(Weapon):
                          ["{}Epic".format(txt.col.fg.nml.magenta),3,6],
                          ["{}Godly".format(txt.col.fg.nml.yellow),4,8],
                          ["{}{}Legendary".format(txt.col.fg.strg.yellow,txt.sty.bold),5,10]]
+    def get_tags(self=None):
+        return ["weapon","legendaryWeapon","shopExclusive"]
+
+
+
+
+
+weaponList = [ClassicSword,Axe,Dagger,Scimitar,Mace,Hammer,AxeOfFlames,SwordOfSouls]

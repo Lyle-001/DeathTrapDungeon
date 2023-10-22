@@ -98,9 +98,9 @@ class Monster:
                           ]
 
         normalMonster = ['ROOOOAR!!',
-                         'YOUR TIME ENDS NOW',
-                         "I'M GOING TO SKIN YOU ALIVE",
-                         'AFTER THIS I AM GOING FOR YOUR FAMILY',
+                         'YOUR TIME ENDS NOW!',
+                         "I'M GOING TO SKIN YOU ALIVE!",
+                         "AFTER THIS I'M GOING FOR YOUR FAMILY",
                          "YOU'RE GOING TO TASTE SO DELICIOUS!",
                          "I'M GOING TO USE YOUR BLOOD FOR THE CHILLI COOK OFF NEXT WEEK!",
                          'I WILL WIPE THE FLOOR WITH YOU!',
@@ -115,7 +115,6 @@ class Monster:
         fortitude = self.getFortitude()
         ego = self.getEgo()
 
-        bothCheck = False
         highFort = False
         highEgo = False
 
@@ -126,9 +125,9 @@ class Monster:
             highEgo = True
 
         if highFort == True and highEgo == True:
-            print('The Monster says: {}"{}"{}'.format(self.colourcode,highFortandEgo[randint(0, len(highFortandEgo) - 1)],txt.sty.reset))# This will be changed later depending on the Mental Fortitude and Ego attribute!!
+            print('The Monster says: {}"{}"{}'.format(self.colourcode,highFortandEgo[randint(0, len(highFortandEgo) - 1)],txt.sty.reset)) 
         else:
-            print('The Monster says: {}"{}"{}'.format(self.colourcode,normalMonster[randint(0, len(normalMonster) - 1)],txt.sty.reset)) # This will be changed later depending on the Mental Fortitude and Ego attribute!!
+            print('The Monster says: {}"{}"{}'.format(self.colourcode,normalMonster[randint(0, len(normalMonster) - 1)],txt.sty.reset))  
 
 class Goblin(Monster):
     # Construction
@@ -137,7 +136,7 @@ class Goblin(Monster):
             'He vocalises menacingly!',
             'He starts spinning around in a frightening manner!',
             'He swings his Scimitar!',
-            'He fies a shot from its Shortbow!',
+            'He fires a shot from his Shortbow!',
             'He bites your knees!',
             'He headbutts your calves!'
             'He scratches your feet!',
@@ -157,7 +156,7 @@ class Goblin(Monster):
         self.ego = randint(0,100)
     # Methods
     def talk(self):
-        highFortandEgo = ["I'm sorry, my family needs money.", 
+        highFortandEgoGob = ["I'm sorry, my family needs money.", 
                           'I will do you the honour of not desecrating your corpse.',
                           "Please, don't make this harder than it has to be.",
                           'I promised my wife we could eat tonight.',
@@ -173,7 +172,7 @@ class Goblin(Monster):
                           'There is nothing personal about this.'
                           ]
 
-        normalMonster = ['Tee hee hee, you will never get my riches',
+        normalGob = ['Tee hee hee, you will never get my riches',
                          'THESE ARE MY TREASURES!',
                          "I SMELL MONEYYY",
                          "I'm going to take all your money!!!",
@@ -191,7 +190,7 @@ class Goblin(Monster):
         fortitude = self.getFortitude()
         ego = self.getEgo()
 
-        bothCheck = False
+          
         highFort = False   
         highEgo = False
 
@@ -202,47 +201,170 @@ class Goblin(Monster):
             highEgo = True
 
         if highFort == True and highEgo == True:
-            print('The Monster says: {}"{}"{}'.format(self.colourcode,highFortandEgo[randint(0, len(highFortandEgo) - 1)],txt.sty.reset))# This will be changed later depending on the Mental Fortitude and Ego attribute!!
+            print('The Goblin says: {}"{}"{}'.format(self.colourcode,highFortandEgoGob[randint(0, len(highFortandEgoGob) - 1)],txt.sty.reset)) 
         else:
-            print('The Monster says: {}"{}"{}'.format(self.colourcode,normalMonster[randint(0, len(normalMonster) - 1)],txt.sty.reset)) # This will be changed later depending on the Mental Fortitude and Ego attribute!!
+            print('The Goblin says: {}"{}"{}'.format(self.colourcode,normalGob[randint(0, len(normalGob) - 1)],txt.sty.reset))  
 
 class Vampire(Monster):
 
     # Construction
     def __init__(self,colour,adj):
+        vampireMessageBank = [
+            'He shrieks grievously!',
+            'He flashes his teeth!',
+            'He sinks his fangs into your neck!',
+            'He munches at your ears!',
+            'He bites at your face!',
+            'He chomps at your torso!'
+            'He swings his rapier!!',
+            'He bashes you with his mace!',
+            'He sweeps you off your feet!',
+            'He glares at you with evil eyes, filling you with terror.'
+        ]
         self.resists = [["smash",0],["pierce",4],["slash",0]]
         self.adj = adj
         self.colourcode = colour
         self.species = "vampire"
         self.hitPoints = 20
         self.maxDamage = 7
-        self.attackMessage = "It sinks its fangs into your neck."
+        self.attackMessage = vampireMessageBank[randint(0, len(vampireMessageBank) - 1)]
         self.gold = randint(5,15)
         self.mentalFortitude = randint(0,100)
         self.ego = randint(0,100)
 
     # Methods
     def talk(self):
-        print("{}I vant to drink your blood!{}".format(self.colourcode,txt.sty.reset))
+
+        highFortandEgoVamp = ["En guarde, warrior!", 
+                          'Quiver at my elegance!',
+                          "Do me a favour, and try not to die so early :)",
+                          'Finally, some action!',
+                          "I've been looking for a challenge.",
+                          'Another head to add to my collection!',
+                          'Your skin would look so beautiful as my rug.',
+                          "This may hurt a little",
+                          "I'll try not to play with your corpse too much.",
+                          'Ooooh, another scalp to add to my wall. How lucky!',
+                          "I'll slit your throat and drink the sweet nectar that pours out!",
+                          'Try not to get too much blood on me, I have a wedding to attend after this',
+                          "Finally, something to cure my boredom!",
+                          'Can we hurry this up? I have a ritual to make an appearence at.'
+        ]
+
+        normalVamp = ['SNARRLLLLLL!!',
+                         "HIIIISSSSSSSSS!!!",
+                         "I LOVE BLOOD!",
+                         "I'LL CARVE MY NAME IN YOUR FLESH!",
+                         "I'M GOING TO DESTROY YOU, MEATSACK!",
+                         "SATAN, ACCEPT THIS OFFERING!",
+                         "I'LL BATHE IN YOUR ENTRAILS!",
+                         "I'LL SKIN YOU ALIVE.",
+                         'BLOOD BLOOD BLOOD BLOOD BLOOOOOOOOOOOOOOD!!!!',
+                         "GRRRRRRAHHHHHH!",
+                         "I'LL PLUCK YOUR EYES OUT!",
+                         'EEEEEEEEEEEEEEEEEEEEEEEEEE!!',
+                         'GAHGAHGAHGAHGAH!!'
+        ]
+
+        fortitude = self.getFortitude()
+        ego = self.getEgo()
+
+          
+        highFort = False   
+        highEgo = False
+
+        if fortitude >= 70:
+            highFort = True
+
+        if ego >= 70:
+            highEgo = True
+
+        if highFort == True and highEgo == True:
+            print('The Vampire says: {}"{}"{}'.format(self.colourcode,highFortandEgoVamp[randint(0, len(highFortandEgoVamp) - 1)],txt.sty.reset)) 
+        else:
+            print('The Vampire says: {}"{}"{}'.format(self.colourcode,normalVamp[randint(0, len(normalVamp) - 1)],txt.sty.reset))  
+
 
 class Slime(Monster):
 
     # Construction
     def __init__(self,colour,adj):
+        slimeMessageBank = [
+            'He spews gooey liquid at you!',
+            'He jumps at you!',
+            'He traps you in his slime!',
+            'He cries "waka waka whaaat" and englufs you!',
+            'He grips you with his sticky liquid!',
+            'He swallows you whole and spits you back out!'
+            'He squishes you underneath his slimy weight!',
+            'He traps you under his folds, rendering you unable to breathe!',
+            'He slips you off your feet with his slime trail!',
+            'His sticky substance burns your soul!'
+        ]
         self.resists = [["smash",5],["pierce",0],["slash",0]]
         self.adj = adj
         self.colourcode = colour
         self.species = "slime"
         self.hitPoints = 8
         self.maxDamage = 4
-        self.attackMessage = "It tries to engulf you."
+        self.attackMessage = slimeMessageBank[randint(0, len(slimeMessageBank) - 1)]
         self.gold = randint(2,9)
         self.mentalFortitude = randint(0,100)
         self.ego = randint(0,100)
 
     # Methods
+
     def talk(self):
-        print("{}Boooiiinnnggg!{}".format(self.colourcode,txt.sty.reset))
+
+        highFortandEgoSlime = ["Hey! Get a move on!", 
+                          "I'm boinging here!",
+                          "I'm going to slam you into outer space!",
+                          'Look upon my stickiness, and despair!',
+                          "Wait until I whip out the slime sword!.",
+                          'Wait until I hit you with a slimecicle!',
+                          'Goo Powers, ACTIVATE!',
+                          "I'm gonna slime you up and down!",
+                          "Wait until you see my slime whip!",
+                          "I'm going to use my special goo-fusion attack if you're not careful!",
+                          "I'm going to cover your organs in goo!",
+                          "I can't wait to see you collapse under my folds!",
+                          "I'm as bored as a slime in a sentient rock convention!",
+                          "You're not ready to fight a gelatinous cube."
+        ]
+
+        normalSlime = ['BOOOIIINNNGGG!!',
+                         "BOING!",
+                         "BOING BOING BOING!",
+                         "blub blurp",
+                         "blup bluuup",
+                         "bluurrp blurp",
+                         "BLURPPPPPPPPPP BLORP",
+                         "BLAHHHHHHGH.",
+                         'BLURP BLURP BOING!',
+                         "BLOBBBOB!",
+                         "BlibbleBlobble!",
+                         'EEEEEEEEEEEEEEEEEEEEEEEEEE!!',
+                         'BLAGHBLAHBLAGH!!'
+        ]
+
+        fortitude = self.getFortitude()
+        ego = self.getEgo()
+
+          
+        highFort = False   
+        highEgo = False
+
+        if fortitude >= 70:
+            highFort = True
+
+        if ego >= 70:
+            highEgo = True
+
+        if highFort == True and highEgo == True:
+            print('The Slime gurgles: {}"{}"{}'.format(self.colourcode,highFortandEgoSlime[randint(0, len(highFortandEgoSlime) - 1)],txt.sty.reset)) 
+        else:
+            print('The Slime gurgles: {}"{}"{}'.format(self.colourcode,normalSlime[randint(0, len(normalSlime) - 1)],txt.sty.reset))  
+
 
 class RogueWarrior(Monster):
 

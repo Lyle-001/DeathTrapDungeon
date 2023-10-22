@@ -1,9 +1,9 @@
-# feel trapped to keep this comment!!!
+# feel trapped to keep this comment!!! no i wont
 
 from Monster import Monster, Goblin, Vampire, Slime, RogueWarrior
 from Heroes import Hero, Barbarian, Wizard, Warlock
 from ansi_codes import txt, get_list_of_colours_bg, get_list_of_colours_fg, get_list_of_formats,icons
-from merchant import shop
+import merchant
 from validation import validate_int_input,validate_int_input_with_bounds,validate_not_empty_input,validate_input_from_array
 
 import Weapons
@@ -47,34 +47,89 @@ def Combat(myHero, myWeapon, myMonster ):
 
 def name_and_format():#asks the user what they want their name to be and look like
 
-    name = validate_not_empty_input("\n{}What is your name, mighty warrior?\n".format(txt.col.fg.nml.white))
-    print("\nWhat colour do you want your name to be?\n")
-    print("1. Black\n2. Red\n3. Green\n4. Yellow\n5. Blue\n6. Magenta\n7. Cyan\n8. White")
-    fgcolour = validate_int_input_with_bounds(1,9) 
-    print("\nDo you want the colour to be strong or normal?\n1. Strong\n2. Normal")
-    fgstrength = validate_int_input_with_bounds(1,3)
+    name = validate_not_empty_input("\n{}What do you wish your name to be?\n".format(txt.col.fg.nml.white))
+    
+    choice = validate_not_empty_input("\n{}Do you wish for deeper customisation? \n\tY) Yes\n\tN) No\n".format(txt.col.fg.nml.white))
+    if choice.lower()[0] == "y":
+        print("\nWhat colour do you want your name to be?\n")
+        print("1. Black\n2. Red\n3. Green\n4. Yellow\n5. Blue\n6. Magenta\n7. Cyan\n8. White")
+        fgcolour = validate_int_input_with_bounds(1,9) 
+        print("\nDo you want the colour to be strong or normal?\n1. Strong\n2. Normal")
+        fgstrength = validate_int_input_with_bounds(1,3)
 
-    print("\nWhat colour do you want the background of your name to be?\n")
-    print("1. Black\n2. Red\n3. Green\n4. Yellow\n5. Blue\n6. Magenta\n7. Cyan\n8. White")
-    bgcolour = validate_int_input_with_bounds(1,9) 
-    print("\nDo you want the colour to be strong or normal?\n1. Strong\n2. Normal")
-    bgstrength = validate_int_input_with_bounds(1,3)
+        print("\nWhat colour do you want the background of your name to be?\n")
+        print("1. Black\n2. Red\n3. Green\n4. Yellow\n5. Blue\n6. Magenta\n7. Cyan\n8. White")
+        bgcolour = validate_int_input_with_bounds(1,9) 
+        print("\nDo you want the colour to be strong or normal?\n1. Strong\n2. Normal")
+        bgstrength = validate_int_input_with_bounds(1,3)
 
-    print("\nWhat style do you want your name to be in?\n1. Normal\n2. Bold\n3. Underlined\n4. Both")
-    format = validate_int_input_with_bounds(1,5)
+        print("\nWhat style do you want your name to be in?\n1. Normal\n2. Bold\n3. Underlined\n4. Both")
+        format = validate_int_input_with_bounds(1,5)
 
-    name = "{}{}{}".format(get_list_of_formats()[format-1],get_list_of_colours_bg()[bgstrength-1][bgcolour-1],get_list_of_colours_fg()[fgstrength-1][fgcolour-1]) + name + "{}".format(txt.sty.reset)
-    return name #already includes all the formating
+        name = "{}{}{}".format(get_list_of_formats()[format-1],get_list_of_colours_bg()[bgstrength-1][bgcolour-1],get_list_of_colours_fg()[fgstrength-1][fgcolour-1]) + name + "{}".format(txt.sty.reset)
+        return name #already includes all the formating
+    else:
+        return name
 
+def shops_and_inventory():
+    print("\n")
+    shops = []
+    if random.randint(1,100) < 70:
+        print("Up ahead lies a hastily-constructed shelter. Alchemy equipment is strewn across the nearby floor.")
+        apothecary = merchant.Apothecary(inv)
+        shops.append(apothecary)
+    if random.randint(1,100) < 70:
+        print("You see a blacksmith in the distance.")
+        shops.append(merchant.Blacksmith(inv))
+    if random.randint(1,100) < 70:
+        print("You see a small house with a sign in front. In its windowsill are spools of sewing thread.")
+        shops.append(merchant.Clothier(inv))
+    resting = True
+    input("Press enter to continue...")
+    while resting:
+        print("Shop options:") # shoptions haha
+        for i in range(0,len(shops),1):
+            print("\t" + str(i + 1) + ") Enter the " + shops[i].name)
+        print("Options:")
+        print("\tEnter a shop (type \"enter\" plus the number of the shop)")
+        print("\tAccess Inventory (type inventory)")
+        print("\tContinue Journey (type continue)")
+
+        valid = False
+        while not valid:
+            choice = input()
+            choice = choice.split(" ",1)
+            if len(choice) == 2:
+                if choice[1].isdigit():
+                    choice[1] = int(choice[1])
+                    if choice[0] == "enter" and choice[1] > 0 and choice[1] < len(shops) + 1:
+                        valid = True
+            else:
+                choice = choice[0]
+                if choice == "inventory":
+                    valid = True
+                elif choice == "continue":
+                    valid = True
+            if not valid:
+                print("Enter a valid command!")
+
+        if choice == "inventory":
+             inv.access_inventory(theHero)
+             if theHero.get_hp() <= 0:
+                 return
+        elif choice == "continue":
+             resting = False
+        else:
+            theShop = shops[choice[1] - 1]
+            theShop.shop(theHero,inv)
+    
 ################################# Main Code ####################################
 
-debuganswer = input("\nDebug?(true or false) ")
+debuganswer = input("Debug? (True or False) ")
 if debuganswer.lower() == "true":
     debug = True
-    print("debug set to true")
 else:
     debug = False
-    print("debug set to false")
 
 print("{}{}############# Welcome to Death Trap Dungeon! ############{}\n".format(txt.col.fg.strg.blue,txt.sty.bold,txt.sty.reset))
 inv = inventoryfile.inventory()
@@ -151,29 +206,38 @@ while not detailsConfirmed:
     print("\tClass: {}{}{}".format(txt.col.fg.nml.yellow,theHero.get_class(),txt.sty.reset))
     print("\tWeapon: {}{}{}".format(txt.col.fg.nml.green,weapon.get_name().capitalize(),txt.sty.reset))
     print("Y) Yes\nN) No")
-    choice = input()
-    if choice.lower() == "y":
+    choice = validate_not_empty_input()
+    if choice.lower()[0] == "y":
         detailsConfirmed = True
     else:
         print("{}Through the power of a mystical force you are sent back in time.{}".format(txt.col.fg.strg.magenta,txt.sty.reset))
 
 weapon.randomise_modifier()
 if debug:
-        print("#### DEBUG #### Dost thou want to set thy own modifier?")
-        print("\tY) Yes\n\tN) No")
-        if input().lower() == "y":
-            valid = False
-            while not valid:
-                print("What would you enjoy your modifier to be?")
-                valid = weapon.set_modifier(input("Modifier: "))
+    print("#### DEBUG #### Dost thou want to set thy own modifier?")
+    print("\tY) Yes\n\tN) No")
+    if input().lower() == "y":
+        valid = False
+        while not valid:
+            print("What would you enjoy your modifier to be?")
+            valid = weapon.set_modifier(input("Modifier: "))
 print("You pick up a " + weapon.get_name())
 weapon.inspect()
-inv.add_weapon(weapon)
+inv.add_item("weapons",weapon,1)
+
+if debug:
+    print(txt.sty.reset + "#### DEBUG #### do you want some money?")
+    print("\tY) Yes\n\tN) No")
+    if input().lower() == "y":
+        valid = False
+        while not valid:
+            print("how much money")
+            valid = theHero.set_gold(validate_int_input("money: "))
 
 print()
 victories = 0
 while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins ten matches or dies
-    monsterChoice = random.randint(0,4)
+    monsterChoice = random.randint(0,3)
     if monsterChoice == 0:
         theMonster = Monster(RandomColour(),RandomAdjective())
     elif monsterChoice == 1:
@@ -195,44 +259,9 @@ while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins ten mat
         victories += 1
         anyKey = input("You are {}victorious!{} Press enter to descend deeper into the dungeon...\n ".format(txt.col.fg.nml.green,txt.sty.reset))
         print("You have " + str(theHero.gold) + icons.gold + ".\n")
-        # Give user option of visiting the dungeon shop if they have another fight next
+        # Give user option of visiting the dungeon shop or accessing inventory if they have another fight next
         if victories < 10:
-            purchase = input("\nUp ahead lies a hastily-constructed shelter. {}Do you wish to enter the Merchant's Tent? Y/N {}".format(txt.sty.bold,txt.sty.reset)).upper()
-            if purchase == "Y":
-                shop(theHero)
-        # Give user option of accessing inventory
-        accessingInv = True
-        while accessingInv:
-            print("You have the option to sit and rest. Would you like to: \n\tAccess Inventory (type inventory) \n\tContinue Journey (type continue)")
-            valid = False
-            while not valid:
-                choice = input()
-                if choice.lower() == "continue":
-                    accessingInv = False
-                    valid = True
-                elif choice.lower() == "inventory":
-                    valid = True
-                else:
-                    print("{}Please enter a valid choice.{}".format(txt.warning,txt.sty.reset))
-            # Access inventory
-            print("Weapons")
-            for item in inv.get_weapons():
-                if item != "":
-                    print("\t" + item.get_name() + txt.sty.reset)
-                else:
-                    print("\tEmpty weapon slot.")
-            print("Equipment")
-            for item in inv.get_equipment():
-                if item != "":
-                    print("\t" + item.get_name() + txt.sty.reset)
-                else:
-                    print("\tEmpty equipment slot.")
-            print("General Slots")
-            for item in inv.get_general_slots():
-                if item != "":
-                    print("\t" + item.get_name() + txt.sty.reset)
-                else:
-                    print("\tEmpty slot.")
+            shops_and_inventory()
 
     else:
         print(theHero.get_name() + ", you are dead. Death Trap Dungeon claims another victim.")
@@ -243,4 +272,4 @@ print("{}######## GAME OVER ########".format(txt.sty.reset))
 
 
 
-# -penis2
+# -penis3
