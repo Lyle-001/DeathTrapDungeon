@@ -32,7 +32,7 @@ class Armour:
         return "equipment"
 
     def use(self,hero,inv):
-        if inv.add_item("equipment",self,1):
+        if inv.add_item(self,"equipment"):
             inv.delete_item(self,1,"general")
 
 class Helmet(Armour):

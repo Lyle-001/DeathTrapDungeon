@@ -223,7 +223,7 @@ if debug:
             valid = weapon.set_modifier(input("Modifier: "))
 print("You pick up a " + weapon.get_name())
 weapon.inspect()
-inv.add_item("weapons",weapon,1)
+inv.add_item(weapon,"weapons",1)
 
 if debug:
     print(txt.sty.reset + "#### DEBUG #### do you want some money?")

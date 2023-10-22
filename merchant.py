@@ -69,7 +69,7 @@ class Shop:
                         return
             item = self.wareList[choice][0]
             print()
-            if inventory.add_item("general",item,1):
+            if inventory.add_item(item,count = 1):
                 self.wareList[choice][1] -= 1
                 if self.wareList[choice][1] <= 0:
                     del self.wareList[choice]
