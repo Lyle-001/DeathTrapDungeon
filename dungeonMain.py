@@ -36,7 +36,7 @@ def Combat(myHero, myWeapon, myMonster ):
         print("\n######### " + name + ": " + str(myHero.get_hp()) + " " + icons.heart + " #########" +
               " "+ myMonster.getCode() + myMonster.get_species().capitalize() + ":{} ".format(txt.sty.reset) + str(myMonster.get_hitPoints()) + " " + icons.heart + " #########\n")
         
-        choice = input(validate_input_from_array(weapon.get_attacks(),makeWeaponlist(myWeapon)))     
+        choice = validate_input_from_array(weapon.get_attacks(),makeWeaponlist(myWeapon))   
 
         heroDamage = math.floor(math.sqrt((myWeapon.attack() * myHero.attack())))
         myMonster.receive_damage(heroDamage,choice) # Assign damage to monster
