@@ -4,8 +4,15 @@ import Items
 import Equipment
 import Weapons
 
+def get_items_with_tags(tags: list) -> list:
+    """This function returns a list of all the items with a specific tag.
 
-def get_items_with_tags(tags):
+    Args:
+        tags (list): A list of all the tags you want to search for
+
+    Returns:
+        A list of all the items with any of the provided tags.
+    """
     items = []
     for tag in tags:
         for item in Weapons.weaponList:
@@ -54,7 +61,16 @@ class inventory:
 
 
 
-    def get_items_with_tags(self,tags):
+    def get_inv_items_with_tags(self,tags: list) -> list:
+        """ 
+        Returns all the items in the inventory that have any of the given tags.
+
+        Args:
+            tags (list): The list of tags you want to search for
+
+        Returns:
+            A list of all the items in the inventory that have any of the tags
+        """
         items = []
         for tag in tags:
             for section in self.inv:
@@ -68,7 +84,16 @@ class inventory:
 
 
 
-    def print_inventory(self,hero): # deals with the printing of the inventory. separate procedure because its so massive
+    def print_inventory(self,hero: object): # deals with the printing of the inventory. separate procedure because its so massive
+        """
+        Prints the contents of the inventory. Contains all the formatting and stuff.
+
+        Args:
+            hero (hero object): Used for displaying the gold and health of the player.
+
+        Returns:
+            Nothing.
+        """
 
         def print_item(colour,item): # function-ception. i bet you didn't know you could do this
             if item[1].maxStack == 1:
@@ -155,7 +180,16 @@ class inventory:
 
 
 
-    def access_inventory(self,hero): # this is called when the user types "inventory". the backbone of the inventory
+    def access_inventory(self,hero: object): # this is called when the user types "inventory". the backbone of the inventory
+        """
+        Called when the player enters their inventory.
+
+        Args:
+            hero (hero object): Used for displaying the player's health and gold, and for the ability to use items.
+
+        Returns:
+            Nothing.
+        """
         self.print_inventory(hero)
         while True:
             # give options
@@ -217,6 +251,15 @@ class inventory:
 
 
     def update_numbering(self): # update the numbering of the items in the inventory
+        """ 
+        Updates the item numbering for when the user picks an item to interact with.
+
+        Args:
+            None
+
+        Returns:
+            Nothing.
+        """
         itemAddress = 0
         for sectionIndex in range(len(self.inv)):
             for itemIndex in range(len(self.inv[sectionIndex])):
@@ -230,7 +273,18 @@ class inventory:
 
 
 
-    def add_item(self,section,itemID,count): # add an item to a specified section of the inventory
+    def add_item(self,itemID: object,section: str = "general",count: int = 1) -> bool: # add an item to a specified section of the inventory
+        """
+        Add an item to the inventory.
+
+        Args:
+            itemID (object): The actual item you want to add
+            section (str, default is "general"): Can be either "weapons", "equipment, "general" or "potions" to specify the section of the inventory
+            count (int, default is 1): How many of the object you want to add
+
+        Returns:
+            bool: Whether it was added successfully or not
+        """
         if section == "weapons":
             section = 0
         elif section == "equipment":
@@ -299,7 +353,18 @@ class inventory:
 
 
 
-    def delete_item(self,itemID,count,startingSection="weapons"): # Removes a specified object from the inventory
+    def delete_item(self,itemID: object,count: int = 1,startingSection: str ="weapons") -> bool: # Removes a specified object from the inventory
+        """
+        Delete an item from the inventory.
+
+        Args:
+            itemID (object): The item you want to delete
+            count (int, default is 1): How many of the object you want to delete
+            startingSection (str, default is "weapons"): What section you want to start the search for the item in.
+
+        Returns:
+            bool: Whether the item was successfully deleted or not.
+        """
         if startingSection == "weapons":
             startingSection = 0
         elif startingSection == "equipment":
@@ -330,6 +395,15 @@ class inventory:
 
 
     def update_potion_pouch(self): # Moves any potions from the general inventory to the potion pouch
+        """
+        Update the contents of the potion pouch. Moves any potions from the general inventory to the potion pouch
+
+        Args:
+            None
+
+        Returns:
+            Nothing.
+        """
         if self.hasPotionPouch:
             for itemIndex in range(len(self.inv[2])):
                 item = self.inv[2][itemIndex]
@@ -340,16 +414,6 @@ class inventory:
                         self.add_item("potions",cachedItem[1],cachedItem[2]) # add it to the pouch
 
 
-
-    def get_inv_items_with_tags(self,tags):
-        items = []
-        for tag in tags:
-            for section in self.inv:
-                for item in section:
-                    if item[1] != "":
-                        if tag in item[1].get_tags() and item[1] not in items:
-                            items.append(item[1])
-        return items
 
 
 
