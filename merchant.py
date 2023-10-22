@@ -10,9 +10,6 @@ class Shop:
         self.enterMessage = "you enter the shop"
         self.name = "shop"
         self.tag = "shopSellable"
-        self.persistentWareList = [] # always appears, near infinite available
-        self.strangeWareList = [] # appears sometimes and only in one quantity per shop
-        self.exclusiveWareList = [] # rare to appear and only in one quantity per shop. never appears if you have it in your inventory
         self.wareList = self.generate_stock(inv)
 
     def generate_stock(self,inv):
@@ -86,9 +83,6 @@ class Apothecary(Shop):
         self.enterMessage = "You enter the dimly lit tent, as a hunch-backed man gestures at the wares around you."
         self.name = "Apothecarial Tent"
         self.tag = "apothecarySellable"
-        self.persistentWareList = [it.DilutedHealingElixir(),it.ImpureHealingElixir(),it.DistilledHealingElixir()]
-        self.strangeWareList = [it.MysteryElixir()]
-        self.exclusiveWareList = []
         self.wareList = self.generate_stock(inv)
 
 class Blacksmith(Shop):
@@ -96,10 +90,6 @@ class Blacksmith(Shop):
         self.enterMessage = "You enter the workshop to find a young man hammering at a piece of glowing iron."
         self.name = "Blacksmith"
         self.tag = "blacksmithSellable"
-        self.persistentWareList = []
-        self.strangeWareList = []
-        self.exclusiveWareList = [eq.MailHood(),eq.MailHauberk(),eq.MailGloves(),eq.MailChausse(),eq.MailBoots(),
-                    eq.SteelHelm(),eq.SteelBreastplate(),eq.SteelGauntlets(),eq.SteelGreaves(),eq.SteelSabatons()]
         self.wareList = self.generate_stock(inv)
 
 class Clothier(Shop):
@@ -107,10 +97,4 @@ class Clothier(Shop):
         self.enterMessage = "You enter the homely building. An old man is sitting behind the counter, sewing together a boy's shirt."
         self.name = "Clothier's"
         self.tag = "clothierSellable"
-        self.persistentWareList = []
-        self.strangeWareList = []
-        self.exclusiveWareList = [eq.LeatherGauntlets(),eq.LeatherShoes(),
-                    eq.WoolGambeson(),
-                    eq.ClothHat(),eq.ClothShirt(),eq.ClothGloves(),eq.ClothTrousers(),eq.ClothCloths(),
-                    it.PotionPouch()]
         self.wareList = self.generate_stock(inv)
