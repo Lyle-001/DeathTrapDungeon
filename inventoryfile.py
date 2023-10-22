@@ -341,21 +341,15 @@ class inventory:
 
 
 
-
-    def is_in_inv(self,target):
-        for item in self.weaponsSection:
-            if item[0] == target:
-                return True
-        for item in self.equipment:
-            if item[0] == target:
-                return True
-        for item in self.general:
-            if item[0] == target:
-                return True
-        for item in self.potionPouch:
-            if item[0] == target:
-                return True
-        return False
+    def get_inv_items_with_tags(self,tags):
+        items = []
+        for tag in tags:
+            for section in self.inv:
+                for item in section:
+                    if item[1] != "":
+                        if tag in item[1].get_tags() and item[1] not in items:
+                            items.append(item[1])
+        return items
 
 
 

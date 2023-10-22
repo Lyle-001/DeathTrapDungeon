@@ -3,6 +3,7 @@ from ansi_codes import txt,icons
 import Items as it
 import Equipment as eq
 from validation import validate_int_input
+from inventoryfile import get_items_with_tags
 
 class Shop:
     def __init__(self,inv):
@@ -16,17 +17,30 @@ class Shop:
 
     def generate_stock(self,inv):
         stock = []
-        alreadyOwned = inv.get_items_with_tags([self.tag])
-        for item in self.persistentWareList:
-            stock.append([item,randint(20,50)])
-        for item in self.strangeWareList:
+
+        persistentItems = get_items_with_tags(["shopPersistent"])
+        strangeItems = get_items_with_tags(["shopStrange"])
+        exclusiveItems = get_items_with_tags(["shopExclusive"])
+        sellableItems = get_items_with_tags([self.tag])
+        persistentItems = list( set(sellableItems) & set(persistentItems) )
+        strangeItems = list( set(sellableItems) & set(strangeItems) )
+        exclusiveItems = list( set(sellableItems) & set(exclusiveItems) )
+
+        alreadyOwned = inv.get_inv_items_with_tags([self.tag])
+        for item in persistentItems:
+            stock.append([item(),randint(20,50)])
+        for item in strangeItems:
             if randint(1,100) < 70:
-                stock.append([item,1])
-        for item in self.exclusiveWareList:
+                stock.append([item(),1])
+        for item in exclusiveItems:
             if randint(1,100) < 30:
                 inInv = False
-                if not item in alreadyOwned:
-                    stock.append([item,1])
+                for ownedItem in alreadyOwned:
+                    if isinstance(ownedItem,item):
+                        inInv = True
+                        break
+                if not inInv:
+                    stock.append([item(),1])
         return stock
 
     def shop(self,hero,inventory):

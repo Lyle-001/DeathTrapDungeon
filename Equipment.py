@@ -8,7 +8,7 @@ class Armour:
         self.pierceProt = 0
         self.smashProt = 0
     def get_tags(self=None):
-        return ["armour"]
+        return ["armour","shopExclusive"]
 
     def get_name(self):
         return self.name
@@ -47,7 +47,7 @@ class Helmet(Armour):
         self.pierceProt = 0
         self.smashProt = 0
     def get_tags(self=None):
-        return ["armour","head"]
+        return ["armour","head","shopExclusive"]
 
     def get_equipment_type(self):
         return "head"
@@ -64,7 +64,7 @@ class Torso(Armour):
         self.pierceProt = 0
         self.smashProt = 0
     def get_tags(self=None):
-        return ["armour","torso"]
+        return ["armour","torso","shopExclusive"]
 
     def get_equipment_type(self):
         return "torso"
@@ -81,7 +81,7 @@ class Hands(Armour):
         self.pierceProt = 0
         self.smashProt = 0
     def get_tags(self=None):
-        return ["armour","hands"]
+        return ["armour","hands","shopExclusive"]
 
     def get_equipment_type(self):
         return "hands"
@@ -98,7 +98,7 @@ class Legs(Armour):
         self.pierceProt = 0
         self.smashProt = 0
     def get_tags(self=None):
-        return ["armour","legs"]
+        return ["armour","legs","shopExclusive"]
 
     def get_equipment_type(self):
         return "legs"
@@ -115,7 +115,7 @@ class Feet(Armour):
         self.pierceProt = 0
         self.smashProt = 0
     def get_tags(self=None):
-        return ["armour","feet"]
+        return ["armour","feet","shopExclusive"]
 
     def get_equipment_type(self):
         return "feet"
@@ -138,7 +138,7 @@ class MailHood(Helmet):
         self.pierceProt = 1
         self.smashProt = 1
     def get_tags(self=None):
-        return ["armour","head","mail"]
+        return ["armour","head","mail","shopExclusive","blacksmithSellable"]
 
 class MailHauberk(Torso):
     def __init__(self):
@@ -153,7 +153,7 @@ class MailHauberk(Torso):
         self.pierceProt = 1
         self.smashProt = 1
     def get_tags(self=None):
-        return ["armour","torso","mail"]
+        return ["armour","torso","mail","shopExclusive","blacksmithSellable"]
 
 class MailGloves(Hands):
     def __init__(self):
@@ -168,7 +168,7 @@ class MailGloves(Hands):
         self.pierceProt = 1
         self.smashProt = 1
     def get_tags(self=None):
-        return ["armour","hands","mail"]
+        return ["armour","hands","mail","shopExclusive","blacksmithSellable"]
 
 class MailChausse(Legs):
     def __init__(self):
@@ -183,7 +183,7 @@ class MailChausse(Legs):
         self.pierceProt = 1
         self.smashProt = 1
     def get_tags(self=None):
-        return ["armour","legs","mail"]
+        return ["armour","legs","mail","shopExclusive","blacksmithSellable"]
 
 class MailBoots(Feet):
     def __init__(self):
@@ -198,7 +198,7 @@ class MailBoots(Feet):
         self.pierceProt = 1
         self.smashProt = 1
     def get_tags(self=None):
-        return ["armour","feet","mail"]
+        return ["armour","feet","mail","shopExclusive","blacksmithSellable"]
 
 class LeatherGauntlets(Hands):
     def __init__(self):
@@ -213,7 +213,7 @@ class LeatherGauntlets(Hands):
         self.pierceProt = 0
         self.smashProt = 3
     def get_tags(self=None):
-        return ["armour","hands","leather","clotherSellable"]
+        return ["armour","hands","leather","clotherSellable","shopExclusive"]
 
 class LeatherShoes(Feet):
     def __init__(self):
@@ -228,7 +228,7 @@ class LeatherShoes(Feet):
         self.pierceProt = 0
         self.smashProt = 3
     def get_tags(self=None):
-        return ["armour","feet","leather","clothierSellable"]
+        return ["armour","feet","leather","clothierSellable","shopExclusive"]
 
 class WoolGambeson(Torso):
     def __init__(self):
@@ -243,7 +243,7 @@ class WoolGambeson(Torso):
         self.pierceProt = 4
         self.smashProt = 4
     def get_tags(self=None):
-        return ["armour","torso","wool","clotherSellable"]
+        return ["armour","torso","wool","clotherSellable","shopExclusive"]
 
 class ClothHat(Helmet):
     def __init__(self):
@@ -258,7 +258,7 @@ class ClothHat(Helmet):
         self.pierceProt = 0
         self.smashProt = 0
     def get_tags(self=None):
-        return ["armour","head","cloth","clothierSellable"]
+        return ["armour","head","cloth","clothierSellable","shopExclusive"]
 
 class ClothShirt(Torso):
     def __init__(self):
@@ -273,7 +273,7 @@ class ClothShirt(Torso):
         self.pierceProt = 0
         self.smashProt = 0
     def get_tags(self=None):
-        return ["armour","torso","cloth","clothierSellable"]
+        return ["armour","torso","cloth","clothierSellable","shopExclusive"]
 
 class ClothGloves(Hands):
     def __init__(self):
@@ -288,7 +288,7 @@ class ClothGloves(Hands):
         self.pierceProt = 0
         self.smashProt = 0
     def get_tags(self=None):
-        return ["armour","hands","cloth","clothierSellable"]
+        return ["armour","hands","cloth","clothierSellable","shopExclusive"]
 
 class ClothTrousers(Legs):
     def __init__(self):
@@ -303,7 +303,7 @@ class ClothTrousers(Legs):
         self.pierceProt = 0
         self.smashProt = 0
     def get_tags(self=None):
-        return ["armour","legs","cloth","clothierSellable"]
+        return ["armour","legs","cloth","clothierSellable","shopExclusive"]
 
 class ClothCloths(Feet):
     def __init__(self):
@@ -318,7 +318,7 @@ class ClothCloths(Feet):
         self.pierceProt = 0
         self.smashProt = 0
     def get_tags(self=None):
-        return ["armour","feet","cloth","clothierSellable"]
+        return ["armour","feet","cloth","clothierSellable","shopExclusive"]
 
 class SteelHelm(Helmet):
     def __init__(self):
@@ -333,7 +333,7 @@ class SteelHelm(Helmet):
         self.pierceProt = 2
         self.smashProt = 4
     def get_tags(self=None):
-        return ["armour","head","steel"]
+        return ["armour","head","steel","shopExclusive","blacksmithSellable"]
 
 class SteelBreastplate(Torso):
     def __init__(self):
@@ -348,7 +348,7 @@ class SteelBreastplate(Torso):
         self.pierceProt = 2
         self.smashProt = 4
     def get_tags(self=None):
-        return ["armour","torso","steel"]
+        return ["armour","torso","steel","shopExclusive","blacksmithSellable"]
 
 class SteelGauntlets(Hands):
     def __init__(self):
@@ -363,7 +363,7 @@ class SteelGauntlets(Hands):
         self.pierceProt = 2
         self.smashProt = 4
     def get_tags(self=None):
-        return ["armour","hands","steel"]
+        return ["armour","hands","steel","shopExclusive","blacksmithSellable"]
 
 class SteelGreaves(Legs):
     def __init__(self):
@@ -378,7 +378,7 @@ class SteelGreaves(Legs):
         self.pierceProt = 2
         self.smashProt = 4
     def get_tags(self=None):
-        return ["armour","legs","steel"]
+        return ["armour","legs","steel","shopExclusive","blacksmithSellable"]
 
 class SteelSabatons(Feet):
     def __init__(self):
@@ -393,7 +393,7 @@ class SteelSabatons(Feet):
         self.pierceProt = 2
         self.smashProt = 4
     def get_tags(self=None):
-        return ["armour","feet","steel"]
+        return ["armour","feet","steel","shopExclusive","blacksmithSellable"]
 
 
 

@@ -18,7 +18,7 @@ class DilutedHealingElixir:
         self.maxStack = 5
         self.healingPower = [3,7]
     def get_tags(self=None):
-        return ["potion","healthPotion","unidentifiedElixirUsable"]
+        return ["potion","healthPotion","unidentifiedElixirUsable","shopPersistent","apothecarySellable"]
 
     def get_value(self):
         return self.value
@@ -51,7 +51,7 @@ class ImpureHealingElixir(DilutedHealingElixir):
         self.maxStack = 5
         self.healingPower = [5,10]
     def get_tags(self=None):
-        return ["potion","healthPotion","unidentifiedElixirUsable"]
+        return ["potion","healthPotion","unidentifiedElixirUsable","shopPersistent","apothecarySellable"]
 
 class DistilledHealingElixir(DilutedHealingElixir):
     def __init__(self):
@@ -64,7 +64,7 @@ class DistilledHealingElixir(DilutedHealingElixir):
         self.maxStack = 5
         self.healingPower = [15,20]
     def get_tags(self=None):
-        return ["potion","healthPotion","unidentifiedElixirUsable"]
+        return ["potion","healthPotion","unidentifiedElixirUsable","shopPersistent","apothecarySellable"]
 
 class MysteryElixir:
     def __init__(self):
@@ -75,7 +75,7 @@ class MysteryElixir:
         self.value = randint(3,20)
         self.maxStack = 1
     def get_tags(self=None):
-        return ["potion","unidentifiedElixirUsable"]
+        return ["potion","unidentifiedElixirUsable","shopStrange","apothecarySellable"]
 
     def get_name(self):
         return self.name
@@ -110,7 +110,7 @@ class UnidentifiedElixir:
         self.value = randint(3,20)
         self.maxStack = 1
     def get_tags(self=None):
-        return ["potion"]
+        return ["potion","apothecarySellable","shopStrange"]
 
     def get_name(self):
         return self.name
@@ -204,7 +204,7 @@ class PotionPouch:
         self.value = 5
         self.maxStack = 1
     def get_tags(self=None):
-        return ["clothierSellable"]
+        return ["clothierSellable","shopStrange"]
 
     def use(self,hero,inv):
         print("You put on the potion pouch, now you can store 5 more types of potion.")
@@ -212,9 +212,6 @@ class PotionPouch:
         inv.delete_item(self,1)
         inv.update_potion_pouch()
         return True
-
-    def get_type(self):
-        return "potion pouch"
 
     def inspect(self):
         return self.inspectMessage
