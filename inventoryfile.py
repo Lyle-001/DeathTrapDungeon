@@ -475,3 +475,24 @@ class inventory:
                     self.delete_item(item[1],item[2],"general")
                     self.add_item(cachedWeapon[1],"weapons")
         return
+
+
+
+
+
+    def get_active_weapon(self) -> object: # returns the active weapon (weapon in slot 1)
+        """
+        Returns the current active weapon (the first slot in the inventory)
+
+        Args:
+            None
+
+        Returns:
+            object: The active weapon
+        """
+        if self.inv[0][0][1] != "":
+            return self.inv[0][0][1]
+        else:
+            fists = Weapons.Fisticuffs()
+            fists.set_modifier("")
+            return fists

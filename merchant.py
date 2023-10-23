@@ -70,6 +70,7 @@ class Shop:
             item = self.wareList[choice][0]
             print()
             if "weapon" in item.get_tags() and not inventory.weaponsSectionFull:
+                item.randomise_modifier()
                 section = "weapons"
             else:
                 section = "general"

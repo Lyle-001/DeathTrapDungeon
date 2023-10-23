@@ -298,6 +298,22 @@ class SwordOfSouls(Weapon):
     def get_tags(self=None):
         return ["weapon","legendaryWeapon","shopExclusive","blacksmithSellable"]
 
+class Fisticuffs(Weapon):
+    def __init__(self):
+        self.attacks = ["smash"]
+        self.name = "Fisticuffs"
+        self.description = "Your bare fists."
+        self.damage = 2
+        self.damageChance = 40
+        self.hitMessage = "You punch the enemy right in the guts."
+        self.missMessage = "You swing your fist at the enemy"
+        self.inspectMessage = "You look at your bloodied and clothed fists."
+        self.maxStack = 1
+        self.value = 1
+        self.modifiers = [["",0,0]]
+    def get_tags(self=None):
+        return ["weapon"]
+
 
 
 

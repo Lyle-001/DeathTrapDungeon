@@ -251,6 +251,7 @@ while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins ten mat
     print("You are attacked by a {}".format(theMonster.getCode()) +  theMonster.get_adj() + " "
           + theMonster.get_species() + ".{}".format(txt.sty.reset))
     theMonster.talk()
+    weapon = inv.get_active_weapon()
     Combat(theHero, weapon, theMonster)
     if theHero.get_hp() > 0: # Check if the hero has won or lost
         gold = theMonster.getGold()
