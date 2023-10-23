@@ -7,10 +7,14 @@ from inventoryfile import get_items_with_tags
 
 class Shop:
     def __init__(self,inv):
+        self.findMessage = "you see a shop"
         self.enterMessage = "you enter the shop"
         self.name = "shop"
         self.tag = "shopSellable"
         self.wareList = self.generate_stock(inv)
+
+    def find(self):
+        print(self.findMessage)
 
     def generate_stock(self,inv):
         stock = []
@@ -156,6 +160,7 @@ class Shop:
 
 class Apothecary(Shop):
     def __init__(self,inv):
+        self.findMessage = "Up ahead lies a hastily-constructed shelter. Alchemy equipment is strewn across the nearby floor."
         self.enterMessage = "You enter the dimly lit tent, as a hunch-backed man gestures at the wares around you."
         self.name = "Apothecarial Tent"
         self.tag = "apothecarySellable"
@@ -163,6 +168,7 @@ class Apothecary(Shop):
 
 class Blacksmith(Shop):
     def __init__(self,inv):
+        self.findMessage = "You see a blacksmith in the distance."
         self.enterMessage = "You enter the workshop to find a young man hammering at a piece of glowing iron."
         self.name = "Blacksmith"
         self.tag = "blacksmithSellable"
@@ -170,6 +176,7 @@ class Blacksmith(Shop):
 
 class Clothier(Shop):
     def __init__(self,inv):
+        self.findMessage = "You see a small house with a sign in front. In its windowsill are spools of sewing thread."
         self.enterMessage = "You enter the homely building. An old man is sitting behind the counter, sewing together a boy's shirt."
         self.name = "Clothier's"
         self.tag = "clothierSellable"

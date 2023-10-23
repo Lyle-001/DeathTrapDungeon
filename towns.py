@@ -1,5 +1,6 @@
 from random import randint
 import town_name_weights
+import merchant
 
 def generate_town_nameM1():
     name = ""
@@ -133,7 +134,7 @@ def generate_town_nameM4():
             return name
 
 
-def generate_town_nameM5():
+def generate_town_name():
     weights = town_name_weights.weights
 
     alphabet = ["START","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"," ","-","'","&","END"]
@@ -166,3 +167,81 @@ def generate_town_nameM5():
 
                 name = newName
                 return name
+
+
+
+
+
+
+
+class Towns:
+    def __init__(self):
+        self.towns = []
+
+    def new_random_town(self,inventory):
+        newTown = {}
+        newTown["name"] = (generate_town_name())
+        shops = []
+        if randint(1,100) > 70: # 70% chance of generating an apothecary
+            shops.append(merchant.Apothecary(inventory))
+        if randint(1,100) > 70: # 70% chance of generating a blacksmith
+            shops.append(merchant.Blacksmith(inventory))
+        if randint(1,100) > 70: # 70% chance of generating a clothier's
+            shops.append(merchant.Clothier(inventory))
+        newTown["shops"] = (shops)
+        self.towns.append(newTown)
+
+    def visit_town(self,hero,inv):
+        if randint(1,100) < 50 or len(self.towns) == 0: #50% chance of visiting a new town. 100% if it's the first town (obviously)
+            self.new_random_town(inv)
+            town = self.towns[-1]
+            newTown = True
+        else: # 50% chance of visiting an already visited town
+            town = self.towns[randint(0,len(self.towns)-1)]
+            newTown = False
+
+        if newTown:
+            print("You find yourself in the town of " + town["name"])
+        else:
+            print("You find yourself back in the town of " + town["name"])
+
+        for shop in town["shops"]:
+            shop.find()
+        resting = True
+        input("Press enter to continue...")
+        while resting:
+            print("Shop options:") # shoptions haha
+            for i in range(0,len(town["shops"]),1):
+                print("\t" + str(i + 1) + ") Enter the " + town["shops"][i].name)
+            print("Options:")
+            print("\tEnter a shop (type \"enter\" plus the number of the shop)")
+            print("\tAccess Inventory (type inventory)")
+            print("\tContinue Journey (type continue)")
+
+            valid = False
+            while not valid:
+                choice = input()
+                choice = choice.split(" ",1)
+                if len(choice) == 2:
+                    if choice[1].isdigit():
+                        choice[1] = int(choice[1])
+                        if choice[0] == "enter" and choice[1] > 0 and choice[1] < len(town["shops"]) + 1:
+                            valid = True
+                else:
+                    choice = choice[0]
+                    if choice == "inventory":
+                        valid = True
+                    elif choice == "continue":
+                        valid = True
+                if not valid:
+                    print("Enter a valid command!")
+
+            if choice == "inventory":
+                 inv.access_inventory(hero)
+                 if hero.get_hp() <= 0:
+                     return
+            elif choice == "continue":
+                 resting = False
+            else:
+                theShop = town["shops"][choice[1] - 1]
+                theShop.shop(hero,inv)
