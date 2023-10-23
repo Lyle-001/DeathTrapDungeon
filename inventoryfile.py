@@ -253,6 +253,8 @@ class inventory:
                     print("You cannot use this item.")
             elif command == "drop":
                 self.delete_item(target)
+                if section == 3:
+                    self.update_potion_pouch()
                 self.print_inventory(hero)
 
 
@@ -371,6 +373,12 @@ class inventory:
 
                 self.update_numbering()
                 return True
+
+        # if it hasn't already looked through general, make it fall back on general
+        if section != 2:
+            if self.add_item(itemID,"general",count):
+                return True
+
         return False
 
 
@@ -412,12 +420,10 @@ class inventory:
 
                         if section == 0: # if it is a weapon that is being deleted
                             self.weaponsSectionFull = False
-                            self.update_weapons()
                         elif section == 2: # if it is a general item that is being deleted
                             self.generalFull = False
                         elif section == 3: # if it is a potion that is being deleted
                             self.potionPouchFull = False
-                            self.update_potion_pouch()
 
                         self.update_numbering()
                         return True
@@ -446,35 +452,6 @@ class inventory:
                         cachedItem = item[:]
                         self.delete_item(item[1],item[2]) # delete it from the general part
                         self.add_item("potions",cachedItem[1],cachedItem[2]) # add it to the pouch
-
-
-
-
-
-    def update_weapons(self): # moves any weapons from general to the weapons section + other stuff
-        """
-        Update the contents of the weapons section. Moves any weapon from the secondary slot to the primary slot, and then moves any weapon from general into the secondary slot
-
-        Args:
-            None
-
-        Returns:
-            Nothing.
-        """
-        if self.inv[0][0][1] == "" and self.inv[0][1][1] != "": # if there is nothing in the active weapon slot and something in the secondary slot
-            # move the secondary weapon to the primary slot
-            self.inv[0][0] = self.inv[0][1]
-            self.inv[0][1] = [0,"",0]
-        for item in self.inv[2]: # loop through every item in general
-            if self.weaponsSectionFull:
-                return
-            if item[1] != "":
-                if "weapon" in item[1].get_tags(): # if the item is a weapon
-                    # move the item from general to the weapons category
-                    cachedWeapon = item[:]
-                    self.delete_item(item[1],item[2],"general")
-                    self.add_item(cachedWeapon[1],"weapons")
-        return
 
 
 

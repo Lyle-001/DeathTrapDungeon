@@ -97,6 +97,15 @@ class Weapon:
             return 0
 
 
+    def use(self,hero,inventory): # Swaps the active weapon out for this one.
+        cachedWeapon = inventory.inv[0][0][:]
+        inventory.delete_item(self)
+        if cachedWeapon[1] != "":
+            inventory.add_item(cachedWeapon[1],"weapons",cachedWeapon[2])
+        inventory.inv[0][0][1] = self
+        inventory.inv[0][0][2] = 1
+        inventory.update_numbering()
+
 
 
     def inspect(self):
@@ -306,7 +315,7 @@ class Fisticuffs(Weapon):
         self.damage = 2
         self.damageChance = 40
         self.hitMessage = "You punch the enemy right in the guts."
-        self.missMessage = "You swing your fist at the enemy"
+        self.missMessage = "You swing your fist at the enemy."
         self.inspectMessage = "You look at your bloodied and clothed fists."
         self.maxStack = 1
         self.value = 1
