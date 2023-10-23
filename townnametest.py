@@ -1,4 +1,7 @@
 import towns
+import os
+
+os.system('cls')
 
 print("what version (1-5)")
 version = int(input())
@@ -21,5 +24,6 @@ elif version == 4:
         input()
 elif version == 5:
     while True:
-        print(towns.generate_town_nameM5())
+        print(towns.generate_town_name())
         input()
+        os.system('cls')

@@ -1,6 +1,7 @@
 from random import randint
 import town_name_weights
 import merchant
+from ansi_codes import clearscreen
 
 def generate_town_nameM1():
     name = ""
@@ -192,6 +193,7 @@ class Towns:
         self.towns.append(newTown)
 
     def visit_town(self,hero,inv):
+        clearscreen()
         if randint(1,100) < 50 or len(self.towns) == 0: #50% chance of visiting a new town. 100% if it's the first town (obviously)
             self.new_random_town(inv)
             town = self.towns[-1]

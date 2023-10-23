@@ -1,4 +1,4 @@
-from ansi_codes import txt,icons
+from ansi_codes import txt,icons,clearscreen
 from validation import validate_not_empty_input
 import Items
 import Equipment
@@ -95,6 +95,7 @@ class inventory:
             Nothing.
         """
 
+        clearscreen()
         def print_item(colour,item): # function-ception. i bet you didn't know you could do this
             if item[1].maxStack == 1:
                 print("\t{}{}. {}{}".format(colour,str(item[0]),txt.sty.reset,item[1].get_name()))

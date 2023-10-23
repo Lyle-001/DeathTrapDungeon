@@ -1,5 +1,5 @@
 from random import randint
-from ansi_codes import txt,icons
+from ansi_codes import txt,icons,clearscreen
 import Items as it
 import Equipment as eq
 from validation import validate_int_input
@@ -88,14 +88,16 @@ class Shop:
 
             if not selling:
                 self.buy(target,hero,inventory)
+                clearscreen()
             else:
                 self.sell(hero,inventory)
+                clearscreen()
 
     def buy(self,choice,hero,inventory):
         choice -= 1
         item = self.wareList[choice][0]
         print()
-        if "weapon" in item.get_tags() and not inventory.weaponsSectionFull:
+        if "weapon" in item.get_tags():
             item.randomise_modifier()
             section = "weapons"
         else:
@@ -104,9 +106,11 @@ class Shop:
             self.wareList[choice][1] -= 1
             if self.wareList[choice][1] <= 0:
                 del self.wareList[choice]
+            clearscreen()
             print("You successfully bought the item.")
         else:
             hero.set_gold(item.value)
+            clearscreen()
             print("You have been refunded.")
 
     def sell(self,hero,inventory):

@@ -1,8 +1,9 @@
 # feel trapped to keep this comment!!! no i wont
 
+from turtle import clear
 from Monster import Monster, Goblin, Vampire, Slime, RogueWarrior
 from Heroes import Hero, Barbarian, Wizard, Warlock
-from ansi_codes import txt, get_list_of_colours_bg, get_list_of_colours_fg, get_list_of_formats,icons
+from ansi_codes import txt, get_list_of_colours_bg, get_list_of_colours_fg, get_list_of_formats,icons,clearscreen
 import merchant
 from validation import validate_int_input,validate_int_input_with_bounds,validate_not_empty_input,validate_input_from_array
 import towns
@@ -45,6 +46,7 @@ def Combat(myHero, myWeapon, myMonster ):
         if myMonster.get_hitPoints() > 0: # Monster only attacks if it's  still alive.
             print("The " + myMonster.getCode() + myMonster.get_species() + "{} attacks...".format(txt.sty.reset))
             input("{}Press enter to defend!{}\n".format(txt.col.fg.nml.white,txt.sty.reset))
+            clearscreen()
             myHero.receiveDamage(myMonster.attack()) # Subtract damage from hero
 
 def name_and_format():#asks the user what they want their name to be and look like
@@ -251,6 +253,7 @@ while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins ten mat
         theMonster = Slime(RandomColour(),RandomAdjective())
     else:
         theMonster = RogueWarrior(RandomColour(),RandomAdjective())
+    clearscreen()
     print("You are attacked by a {}".format(theMonster.getCode()) +  theMonster.get_adj() + " "
           + theMonster.get_species() + ".{}".format(txt.sty.reset))
     theMonster.talk()

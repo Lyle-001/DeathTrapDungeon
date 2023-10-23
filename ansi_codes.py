@@ -70,4 +70,4 @@ def clearscreen():
     if os.name == "posix":
         os.system("clear")
     else:
-        os.system("cls")
+        os.system('cls')
