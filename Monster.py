@@ -215,7 +215,7 @@ class Vampire(Monster):
             'He sinks his fangs into your neck!',
             'He munches at your ears!',
             'He bites at your face!',
-            'He chomps at your torso!'
+            'He chomps at your torso!',
             'He swings his rapier!!',
             'He bashes you with his mace!',
             'He sweeps you off your feet!',

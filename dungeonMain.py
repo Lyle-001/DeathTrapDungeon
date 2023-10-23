@@ -5,6 +5,7 @@ from Heroes import Hero, Barbarian, Wizard, Warlock
 from ansi_codes import txt, get_list_of_colours_bg, get_list_of_colours_fg, get_list_of_formats,icons
 import merchant
 from validation import validate_int_input,validate_int_input_with_bounds,validate_not_empty_input,validate_input_from_array
+import towns
 
 import dungeon_maze
 import Weapons
@@ -134,6 +135,7 @@ else:
 
 print("{}{}############# Welcome to Death Trap Dungeon! ############{}\n".format(txt.col.fg.strg.blue,txt.sty.bold,txt.sty.reset))
 inv = inventoryfile.inventory()
+townGenerator = towns.Towns()
 detailsConfirmed = False
 while not detailsConfirmed:
 
@@ -224,7 +226,7 @@ if debug:
             valid = weapon.set_modifier(input("Modifier: "))
 print("You pick up a " + weapon.get_name())
 weapon.inspect()
-inv.add_item("weapons",weapon,1)
+inv.add_item(weapon,"weapons",1)
 
 if debug:
     print(txt.sty.reset + "#### DEBUG #### do you want some money?")
@@ -252,6 +254,7 @@ while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins ten mat
     print("You are attacked by a {}".format(theMonster.getCode()) +  theMonster.get_adj() + " "
           + theMonster.get_species() + ".{}".format(txt.sty.reset))
     theMonster.talk()
+    weapon = inv.get_active_weapon()
     Combat(theHero, weapon, theMonster)
     if theHero.get_hp() > 0: # Check if the hero has won or lost
         gold = theMonster.getGold()
@@ -262,13 +265,12 @@ while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins ten mat
         print("You have " + str(theHero.gold) + icons.gold + ".\n")
         # Give user option of visiting the dungeon shop or accessing inventory if they have another fight next
         if victories < 10:
-            shops_and_inventory()
-
-    else:
-        print(theHero.get_name() + ", you are dead. Death Trap Dungeon claims another victim.")
+            townGenerator.visit_town(theHero,inv)
 if victories == 10: # Check if hero won the game
     print(theHero.get_name() + ", you are the Champion of Champions! Fame and fortune are yours!")
     print("You leave the dungeon with " + str(theHero.get_gold()) + icons.gold + "!")
+else:
+    print(theHero.get_name() + ", you are dead. Death Trap Dungeon claims another victim.")
 print("{}######## GAME OVER ########".format(txt.sty.reset))
 
 

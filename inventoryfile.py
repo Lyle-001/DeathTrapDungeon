@@ -4,8 +4,15 @@ import Items
 import Equipment
 import Weapons
 
+def get_items_with_tags(tags: list) -> list:
+    """This function returns a list of all the items with a specific tag.
 
-def get_items_with_tags(tags):
+    Args:
+        tags (list): A list of all the tags you want to search for
+
+    Returns:
+        A list of all the items with any of the provided tags.
+    """
     items = []
     for tag in tags:
         for item in Weapons.weaponList:
@@ -54,7 +61,16 @@ class inventory:
 
 
 
-    def get_items_with_tags(self,tags):
+    def get_inv_items_with_tags(self,tags: list) -> list:
+        """ 
+        Returns all the items in the inventory that have any of the given tags.
+
+        Args:
+            tags (list): The list of tags you want to search for
+
+        Returns:
+            A list of all the items in the inventory that have any of the tags
+        """
         items = []
         for tag in tags:
             for section in self.inv:
@@ -68,7 +84,16 @@ class inventory:
 
 
 
-    def print_inventory(self,hero): # deals with the printing of the inventory. separate procedure because its so massive
+    def print_inventory(self,hero: object): # deals with the printing of the inventory. separate procedure because its so massive
+        """
+        Prints the contents of the inventory. Contains all the formatting and stuff.
+
+        Args:
+            hero (hero object): Used for displaying the gold and health of the player.
+
+        Returns:
+            Nothing.
+        """
 
         def print_item(colour,item): # function-ception. i bet you didn't know you could do this
             if item[1].maxStack == 1:
@@ -88,11 +113,15 @@ class inventory:
         sectColNorm = txt.col.fg.nml.green
         sectColStrong = txt.col.fg.strg.green
         print(sectColNorm + "Weapons" + txt.sty.reset)
-        for item in self.inv[0]:
+        for index in range(len(self.inv[0])):
+            item = self.inv[0][index]
             if item[1] != "":
                 print_item(sectColStrong,item)
             else:
-                print("\t   {}Weapon{}".format(txt.col.fg.strg.grey,txt.sty.reset))
+                if index == 0:
+                    print("\t   Fisticuffs")
+                else:
+                    print("\t   {}Weapon{}".format(txt.col.fg.strg.grey,txt.sty.reset))
 
         # print the equipment. main colour for equipment is cyan
         sectColNorm = txt.col.fg.nml.cyan
@@ -155,13 +184,23 @@ class inventory:
 
 
 
-    def access_inventory(self,hero): # this is called when the user types "inventory". the backbone of the inventory
+    def access_inventory(self,hero: object): # this is called when the user types "inventory". the backbone of the inventory
+        """
+        Called when the player enters their inventory.
+
+        Args:
+            hero (hero object): Used for displaying the player's health and gold, and for the ability to use items.
+
+        Returns:
+            Nothing.
+        """
         self.print_inventory(hero)
         while True:
             # give options
             print("\nWhat would you like to do?")
             print("Inspect item (\"inspect\" + item number)")
             print("Use item (\"use\" + item number)")
+            print("Drop item (\"drop\" + item number)")
             print("Exit (\"exit\")")
             valid = False
             while not valid:
@@ -173,7 +212,7 @@ class inventory:
                 if len(choice) == 2:
                     command = choice[0].lower()
                     target = choice[1]
-                    if command != "inspect" and command != "use":
+                    if command != "inspect" and command != "use" and command != "drop":
                         valid = False
                     if target.isdigit():
                         target = int(target)
@@ -212,11 +251,25 @@ class inventory:
                     self.print_inventory(hero)
                 except:
                     print("You cannot use this item.")
+            elif command == "drop":
+                self.delete_item(target)
+                if section == 3:
+                    self.update_potion_pouch()
+                self.print_inventory(hero)
 
 
 
 
     def update_numbering(self): # update the numbering of the items in the inventory
+        """ 
+        Updates the item numbering for when the user picks an item to interact with.
+
+        Args:
+            None
+
+        Returns:
+            Nothing.
+        """
         itemAddress = 0
         for sectionIndex in range(len(self.inv)):
             for itemIndex in range(len(self.inv[sectionIndex])):
@@ -230,7 +283,18 @@ class inventory:
 
 
 
-    def add_item(self,section,itemID,count): # add an item to a specified section of the inventory
+    def add_item(self,itemID: object,section: str = "general",count: int = 1) -> bool: # add an item to a specified section of the inventory
+        """
+        Add an item to the inventory.
+
+        Args:
+            itemID (object): The actual item you want to add
+            section (str, default is "general"): Can be either "weapons", "equipment, "general" or "potions" to specify the section of the inventory
+            count (int, default is 1): How many of the object you want to add
+
+        Returns:
+            bool: Whether it was added successfully or not
+        """
         if section == "weapons":
             section = 0
         elif section == "equipment":
@@ -283,23 +347,56 @@ class inventory:
             print("Invalid section when trying to add item. Please choose from \"weapons\", \"equipment\", \"general\" or \"potions\" LUCA.") # only luca would make this mistake
             return False
 
-        for itemIndex in range(len(self.inv[section])): # check if the item can go in a stack
-            if self.inv[section][itemIndex][1] != "":
-                if self.inv[section][itemIndex][1].get_name() == itemID.get_name() and self.inv[section][itemIndex][2] < itemID.maxStack: # if an item is found to stack it with
-                    self.inv[section][itemIndex][2] += count
-                    return True
-        for itemIndex in range(len(self.inv[section])): # place the item in a blank spot
+        # check if the item can go in a stack
+        if itemID.maxStack > 1:
+            for itemIndex in range(len(self.inv[section])):
+                if self.inv[section][itemIndex][1] != "":
+                    if self.inv[section][itemIndex][1].get_name() == itemID.get_name() and self.inv[section][itemIndex][2] < itemID.maxStack: # if an item is found to stack it with
+                        self.inv[section][itemIndex][2] += count
+                        return True
+
+        # place the item in a blank spot
+        for itemIndex in range(len(self.inv[section])): 
             if self.inv[section][itemIndex][1] == "":
                 self.inv[section][itemIndex] = [0,itemID,count]
+
+                # check if the section we're adding to is full (equipment works differently)
+                if section == 0: # weapon section
+                    if itemIndex == self.weaponSlotCount - 1:
+                        self.weaponsSectionFull = True
+                elif section == 2: # general section
+                    if itemIndex == self.generalSlotCount - 1:
+                        self.generalFull = True
+                elif section == 3: # potion pouch section
+                    if itemIndex == self.potionPouchSlotCount - 1:
+                        self.potionPouchFull = True
+
                 self.update_numbering()
                 return True
+
+        # if it hasn't already looked through general, make it fall back on general
+        if section != 2:
+            if self.add_item(itemID,"general",count):
+                return True
+
         return False
 
 
 
 
 
-    def delete_item(self,itemID,count,startingSection="weapons"): # Removes a specified object from the inventory
+    def delete_item(self,itemID: object,count: int = 1,startingSection: str ="weapons") -> bool: # Removes a specified object from the inventory
+        """
+        Delete an item from the inventory.
+
+        Args:
+            itemID (object): The item you want to delete
+            count (int, default is 1): How many of the object you want to delete
+            startingSection (str, default is "weapons"): What section you want to start the search for the item in.
+
+        Returns:
+            bool: Whether the item was successfully deleted or not.
+        """
         if startingSection == "weapons":
             startingSection = 0
         elif startingSection == "equipment":
@@ -320,6 +417,14 @@ class inventory:
                         self.inv[section][itemIndex][2] -= count
                         if self.inv[section][itemIndex][2] == 0:
                             self.inv[section][itemIndex][1] = ""
+
+                        if section == 0: # if it is a weapon that is being deleted
+                            self.weaponsSectionFull = False
+                        elif section == 2: # if it is a general item that is being deleted
+                            self.generalFull = False
+                        elif section == 3: # if it is a potion that is being deleted
+                            self.potionPouchFull = False
+
                         self.update_numbering()
                         return True
         
@@ -330,6 +435,15 @@ class inventory:
 
 
     def update_potion_pouch(self): # Moves any potions from the general inventory to the potion pouch
+        """
+        Update the contents of the potion pouch. Moves any potions from the general inventory to the potion pouch
+
+        Args:
+            None
+
+        Returns:
+            Nothing.
+        """
         if self.hasPotionPouch:
             for itemIndex in range(len(self.inv[2])):
                 item = self.inv[2][itemIndex]
@@ -341,21 +455,21 @@ class inventory:
 
 
 
-    def get_inv_items_with_tags(self,tags):
-        items = []
-        for tag in tags:
-            for section in self.inv:
-                for item in section:
-                    if item[1] != "":
-                        if tag in item[1].get_tags() and item[1] not in items:
-                            items.append(item[1])
-        return items
 
 
+    def get_active_weapon(self) -> object: # returns the active weapon (weapon in slot 1)
+        """
+        Returns the current active weapon (the first slot in the inventory)
 
-    def switch_active_weapon(self,weaponID):
-        for i in range(0,self.weaponSlotCount,1):
-            if self.weaponsSection[i] == weaponID:
-                return True,self.weaponsSection[i]
-        print("You are not in possession of such a weapon.")
-        return False
+        Args:
+            None
+
+        Returns:
+            object: The active weapon
+        """
+        if self.inv[0][0][1] != "":
+            return self.inv[0][0][1]
+        else:
+            fists = Weapons.Fisticuffs()
+            fists.set_modifier("")
+            return fists
