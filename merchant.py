@@ -49,39 +49,110 @@ class Shop:
                 item = self.wareList[i]
                 print(str(i+1) + ". " + item[0].name + " - " + item[0].description + "\t\t " + str(item[0].value) + icons.gold)
 
-            choice = input("Does much of anything catch your eye? Y/N ").upper()
-            if choice == "N":
-                return
-            bought = False
-            while not bought: #check they've chosen an option that's valid
-                try:
-                    choice = validate_int_input("After much deliberation, you decide to take item... ") - 1
-                    bought = hero.purchase(self.wareList[choice][0].value)
-                    if not bought:
-                        print("You check your coin pouch, only to find you cannot afford the luxury of that item!")
-                        choice = input("You reconsider if you want any of these wares. (Y/N) ").upper()
-                        if choice == "N":
-                            return
-                except:
-                    print("That's not right, you think, there is no option " + str(choice + 1) + "!")
-                    choice = input("You reconsider if you want any of these wares. (Y/N) ").upper()
-                    if choice == "N":
-                        return
-            item = self.wareList[choice][0]
-            print()
-            if "weapon" in item.get_tags() and not inventory.weaponsSectionFull:
-                item.randomise_modifier()
-                section = "weapons"
+            print("\nWhat would you like to do?")
+            print("Buy item (type \"buy\" + the item number)")
+            print("Sell item (type \"sell\")")
+            print("Exit (type \"exit\")")
+            selling = False
+            valid = False
+            while not valid:
+                valid = True
+                choice = input()
+                if choice.lower() == "exit": # deals with the exit command
+                    return
+                elif choice.lower() == "sell": # deals with the sell command
+                    selling = True
+                else:
+                    choice = choice.split(" ",1) # splits the command into 2 sections: the command and the target item
+                    if len(choice) == 2:
+                        command = choice[0].lower()
+                        target = choice[1]
+                        if command != "buy": # deals with the buy command
+                            valid = False
+                        if target.isdigit():
+                            target = int(target)
+                            if target < 1 or target > len(self.wareList):
+                                valid = False
+                        else:
+                            valid = False
+
+                    else:
+                        valid = False
+                if not valid:
+                    print("Please enter a valid option.") # now the user input is validated
+
+
+            if not selling:
+                self.buy(target,hero,inventory)
             else:
-                section = "general"
-            if inventory.add_item(item,section):
-                self.wareList[choice][1] -= 1
-                if self.wareList[choice][1] <= 0:
-                    del self.wareList[choice]
-                print("You successfully bought the item.")
+                self.sell(hero,inventory)
+
+    def buy(self,choice,hero,inventory):
+        choice -= 1
+        item = self.wareList[choice][0]
+        print()
+        if "weapon" in item.get_tags() and not inventory.weaponsSectionFull:
+            item.randomise_modifier()
+            section = "weapons"
+        else:
+            section = "general"
+        if inventory.add_item(item,section):
+            self.wareList[choice][1] -= 1
+            if self.wareList[choice][1] <= 0:
+                del self.wareList[choice]
+            print("You successfully bought the item.")
+        else:
+            hero.set_gold(item.value)
+            print("You have been refunded.")
+
+    def sell(self,hero,inventory):
+        while True:
+            inventory.print_inventory(hero)
+            print("What would you like to do?")
+            print("Sell item (type \"sell\" + the item number)")
+            print("Exit inventory (type \"exit\")")
+            valid = False
+            while not valid:
+                valid = True
+                choice = input()
+                if choice.lower() == "exit": # deals with the exit command
+                    return
+                choice = choice.split(" ",1) # splits the command into 2 sections: the command and the target item
+                if len(choice) == 2:
+                    command = choice[0].lower()
+                    target = choice[1]
+                    if command != "sell":
+                        valid = False
+                    if target.isdigit():
+                        target = int(target)
+                        if target < 1 or target >= inventory.activeSlotCount:
+                            valid = False
+                    else:
+                        valid = False
+
+                else:
+                    valid = False
+                if not valid:
+                    print("Please enter a valid option.") # now the user input is validated
+
+            # find the referenced item
+            itemFound = False
+            for section in inventory.inv:
+                for item in section:
+                    if item[0] == target:
+                        target = item[1]
+                        itemFound = True
+                        break
+                if itemFound:
+                    break
+
+            if self.tag in target.get_tags():
+                hero.set_gold(target.value)
+                inventory.delete_item(target)
+                print("Item sold!")
             else:
-                hero.set_gold(item.value)
-                print("You have been refunded.")
+                print("The merchant refuses to take this type of item.")
+
 
 class Apothecary(Shop):
     def __init__(self,inv):
