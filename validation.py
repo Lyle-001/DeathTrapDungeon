@@ -29,10 +29,10 @@ def validate_int_input(message=""):#asks until num input entered
         except:
             print("{}Please choose a numeral.{}".format(txt.warning,txt.sty.reset))
 
-def validate_input_from_array(array,message=""):
+def validate_input_from_array(array,message=""):#loops through array until input is equal to 1 element in the array
     while True:
         answer = input(message)
         for loop in array:
-            if answer == loop:
+            if answer.capitalize() == str(loop).capitalize():
                 return answer
         print("{}Please choose a valid input.{}".format(txt.col.fg.strg.red,txt.sty.reset))

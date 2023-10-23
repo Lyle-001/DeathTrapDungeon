@@ -6,6 +6,7 @@ from ansi_codes import txt, get_list_of_colours_bg, get_list_of_colours_fg, get_
 import merchant
 from validation import validate_int_input,validate_int_input_with_bounds,validate_not_empty_input,validate_input_from_array
 
+import dungeon_maze
 import Weapons
 import inventoryfile
 

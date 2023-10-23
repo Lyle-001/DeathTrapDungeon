@@ -1,3 +1,5 @@
+import os
+
 def get_list_of_colours_fg():#list of foreground colours for indexing
     list_of_colours_fg = [[txt.col.fg.nml.black,txt.col.fg.nml.red,txt.col.fg.nml.green,txt.col.fg.nml.yellow,txt.col.fg.nml.blue,txt.col.fg.nml.magenta,txt.col.fg.nml.cyan,txt.col.fg.nml.white],[txt.col.fg.strg.grey,txt.col.fg.strg.red,txt.col.fg.strg.green,txt.col.fg.strg.yellow,txt.col.fg.strg.blue,txt.col.fg.strg.magenta,txt.col.fg.strg.cyan,txt.col.fg.strg.white]]
     return list_of_colours_fg
@@ -63,3 +65,9 @@ class icons:
     gold = "{}¤{}".format(txt.col.fg.nml.yellow,txt.sty.reset)
     damage = "{}⚔{}".format(txt.col.fg.strg.red,txt.sty.reset)
     hitchance = "{}⚄{}".format(txt.col.fg.strg.magenta,txt.sty.reset)
+
+def clearscreen():
+    if os.name == "posix":
+        os.system("clear")
+    else:
+        os.system("cls")
