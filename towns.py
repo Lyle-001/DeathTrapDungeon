@@ -153,4 +153,16 @@ def generate_town_nameM5():
             if character != "END":
                 name += character
             else:
+                newName = ""
+                for letterIndex in range(0,len(name),1):
+                    if letterIndex == 0:
+                        newName += name[letterIndex].upper()
+                    else:
+                        if name[letterIndex-1] in ["-"," ","&"]:
+                            newName += name[letterIndex].upper()
+                        else:
+                            newName += name[letterIndex]
+
+
+                name = newName
                 return name

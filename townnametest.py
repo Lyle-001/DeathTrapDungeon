@@ -1,6 +1,6 @@
 import towns
 
-print("what version (1-4)")
+print("what version (1-5)")
 version = int(input())
 
 if version == 1:
@@ -21,5 +21,5 @@ elif version == 4:
         input()
 elif version == 5:
     while True:
-        print(towns.generate_town_nameM5().capitalize())
+        print(towns.generate_town_nameM5())
         input()
