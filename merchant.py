@@ -69,7 +69,11 @@ class Shop:
                         return
             item = self.wareList[choice][0]
             print()
-            if inventory.add_item(item,count = 1):
+            if "weapon" in item.get_tags() and not inventory.weaponsSectionFull:
+                section = "weapons"
+            else:
+                section = "general"
+            if inventory.add_item(item,section):
                 self.wareList[choice][1] -= 1
                 if self.wareList[choice][1] <= 0:
                     del self.wareList[choice]

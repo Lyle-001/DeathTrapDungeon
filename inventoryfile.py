@@ -113,11 +113,15 @@ class inventory:
         sectColNorm = txt.col.fg.nml.green
         sectColStrong = txt.col.fg.strg.green
         print(sectColNorm + "Weapons" + txt.sty.reset)
-        for item in self.inv[0]:
+        for index in range(len(self.inv[0])):
+            item = self.inv[0][index]
             if item[1] != "":
                 print_item(sectColStrong,item)
             else:
-                print("\t   {}Weapon{}".format(txt.col.fg.strg.grey,txt.sty.reset))
+                if index == 0:
+                    print("\t   Fisticuffs")
+                else:
+                    print("\t   {}Weapon{}".format(txt.col.fg.strg.grey,txt.sty.reset))
 
         # print the equipment. main colour for equipment is cyan
         sectColNorm = txt.col.fg.nml.cyan
@@ -196,6 +200,7 @@ class inventory:
             print("\nWhat would you like to do?")
             print("Inspect item (\"inspect\" + item number)")
             print("Use item (\"use\" + item number)")
+            print("Drop item (\"drop\" + item number)")
             print("Exit (\"exit\")")
             valid = False
             while not valid:
@@ -207,7 +212,7 @@ class inventory:
                 if len(choice) == 2:
                     command = choice[0].lower()
                     target = choice[1]
-                    if command != "inspect" and command != "use":
+                    if command != "inspect" and command != "use" and command != "drop":
                         valid = False
                     if target.isdigit():
                         target = int(target)
@@ -246,6 +251,9 @@ class inventory:
                     self.print_inventory(hero)
                 except:
                     print("You cannot use this item.")
+            elif command == "drop":
+                self.delete_item(target)
+                self.print_inventory(hero)
 
 
 
@@ -337,14 +345,30 @@ class inventory:
             print("Invalid section when trying to add item. Please choose from \"weapons\", \"equipment\", \"general\" or \"potions\" LUCA.") # only luca would make this mistake
             return False
 
-        for itemIndex in range(len(self.inv[section])): # check if the item can go in a stack
-            if self.inv[section][itemIndex][1] != "":
-                if self.inv[section][itemIndex][1].get_name() == itemID.get_name() and self.inv[section][itemIndex][2] < itemID.maxStack: # if an item is found to stack it with
-                    self.inv[section][itemIndex][2] += count
-                    return True
-        for itemIndex in range(len(self.inv[section])): # place the item in a blank spot
+        # check if the item can go in a stack
+        if itemID.maxStack > 1:
+            for itemIndex in range(len(self.inv[section])):
+                if self.inv[section][itemIndex][1] != "":
+                    if self.inv[section][itemIndex][1].get_name() == itemID.get_name() and self.inv[section][itemIndex][2] < itemID.maxStack: # if an item is found to stack it with
+                        self.inv[section][itemIndex][2] += count
+                        return True
+
+        # place the item in a blank spot
+        for itemIndex in range(len(self.inv[section])): 
             if self.inv[section][itemIndex][1] == "":
                 self.inv[section][itemIndex] = [0,itemID,count]
+
+                # check if the section we're adding to is full (equipment works differently)
+                if section == 0: # weapon section
+                    if itemIndex == self.weaponSlotCount - 1:
+                        self.weaponsSectionFull = True
+                elif section == 2: # general section
+                    if itemIndex == self.generalSlotCount - 1:
+                        self.generalFull = True
+                elif section == 3: # potion pouch section
+                    if itemIndex == self.potionPouchSlotCount - 1:
+                        self.potionPouchFull = True
+
                 self.update_numbering()
                 return True
         return False
@@ -385,6 +409,16 @@ class inventory:
                         self.inv[section][itemIndex][2] -= count
                         if self.inv[section][itemIndex][2] == 0:
                             self.inv[section][itemIndex][1] = ""
+
+                        if section == 0: # if it is a weapon that is being deleted
+                            self.weaponsSectionFull = False
+                            self.update_weapons()
+                        elif section == 2: # if it is a general item that is being deleted
+                            self.generalFull = False
+                        elif section == 3: # if it is a potion that is being deleted
+                            self.potionPouchFull = False
+                            self.update_potion_pouch()
+
                         self.update_numbering()
                         return True
         
@@ -417,9 +451,27 @@ class inventory:
 
 
 
-    def switch_active_weapon(self,weaponID):
-        for i in range(0,self.weaponSlotCount,1):
-            if self.weaponsSection[i] == weaponID:
-                return True,self.weaponsSection[i]
-        print("You are not in possession of such a weapon.")
-        return False
+    def update_weapons(self): # moves any weapons from general to the weapons section + other stuff
+        """
+        Update the contents of the weapons section. Moves any weapon from the secondary slot to the primary slot, and then moves any weapon from general into the secondary slot
+
+        Args:
+            None
+
+        Returns:
+            Nothing.
+        """
+        if self.inv[0][0][1] == "" and self.inv[0][1][1] != "": # if there is nothing in the active weapon slot and something in the secondary slot
+            # move the secondary weapon to the primary slot
+            self.inv[0][0] = self.inv[0][1]
+            self.inv[0][1] = [0,"",0]
+        for item in self.inv[2]: # loop through every item in general
+            if self.weaponsSectionFull:
+                return
+            if item[1] != "":
+                if "weapon" in item[1].get_tags(): # if the item is a weapon
+                    # move the item from general to the weapons category
+                    cachedWeapon = item[:]
+                    self.delete_item(item[1],item[2],"general")
+                    self.add_item(cachedWeapon[1],"weapons")
+        return
