@@ -19,3 +19,7 @@ elif version == 4:
     while True:
         print(towns.generate_town_nameM4().capitalize())
         input()
+elif version == 5:
+    while True:
+        print(towns.generate_town_nameM5().capitalize())
+        input()

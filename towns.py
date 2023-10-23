@@ -1,4 +1,5 @@
 from random import randint
+import town_name_weights
 
 def generate_town_nameM1():
     name = ""
@@ -130,3 +131,26 @@ def generate_town_nameM4():
             name += character
         else:
             return name
+
+
+def generate_town_nameM5():
+    weights = town_name_weights.weights
+
+    alphabet = ["START","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"," ","-","'","&","END"]
+    previousCharacters = [0,0]
+    name = ""
+    while True:
+        cumulativeChoice = randint(0,weights[len(alphabet)][previousCharacters[1]][previousCharacters[0]])
+        if cumulativeChoice != 0:
+            total = 0
+            for letterIndex in range(1,len(weights)-1):
+                total += weights[letterIndex][previousCharacters[0]][previousCharacters[1]]
+                if total >= cumulativeChoice:
+                    character = alphabet[letterIndex]
+                    previousCharacters[1] = previousCharacters[0]
+                    previousCharacters[0] = letterIndex
+                    break
+            if character != "END":
+                name += character
+            else:
+                return name

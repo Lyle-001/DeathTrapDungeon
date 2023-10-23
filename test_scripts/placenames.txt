@@ -661,7 +661,7 @@ Prudhoe	Northumberland	town council1
 Pudsey	West Yorkshire	borough (1900–1974)
 Purley	Greater London	town council
 Quedgeley	Gloucestershire	town council[3]
-Queenborough-in-Sheppey	Kent	charter trustees (abolished 1977
+Queenborough-in-Sheppey	Kent	charter trustees (abolished 1977)
 Radstock	Somerset	town council1
 Ramsey	Cambridgeshire	town council1
 Ramsgate	Kent	town council
@@ -979,7 +979,7 @@ Bristol	463,405	43rd	110	42	47th	4,224	10,940	2nd	City of Bristol
 Buckinghamshire	808,666	30th	1,874	724	32nd	432	1,120	22nd	Buckinghamshire and City of Milton Keynes
 Cambridgeshire	852,523	28th	3,390	1,310	15th	252	650	34th	Cambridgeshire and City of Peterborough
 Cheshire	1,059,271	19th	2,343	905	25th	452	1,170	21st	Cheshire East, Cheshire West and Chester, Halton, and Warrington
-City of London	8,706	48th	2.90	1.12	48th	2,998	7,760	4th	City of London
+City of London	[note 2]	8,706	48th	2.90	1.12	48th	2,998	7,760	4th	City of London
 Cornwall	568,210	40th	3,562	1,375	12th	160	410	41st	Cornwall and the Isles of Scilly
 Cumbria	498,888	41st	6,767	2,613	3rd	74	190	47th	Cumberland and Westmorland and Furness[10]
 Derbyshire	1,053,316	21st	2,625	1,014	21st	401	1,040	25th	Derbyshire and City of Derby
