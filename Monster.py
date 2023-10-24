@@ -13,7 +13,7 @@ class Monster:
             'He beats you up like a bully!',
             'He hurts you emotionally by saying mean things :(',
             'He lightly scrapes you with his 18 foot long fangs.',
-            'He reminds you of your traumatising childhood and laughs at you :('
+            'He reminds you of your traumatising childhood and laughs at you :(',
             'He touches you inappropriately.',
             'His scary aura engulfs you!!',
             'He whispers "scuderia" in your ear, shocking you to the bone.'
@@ -92,7 +92,7 @@ class Monster:
                           'STAND AND FIGHT, HUMAN!',
                           'RALLY, AND FIGHT!',
                           'IN THE NAME OF GOD AND COUNTRY, I WILL END YOU!',
-                          'May God have mercy on your poor soul.'
+                          'May God have mercy on your poor soul.',
                           'There is nothing personal about this.'
                           ]
 
@@ -127,7 +127,7 @@ class Goblin(Monster):
             'He swings his Scimitar!',
             'He fires a shot from his Shortbow!',
             'He bites your knees!',
-            'He headbutts your calves!'
+            'He headbutts your calves!',
             'He scratches your feet!',
             'He jumps and punches your nipples!',
             'He beats your shins!',
@@ -260,7 +260,7 @@ class Slime(Monster):
             'He traps you in his slime!',
             'He cries "waka waka whaaat" and englufs you!',
             'He grips you with his sticky liquid!',
-            'He swallows you whole and spits you back out!'
+            'He swallows you whole and spits you back out!',
             'He squishes you underneath his slimy weight!',
             'He traps you under his folds, rendering you unable to breathe!',
             'He slips you off your feet with his slime trail!',
@@ -329,7 +329,7 @@ class RogueWarrior(Monster):
             'He stomps you into the earth!',
             'He throws knives at you while ululating!',
             'He swings from the trees and lands on you!',
-            'He bites you!'
+            'He bites you!',
             'He cuts your torso with his blade!',
             'He stabs you with his stone tip spear!',
             'He clubs you with his hammer!',
@@ -382,7 +382,7 @@ class RogueWarrior(Monster):
         fortitude = self.getFortitude()
 
         if fortitude >= 70:
-            print('The Rogue Warrior spits: {}"{}"{}'.format(self.colourcode,highFortandEgoSlime[randint(0, len(highFortandEgoSlime) - 1)],txt.sty.reset)) 
+            print('The Rogue Warrior spits: {}"{}"{}'.format(self.colourcode,highFortandEgoRogue[randint(0, len(highFortandEgoRogue) - 1)],txt.sty.reset)) 
         else:
-            print('The Rogue Warrior ululates: {}"{}"{}'.format(self.colourcode,normalSlime[randint(0, len(normalSlime) - 1)],txt.sty.reset))  
+            print('The Rogue Warrior ululates: {}"{}"{}'.format(self.colourcode,normalRogue[randint(0, len(normalRogue) - 1)],txt.sty.reset))  
 
