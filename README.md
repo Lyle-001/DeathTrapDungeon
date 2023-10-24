@@ -1,0 +1,1 @@
+This version is the 3 original games, which were later merged into the project on here. I have written a small script that allows you to choose which one you want to play, so only one EXE file will be / is necessary. Enjoy! - Dan
