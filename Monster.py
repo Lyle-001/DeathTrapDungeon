@@ -27,8 +27,7 @@ class Monster:
         self.attackMessage = monsterMessageBank[randint(0, len(monsterMessageBank) - 1)]
         self.gold = randint(6,9)
         self.mentalFortitude = randint(0,100)
-        self.ego = randint(0,100)
-
+ 
     # Getters
     def get_adj(self):
         return self.adj
@@ -81,7 +80,7 @@ class Monster:
         self.hitPoints -= damage
 
     def talk(self): # Prints monster's battle cry
-        highFortandEgo = ['May the best man win.', #Additional logic will be completed later, im lazy rn
+        highIntelligence = ['May the best man win.', #Additional logic will be completed later, im lazy rn
                           'En garde!',
                           'Show me you can fight, heathen!',
                           'Father, I will make you proud!',
@@ -113,19 +112,9 @@ class Monster:
                          ]
 
         fortitude = self.getFortitude()
-        ego = self.getEgo()
-
-        highFort = False
-        highEgo = False
 
         if fortitude >= 70:
-            highFort = True
-
-        if ego >= 70:
-            highEgo = True
-
-        if highFort == True and highEgo == True:
-            print('The Monster announces: {}"{}"{}'.format(self.colourcode,highFortandEgo[randint(0, len(highFortandEgo) - 1)],txt.sty.reset)) 
+            print('The Monster announces: {}"{}"{}'.format(self.colourcode,highIntelligence[randint(0, len(highIntelligence) - 1)],txt.sty.reset)) 
         else:
             print('The Monster squeals: {}"{}"{}'.format(self.colourcode,normalMonster[randint(0, len(normalMonster) - 1)],txt.sty.reset))  
 
@@ -153,10 +142,9 @@ class Goblin(Monster):
         self.attackMessage = goblinMessageBank[randint(0, len(goblinMessageBank) - 1)]
         self.gold = randint(6,18)
         self.mentalFortitude = randint(0,100)
-        self.ego = randint(0,100)
-    # Methods
+     # Methods
     def talk(self):
-        highFortandEgoGob = ["I'm sorry, my family needs money.", 
+        highIntelligence = ["I'm sorry, my family needs money.", 
                           'I will do you the honour of not desecrating your corpse.',
                           "Please, don't make this harder than it has to be.",
                           'I promised my wife we could eat tonight.',
@@ -188,20 +176,9 @@ class Goblin(Monster):
                          ]
 
         fortitude = self.getFortitude()
-        ego = self.getEgo()
-
-          
-        highFort = False   
-        highEgo = False
 
         if fortitude >= 70:
-            highFort = True
-
-        if ego >= 70:
-            highEgo = True
-
-        if highFort == True and highEgo == True:
-            print('The Goblin says: {}"{}"{}'.format(self.colourcode,highFortandEgoGob[randint(0, len(highFortandEgoGob) - 1)],txt.sty.reset)) 
+            print('The Goblin says: {}"{}"{}'.format(self.colourcode,highIntelligence[randint(0, len(highIntelligence) - 1)],txt.sty.reset)) 
         else:
             print('The Goblin chimes: {}"{}"{}'.format(self.colourcode,normalGob[randint(0, len(normalGob) - 1)],txt.sty.reset))  
 
@@ -230,12 +207,11 @@ class Vampire(Monster):
         self.attackMessage = vampireMessageBank[randint(0, len(vampireMessageBank) - 1)]
         self.gold = randint(5,15)
         self.mentalFortitude = randint(0,100)
-        self.ego = randint(0,100)
-
+ 
     # Methods
     def talk(self):
 
-        highFortandEgoVamp = ["En guarde, warrior!", 
+        highIntelligence = ["En guarde, warrior!", 
                           'Quiver at my elegance!',
                           "Do me a favour, and try not to die so early :)",
                           'Finally, some action!',
@@ -267,20 +243,9 @@ class Vampire(Monster):
         ]
 
         fortitude = self.getFortitude()
-        ego = self.getEgo()
-
-          
-        highFort = False   
-        highEgo = False
 
         if fortitude >= 70:
-            highFort = True
-
-        if ego >= 70:
-            highEgo = True
-
-        if highFort == True and highEgo == True:
-            print('The Vampire says: {}"{}"{}'.format(self.colourcode,highFortandEgoVamp[randint(0, len(highFortandEgoVamp) - 1)],txt.sty.reset)) 
+            print('The Vampire says: {}"{}"{}'.format(self.colourcode,highIntelligence[randint(0, len(highIntelligence) - 1)],txt.sty.reset)) 
         else:
             print('The Vampire shrieks: {}"{}"{}'.format(self.colourcode,normalVamp[randint(0, len(normalVamp) - 1)],txt.sty.reset))  
 
@@ -310,13 +275,12 @@ class Slime(Monster):
         self.attackMessage = slimeMessageBank[randint(0, len(slimeMessageBank) - 1)]
         self.gold = randint(2,9)
         self.mentalFortitude = randint(0,100)
-        self.ego = randint(0,100)
-
+ 
     # Methods
 
     def talk(self):
 
-        highFortandEgoSlime = ["Hey! Get a move on!", 
+        highIntelligence = ["Hey! Get a move on!", 
                           "I'm boinging here!",
                           "I'm going to slam you into outer space!",
                           'Look upon my stickiness, and despair!',
@@ -348,20 +312,9 @@ class Slime(Monster):
         ]
 
         fortitude = self.getFortitude()
-        ego = self.getEgo()
-
-          
-        highFort = False   
-        highEgo = False
 
         if fortitude >= 70:
-            highFort = True
-
-        if ego >= 70:
-            highEgo = True
-
-        if highFort == True and highEgo == True:
-            print('The Slime gurgles: {}"{}"{}'.format(self.colourcode,highFortandEgoSlime[randint(0, len(highFortandEgoSlime) - 1)],txt.sty.reset)) 
+            print('The Slime gurgles: {}"{}"{}'.format(self.colourcode,highIntelligence[randint(0, len(highIntelligence) - 1)],txt.sty.reset)) 
         else:
             print('The Slime gurgles: {}"{}"{}'.format(self.colourcode,normalSlime[randint(0, len(normalSlime) - 1)],txt.sty.reset))  
 
@@ -391,8 +344,7 @@ class RogueWarrior(Monster):
         self.attackMessage = rogueMessageBank[randint(0, len(rogueMessageBank) - 1)]
         self.gold = randint(12,27)
         self.mentalFortitude = randint(0,100)
-        self.ego = randint(0,100)
-
+ 
     # Methods
     def talk(self):
 
@@ -428,19 +380,8 @@ class RogueWarrior(Monster):
         ]
 
         fortitude = self.getFortitude()
-        ego = self.getEgo()
-
-          
-        highFort = False   
-        highEgo = False
 
         if fortitude >= 70:
-            highFort = True
-
-        if ego >= 70:
-            highEgo = True
-
-        if highFort == True and highEgo == True:
             print('The Rogue Warrior spits: {}"{}"{}'.format(self.colourcode,highFortandEgoSlime[randint(0, len(highFortandEgoSlime) - 1)],txt.sty.reset)) 
         else:
             print('The Rogue Warrior ululates: {}"{}"{}'.format(self.colourcode,normalSlime[randint(0, len(normalSlime) - 1)],txt.sty.reset))  
