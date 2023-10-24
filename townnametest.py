@@ -1,29 +1,32 @@
 import towns
 import os
 
-os.system('cls')
 
-print("what version (1-5)")
+print("what version (1-6)")
 version = int(input())
+
 
 if version == 1:
     while True:
-        print(towns.generate_town_nameM1().capitalize())
+        print(towns.generate_town_nameM1().capitalize(),end="")
         input()
 elif version == 2:
     while True:
-        print(towns.generate_town_nameM2().capitalize())
+        print(towns.generate_town_nameM2().capitalize(),end="")
         input()
 elif version == 3:
     while True:
-        print(towns.generate_town_nameM3().capitalize())
+        print(towns.generate_town_nameM3().capitalize(),end="")
         input()
 elif version == 4:
     while True:
-        print(towns.generate_town_nameM4().capitalize())
+        print(towns.generate_town_nameM4().capitalize(),end="")
         input()
 elif version == 5:
     while True:
-        print(towns.generate_town_name())
+        print(towns.generate_town_nameM5(),end="")
         input()
-        os.system('cls')
+elif version == 6:
+    while True:
+        print(towns.generate_town_nameM6(),end="")
+        input()

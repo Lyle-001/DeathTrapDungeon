@@ -242,7 +242,7 @@ if debug:
 print()
 victories = 0
 while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins ten matches or dies
-    monsterChoice = random.randint(0,3)
+    monsterChoice = random.randint(0,4)
     if monsterChoice == 0:
         theMonster = Monster(RandomColour(),RandomAdjective())
     elif monsterChoice == 1:
@@ -275,6 +275,7 @@ if victories == 10: # Check if hero won the game
 else:
     print(theHero.get_name() + ", you are dead. Death Trap Dungeon claims another victim.")
 print("{}######## GAME OVER ########".format(txt.sty.reset))
+input() # keeps the console open after the game ends
 
 
 

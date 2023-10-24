@@ -1,5 +1,6 @@
 from random import randint
 import town_name_weights
+import town_name_weights_dictionary
 import merchant
 from ansi_codes import clearscreen
 
@@ -135,7 +136,7 @@ def generate_town_nameM4():
             return name
 
 
-def generate_town_name():
+def generate_town_nameM5():
     weights = town_name_weights.weights
 
     alphabet = ["START","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"," ","-","'","&","END"]
@@ -168,8 +169,91 @@ def generate_town_name():
 
                 name = newName
                 return name
+            
+def check_if_already_in_dataset():
+    file = open("test_scripts/placenames.txt","r")    
 
+    names = []
+    for line in file:
+        line = line.split("\t",1)
+        if len(line) >= 2:
+            del line[1]
+        line = line[0]
+        names.append()
 
+    file.close()
+            
+def generate_town_nameM6():
+    # this version is too good at generating english names that i need to check whether the generated name already exists or not
+    file = open("test_scripts/placenames.txt","r")  # open the existing names file and sanitise it  
+    existingNames = []
+    for line in file:
+        line = line.split("\t",1)
+        if len(line) >= 2:
+            del line[1]
+        line = line[0]
+        existingNames.append(line)
+    file.close()
+    
+    weights = town_name_weights_dictionary.weights
+    depth = 3
+    mutations = True
+    checkName = True
+    
+    alphabet = ["S","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"," ","-","'","&","E"]
+    previousCharacters = ""
+    for i in range(depth):
+        previousCharacters += "S"
+    name = ""
+    while True:
+        if previousCharacters in weights["TOTAL"]:
+            cumulativeChoice = randint(1,weights["TOTAL"][previousCharacters])
+            total = 0
+            for letter,values in weights.items():
+                if previousCharacters in values:
+                    total += values[previousCharacters]
+                if total >= cumulativeChoice:
+                    if mutations:
+                        if randint(1,100) < 98:
+                            character = letter
+                        else:
+                            validChoiceFound = False
+                            while not validChoiceFound:
+                                character = alphabet[randint(1,27)]
+                                if previousCharacters[1:] + character in weights["TOTAL"]:
+                                    validChoiceFound = True
+                    else:
+                        character = letter
+                    newPreviousCharacters = previousCharacters[1:] + character
+                    previousCharacters = newPreviousCharacters
+                    break
+            if character != "E":
+                name += character
+            else:
+                newName = ""
+                for letterIndex in range(0,len(name),1):
+                    if letterIndex == 0:
+                        newName += name[letterIndex].upper()
+                    else:
+                        if name[letterIndex-1]  == " ":
+                            newName += name[letterIndex].upper()
+                        else:
+                            newName += name[letterIndex]
+                if checkName:
+                    if newName in existingNames or len(newName) == 3:
+                        name = ""
+                        previousCharacters = ""
+                        for i in range(depth):
+                            previousCharacters += "S"
+                    else:
+                        return newName
+                elif len(newName) == 3:
+                    name = ""
+                    previousCharacters = ""
+                    for i in range(depth):
+                        previousCharacters += "S"
+                else:
+                    return newName
 
 
 
@@ -181,7 +265,7 @@ class Towns:
 
     def new_random_town(self,inventory):
         newTown = {}
-        newTown["name"] = (generate_town_name())
+        newTown["name"] = (generate_town_nameM6())
         shops = []
         if randint(1,100) > 70: # 70% chance of generating an apothecary
             shops.append(merchant.Apothecary(inventory))
