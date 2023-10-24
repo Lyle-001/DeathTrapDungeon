@@ -125,9 +125,9 @@ class Monster:
             highEgo = True
 
         if highFort == True and highEgo == True:
-            print('The Monster says: {}"{}"{}'.format(self.colourcode,highFortandEgo[randint(0, len(highFortandEgo) - 1)],txt.sty.reset)) 
+            print('The Monster announces: {}"{}"{}'.format(self.colourcode,highFortandEgo[randint(0, len(highFortandEgo) - 1)],txt.sty.reset)) 
         else:
-            print('The Monster says: {}"{}"{}'.format(self.colourcode,normalMonster[randint(0, len(normalMonster) - 1)],txt.sty.reset))  
+            print('The Monster squeals: {}"{}"{}'.format(self.colourcode,normalMonster[randint(0, len(normalMonster) - 1)],txt.sty.reset))  
 
 class Goblin(Monster):
     # Construction
@@ -203,7 +203,7 @@ class Goblin(Monster):
         if highFort == True and highEgo == True:
             print('The Goblin says: {}"{}"{}'.format(self.colourcode,highFortandEgoGob[randint(0, len(highFortandEgoGob) - 1)],txt.sty.reset)) 
         else:
-            print('The Goblin says: {}"{}"{}'.format(self.colourcode,normalGob[randint(0, len(normalGob) - 1)],txt.sty.reset))  
+            print('The Goblin chimes: {}"{}"{}'.format(self.colourcode,normalGob[randint(0, len(normalGob) - 1)],txt.sty.reset))  
 
 class Vampire(Monster):
 
@@ -282,7 +282,7 @@ class Vampire(Monster):
         if highFort == True and highEgo == True:
             print('The Vampire says: {}"{}"{}'.format(self.colourcode,highFortandEgoVamp[randint(0, len(highFortandEgoVamp) - 1)],txt.sty.reset)) 
         else:
-            print('The Vampire says: {}"{}"{}'.format(self.colourcode,normalVamp[randint(0, len(normalVamp) - 1)],txt.sty.reset))  
+            print('The Vampire shrieks: {}"{}"{}'.format(self.colourcode,normalVamp[randint(0, len(normalVamp) - 1)],txt.sty.reset))  
 
 
 class Slime(Monster):
@@ -320,7 +320,7 @@ class Slime(Monster):
                           "I'm boinging here!",
                           "I'm going to slam you into outer space!",
                           'Look upon my stickiness, and despair!',
-                          "Wait until I whip out the slime sword!.",
+                          "Wait until I whip out the slime sword!",
                           'Wait until I hit you with a slimecicle!',
                           'Goo Powers, ACTIVATE!',
                           "I'm gonna slime you up and down!",
@@ -370,17 +370,78 @@ class RogueWarrior(Monster):
 
     # Construction
     def __init__(self,colour,adj):
+        rogueMessageBank = [
+            'He slashes at you!',
+            'He thrusts his spear towards you!',
+            'He stomps you into the earth!',
+            'He throws knives at you while ululating!',
+            'He swings from the trees and lands on you!',
+            'He bites you!'
+            'He cuts your torso with his blade!',
+            'He stabs you with his stone tip spear!',
+            'He clubs you with his hammer!',
+            'His fires at you with his bow!'
+        ]
         self.resists = [["smash",4],["pierce",2],["slash",3]]
         self.adj = adj
         self.colourcode = colour
         self.species = "rogue warrior"
         self.hitPoints = 25
         self.maxDamage = 6
-        self.attackMessage = "They slash at you."
+        self.attackMessage = rogueMessageBank[randint(0, len(rogueMessageBank) - 1)]
         self.gold = randint(12,27)
         self.mentalFortitude = randint(0,100)
         self.ego = randint(0,100)
 
     # Methods
     def talk(self):
-        print("{}I'll kill you!{}".format(self.colourcode,txt.sty.reset))
+
+        highFortandEgoRogue = ["While I am going to try and kill you, I'll make sure it doesn't hurt too much.", 
+                          "Either I kill you, or you kill me. Either way, I'll see you in hell.",
+                          "Fight, demon.",
+                          'Come you mortal spirits, aid me in this fight!',
+                          "If you kill me, I'll haunt you for eternity.",
+                          "I've been training for this fight all my life.",
+                          "Listen man, I'm just trying to get my daughter some medicine. We can pretend we didn't see each other.",
+                          "Theodosia, I'm coming home tonight.",
+                          "Huh, and here I was thinking that today would be a normal day of hunting.",
+                          "My stone tip spear takes no prisoners.",
+                          "I'm sorry, but my village is running out of food. You'll have to suffice.",
+                          "Would you rather be roasted over an open fire or chopped into pieces and cooked?",
+                          "There's a chance I'm going to catch a brain-eating amoeba from consuming you. But thats a risk I'm willing to take.",
+                          "Who goes there!"
+        ]
+
+        normalRogue = ['ULULULULULUL!!',
+                         "LULULULU!",
+                         "CACA DAU! CACA DAU",
+                         "KREEEEEEEEEEEEEEK",
+                         "AHHHHHHRGH",
+                         "GRAGAGRGAGAGAGAG",
+                         "GIJOGO, GIJOGO!!!!!",
+                         "SHIKRESH, SHIKRESH!!!.",
+                         'BAKBAK, ALARUM!',
+                         "DHAK DHAK, DHAK DHAK!",
+                         "KHUSIR ZAFIR, KHUSIR ZAFIRRR!!!",
+                         'KELOK LEKOL!!',
+                         'GISEIGO ALARUM. GISEIGO ALARUM!!!!!'
+        ]
+
+        fortitude = self.getFortitude()
+        ego = self.getEgo()
+
+          
+        highFort = False   
+        highEgo = False
+
+        if fortitude >= 70:
+            highFort = True
+
+        if ego >= 70:
+            highEgo = True
+
+        if highFort == True and highEgo == True:
+            print('The Rogue Warrior spits: {}"{}"{}'.format(self.colourcode,highFortandEgoSlime[randint(0, len(highFortandEgoSlime) - 1)],txt.sty.reset)) 
+        else:
+            print('The Rogue Warrior ululates: {}"{}"{}'.format(self.colourcode,normalSlime[randint(0, len(normalSlime) - 1)],txt.sty.reset))  
+
