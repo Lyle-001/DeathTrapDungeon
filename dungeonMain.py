@@ -46,8 +46,9 @@ def Combat(myHero, myWeapon, myMonster ):
         if myMonster.get_hitPoints() > 0: # Monster only attacks if it's  still alive.
             print("The " + myMonster.getCode() + myMonster.get_species() + "{} attacks...".format(txt.sty.reset))
             input("{}Press enter to defend!{}\n".format(txt.col.fg.nml.white,txt.sty.reset))
-            clearscreen()
             myHero.receiveDamage(myMonster.attack()) # Subtract damage from hero
+            input()
+            clearscreen()
 
 def name_and_format():#asks the user what they want their name to be and look like
 

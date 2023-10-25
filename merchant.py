@@ -54,34 +54,44 @@ class Shop:
                 print(str(i+1) + ". " + item[0].name + " - " + item[0].description + "\t\t " + str(item[0].value) + icons.gold)
 
             print("\nWhat would you like to do?")
-            print("Buy item (type \"buy\" + the item number)")
-            print("Sell item (type \"sell\")")
-            print("Exit (type \"exit\")")
+            print("\"Help\" for help")
             selling = False
             valid = False
-            while not valid:
+            leave = False
+            while not leave:
                 valid = True
+                leave = True
                 choice = input()
-                if choice.lower() == "exit": # deals with the exit command
+                if choice.lower() == "exit" or choice.lower() == "e": # deals with the exit command
                     return
-                elif choice.lower() == "sell": # deals with the sell command
+                elif choice.lower() == "sell" or choice.lower() == "s": # deals with the sell command
                     selling = True
+                elif choice.lower() == "help": #do they need help with commands
+                    leave = False
+                    print("\nBuy item (type \"buy\" + the item number)")
+                    print("Sell item (type \"sell\")")
+                    print("Exit (type \"exit\")")
+                    print("Abbreviations are: \"b\", \"s\", \"e\" and \"h\" if you need anymore help.\n")
                 else:
                     choice = choice.split(" ",1) # splits the command into 2 sections: the command and the target item
                     if len(choice) == 2:
                         command = choice[0].lower()
                         target = choice[1]
-                        if command != "buy": # deals with the buy command
+                        if command != "buy" and command != "b": # deals with the buy command
                             valid = False
+                            leave = False
                         if target.isdigit():
                             target = int(target)
                             if target < 1 or target > len(self.wareList):
                                 valid = False
+                                leave = False
                         else:
                             valid = False
+                            leave = False
 
                     else:
                         valid = False
+                        leave = False
                 if not valid:
                     print("Please enter a valid option.") # now the user input is validated
 
