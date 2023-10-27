@@ -1,4 +1,5 @@
-from ansi_codes import txt
+from ansi_codes import txt,get_list_of_colours_fg
+import random
 
 def validate_int_input_with_bounds(lowbound,upperbound,message=""):#upper bound is exclusive lower bound inclusive
     while True:
@@ -36,3 +37,8 @@ def validate_input_from_array(array,message=""):#loops through array until input
             if answer.capitalize() == str(loop).capitalize():
                 return answer
         print("{}Please choose a valid input.{}".format(txt.col.fg.strg.red,txt.sty.reset))
+
+def RandomColour(): # Choose random colour for monster.
+    ColourList = get_list_of_colours_fg()[0]
+    Colour = ColourList[random.randint(0,len(ColourList)-1)]
+    return Colour

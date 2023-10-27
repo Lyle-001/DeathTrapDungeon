@@ -1,14 +1,10 @@
 from ansi_codes import txt,icons,clearscreen,get_list_of_colours_fg
 import random
-from validation import validate_not_empty_input
+from validation_and_functions import validate_not_empty_input,RandomColour
 import Items
 import Equipment
 import Weapons
 
-def RandomColour(): # Choose random colour for monster.
-    ColourList = get_list_of_colours_fg()[0]
-    Colour = ColourList[random.randint(0,len(ColourList)-1)]
-    return Colour
 
 def get_items_with_tags(tags: list) -> list:
     """This function returns a list of all the items with a specific tag.

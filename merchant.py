@@ -2,16 +2,12 @@ from random import randint
 from ansi_codes import txt,icons,clearscreen
 import Items as it
 import Equipment as eq
-from validation import validate_int_input
+from validation_and_functions import validate_int_input,RandomColour
 from inventoryfile import get_items_with_tags
 
 class Shop:
     def __init__(self,inv):#formatted
-        self.findMessage = "you see a shop"
-        self.enterMessage = "you enter the shop"
-        self.name = "shop"
-        self.tag = "shopSellable"
-        self.wareList = self.generate_stock(inv)
+        pass
 
     def find(self):#formatted
         print(self.findMessage)
@@ -45,6 +41,7 @@ class Shop:
         return stock
 
     def shop(self,hero,inventory):#formatted
+        clearscreen()
         print(self.enterMessage)
         while True:
 
@@ -119,7 +116,7 @@ class Shop:
             if self.wareList[choice][1] <= 0:
                 del self.wareList[choice]
             clearscreen()
-            print("You successfully bought the item.")
+            print("You successfully bought " + item + "!")
         else:
             hero.set_gold(item.value)
             clearscreen()
@@ -158,7 +155,7 @@ class Shop:
                 else:
                     valid = False
                 if not valid:
-                    print("Please enter a valid option.") # now the user input is validated
+                    print("{}Please enter a valid option.{}".format(txt.warning,txt.sty.reset)) # now the user input is validated
 
             # find the referenced item
             itemFound = False
@@ -174,31 +171,34 @@ class Shop:
             if self.tag in target.get_tags():
                 hero.set_gold(target.value)
                 inventory.delete_item(target)
-                print("Item sold!")
+                print("{}Item sold!{}".format(txt.col.fg.nml.yellow,txt.sty.reset))
             else:
-                print("The merchant refuses to take this type of item.")
+                print("{}The merchant refuses to take this type of item.{}".format(txt.warning,txt.sty.reset))
 
 
 class Apothecary(Shop):
     def __init__(self,inv):
-        self.findMessage = "Up ahead lies a hastily-constructed shelter. Alchemy equipment is strewn across the nearby floor."
-        self.enterMessage = "You enter the dimly lit tent, as a hunch-backed man gestures at the wares around you."
+        self.colour = RandomColour()
+        self.findMessage = self.colour + "Up ahead lies a hastily-constructed shelter. Alchemy equipment is strewn across the nearby floor." + txt.sty.reset
+        self.enterMessage = self.colour + "You enter the dimly lit tent, as a hunch-backed man gestures at the wares around you." + txt.sty.reset
         self.name = "Apothecarial Tent"
         self.tag = "apothecarySellable"
         self.wareList = self.generate_stock(inv)
 
 class Blacksmith(Shop):
     def __init__(self,inv):
-        self.findMessage = "You see a blacksmith in the distance."
-        self.enterMessage = "You enter the workshop to find a young man hammering at a piece of glowing iron."
+        self.colour = RandomColour()
+        self.findMessage = self.colour + "You see a blacksmith in the distance." + txt.sty.reset
+        self.enterMessage = self.colour + "You enter the workshop to find a young man hammering at a piece of glowing iron." + txt.sty.reset
         self.name = "Blacksmith"
         self.tag = "blacksmithSellable"
         self.wareList = self.generate_stock(inv)
 
 class Clothier(Shop):
     def __init__(self,inv):
-        self.findMessage = "You see a small house with a sign in front. In its windowsill are spools of sewing thread."
-        self.enterMessage = "You enter the homely building. An old man is sitting behind the counter, sewing together a boy's shirt."
+        self.colour = RandomColour()
+        self.findMessage = self.colour +"You see a small house with a sign in front. In its windowsill are spools of sewing thread." + txt.sty.reset
+        self.enterMessage = self.colour +"You enter the homely building. An old man is sitting behind the counter, sewing together a boy's shirt." + txt.sty.reset
         self.name = "Clothier's"
         self.tag = "clothierSellable"
         self.wareList = self.generate_stock(inv)

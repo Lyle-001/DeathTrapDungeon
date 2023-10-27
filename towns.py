@@ -1,9 +1,9 @@
 from random import randint
 import town_name_weights_dictionary
 import merchant
-from ansi_codes import clearscreen
+from ansi_codes import clearscreen,txt
 from town_generator import map_generator,print_map
-from ansi_codes import txt
+from validation_and_functions import RandomColour
             
 def generate_town_nameM6():
     # this version is too good at generating english names that i need to check whether the generated name already exists or not
@@ -104,6 +104,7 @@ class Towns:
         if randint(1,100) > 70: # 70% chance of generating a clothier's
             shops.append(merchant.Clothier(inventory))
         newTown["shops"] = (shops)
+        newTown["colour"] = RandomColour()
         self.towns.append(newTown)
 
     def visit_town(self,hero,inv):
@@ -117,9 +118,9 @@ class Towns:
             newTown = False
 
         if newTown:
-            print("You find yourself in the " + town["size"][1] + " of " + town["name"])
+            print("You find yourself in the " + town["size"][1] + " of " + town["colour"] + town["name"] + txt.sty.reset)
         else:
-            print("You find yourself back in the " + town["size"][1] + " of " + town["name"])
+            print("You find yourself back in the " + town["size"][1] + " of " + town["colour"] + town["name"] + txt.sty.reset)
             
         print()
         print_map(town["map"])
@@ -130,7 +131,7 @@ class Towns:
         resting = True
         input("Press enter to continue...")
         while resting:
-            print("Shop options:") # shoptions haha
+            print("{}Shop options:{}".format(txt.col.fg.nml.blue,txt.sty.reset)) # shoptions haha
             for i in range(0,len(town["shops"]),1):
                 print("\t" + str(i + 1) + ") Enter the " + town["shops"][i].name)
             print("Enter what you want to do:")

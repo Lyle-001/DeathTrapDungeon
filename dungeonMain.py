@@ -5,10 +5,10 @@
 
 from turtle import clear
 from Monster import Monster, Goblin, Vampire, Slime, RogueWarrior
-from Heroes import Hero, Barbarian, Wizard, Warlock
+from Heroes import Barbarian, Wizard, Warlock
 from ansi_codes import txt, get_list_of_colours_bg, get_list_of_colours_fg, get_list_of_formats,icons,clearscreen
 import merchant
-from validation import validate_int_input,validate_int_input_with_bounds,validate_not_empty_input,validate_input_from_array
+from validation_and_functions import validate_int_input,validate_int_input_with_bounds,validate_not_empty_input,validate_input_from_array,RandomColour
 import towns
 
 import dungeon_maze
@@ -19,10 +19,7 @@ import random
 import math
 
 ############################### Subroutines ##################################
-def RandomColour(): # Choose random colour for monster.
-    ColourList = get_list_of_colours_fg()[0]
-    Colour = ColourList[random.randint(0,len(ColourList)-1)]
-    return Colour
+
 
 def RandomAdjective():
     array = ["Strong","Big","Huge","Small","Silly","Putrid","Godless"]
@@ -221,14 +218,14 @@ while not detailsConfirmed:
         print("{}Through the power of a mystical force you are sent back in time.{}".format(txt.col.fg.strg.magenta,txt.sty.reset))
 
 weapon.randomise_modifier()
-if debug:
+""" if debug:               doesnt work cause modifier names include formatting, not important rn though
     print("#### DEBUG #### Dost thou want to set thy own modifier?")
     print("\tY) Yes\n\tN) No")
     if input().lower() == "y":
         valid = False
         while not valid:
             print("What would you enjoy your modifier to be?")
-            valid = weapon.set_modifier(input("Modifier: "))
+            valid = weapon.set_modifier(input("Modifier: ")) """
 print("You pick up a " + weapon.get_name())
 weapon.inspect()
 input()
@@ -246,11 +243,10 @@ if debug:
 print()
 victories = 0
 while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins ten matches or dies
-    monsterChoice = random.randint(0,4)
     r = RandomColour()
     a = RandomAdjective()
     monsters = [Monster(r,a),Goblin(r,a),Vampire(r,a),Slime(r,a),RogueWarrior(r,a)]
-    theMonster = monsters[random.randint(0,len(monsters))]
+    theMonster = monsters[random.randint(0,len(monsters)-1)]
     clearscreen()
     print("You are attacked by a {}".format(theMonster.getCode()) +  theMonster.get_adj() + " "
           + theMonster.get_species() + ".{}".format(txt.sty.reset))
