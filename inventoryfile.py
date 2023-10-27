@@ -199,31 +199,40 @@ class inventory:
         while True:
             # give options
             print("\nWhat would you like to do?")
-            print("Inspect item (\"inspect\" + item number)")
-            print("Use item (\"use\" + item number)")
-            print("Drop item (\"drop\" + item number)")
-            print("Exit (\"exit\")")
+            print("\"help\" for help.")
             valid = False
-            while not valid:
+            leave = False
+            while not leave:
                 valid = True
+                leave = True
                 choice = input()
-                if choice.lower() == "exit": # deals with the exit command
+                if choice.lower() == "exit" or choice.lower() == "e": # deals with the exit command
                     return
+                if choice.lower() == "help" or choice.lower() == "h":
+                    print("Inspect item (\"inspect\" + item number)")
+                    print("Use item (\"use\" + item number)")
+                    print("Drop item (\"drop\" + item number)")
+                    print("Exit (\"exit\")")
+                    print("Abbreviations are \"i\", \"u\", \"d\", \"e\" and \"h\" for more help.")
+                    valid = False
                 choice = choice.split(" ",1) # splits the command into 2 sections: the command and the target item
                 if len(choice) == 2:
                     command = choice[0].lower()
                     target = choice[1]
-                    if command != "inspect" and command != "use" and command != "drop":
+                    if command != "inspect" and command != "i" and command != "u" and command != "use" and command != "drop" and command != "d":
                         valid = False
+                        leave = False
                     if target.isdigit():
                         target = int(target)
                         if target < 1 or target >= self.activeSlotCount:
                             valid = False
+                            leave = False
                     else:
                         valid = False
 
                 else:
                     valid = False
+                    leave = False
                 if not valid:
                     print("Please enter a valid option.") # now the user input is validated
 
@@ -239,12 +248,12 @@ class inventory:
                     break
 
             # actually run the commands
-            if command == "inspect":
+            if command == "inspect" or command == "i":
                 try:
                     print(target.inspect())
                 except:
                     print("You cannot inspect this item.")
-            elif command == "use":
+            elif command == "use" or command == "u":
                 try:
                     target.use(hero,self)
                     if hero.get_hp() <= 0:
@@ -252,7 +261,7 @@ class inventory:
                     self.print_inventory(hero)
                 except:
                     print("You cannot use this item.")
-            elif command == "drop":
+            elif command == "drop" or command == "d":
                 self.delete_item(target)
                 if section == 3:
                     self.update_potion_pouch()
@@ -316,7 +325,7 @@ class inventory:
                 slot = 4
             else:
                 # if there is no slot to put the item in
-                print("You are trying to equip a non-equipment item!")
+                print("{}You are trying to equip a non-equipment item!{}".format(txt.warning,txt.sty.reset))
                 return False
 
             # if the slot it should go in is empty
@@ -327,7 +336,7 @@ class inventory:
                 return True
             # if this slot already has an armour piece in
             else:
-                print("You have donned an alternative already. Would you like to replace this?")
+                print("You have donned an alternative already. {}Would you like to replace this?{}".format(txt.warning,txt.sty.reset))
                 print("\tY) Yes\n\tN) No")
                 choice = validate_not_empty_input()
                 if choice[0].lower() == "y":
@@ -344,7 +353,7 @@ class inventory:
             section = 2
         elif section == "potions":
             section = 3
-        else:
+        else:                                                                                                                   #i will send skuderia after you
             print("Invalid section when trying to add item. Please choose from \"weapons\", \"equipment\", \"general\" or \"potions\" LUCA.") # only luca would make this mistake
             return False
 

@@ -3,7 +3,7 @@ import town_name_weights_dictionary
 import merchant
 from ansi_codes import clearscreen
 from town_generator import map_generator,print_map
-            
+from ansi_codes import txt
             
 def generate_town_nameM6():
     # this version is too good at generating english names that i need to check whether the generated name already exists or not
@@ -133,28 +133,36 @@ class Towns:
             print("Shop options:") # shoptions haha
             for i in range(0,len(town["shops"]),1):
                 print("\t" + str(i + 1) + ") Enter the " + town["shops"][i].name)
-            print("Options:")
-            print("\tEnter a shop (type \"enter\" plus the number of the shop)")
-            print("\tAccess Inventory (type inventory)")
-            print("\tContinue Journey (type continue)")
+            print("Enter what you want to do:")
+            print("Enter \"help\" for help.")
 
             valid = False
-            while not valid:
+            leave = False
+            while not leave:
                 choice = input()
                 choice = choice.split(" ",1)
+                choice = choice[0].lower()
                 if len(choice) == 2:
                     if choice[1].isdigit():
                         choice[1] = int(choice[1])
-                        if choice[0] == "enter" and choice[1] > 0 and choice[1] < len(town["shops"]) + 1:
+                        if (choice[0] == "enter" or choice[0] == "e") and choice[1] > 0 and choice[1] < len(town["shops"]) + 1:
                             valid = True
+                            leave = True
                 else:
-                    choice = choice[0]
-                    if choice == "inventory":
+                    if choice == "inventory" or choice == "i":
                         valid = True
-                    elif choice == "continue":
+                        leave = True
+                    elif choice == "continue" or choice == "c":
                         valid = True
+                        leave = True
+                    elif choice == "help" or choice == "h":
+                        valid = True
+                        print("{}\nEnter a shop (type \"enter\" plus the number of the shop)".format(txt.col.fg.nml.green))
+                        print("Access Inventory (type inventory)")
+                        print("Continue Journey (type continue)")
+                        print("Abbreviations are: \"e\", \"i\", \"c\" and \"h\" for more help{}".format(txt.sty.reset))
                 if not valid:
-                    print("Enter a valid command!")
+                    print("{}Enter a valid command!{}".format(txt.warning,txt.sty.reset))
 
             if choice == "inventory":
                  inv.access_inventory(hero)

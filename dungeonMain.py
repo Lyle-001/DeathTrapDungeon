@@ -1,5 +1,8 @@
 # feel trapped to keep this comment!!! no i wont
 
+#if you see a comment 'formatted' that means that that finction/class has been completely formatted and is just a note that it is done 
+#it will be on EVERY function, even if there is no text
+
 from turtle import clear
 from Monster import Monster, Goblin, Vampire, Slime, RogueWarrior
 from Heroes import Hero, Barbarian, Wizard, Warlock
@@ -229,6 +232,7 @@ if debug:
             valid = weapon.set_modifier(input("Modifier: "))
 print("You pick up a " + weapon.get_name())
 weapon.inspect()
+input()
 inv.add_item(weapon,"weapons",1)
 
 if debug:
@@ -275,7 +279,7 @@ if victories == 10: # Check if hero won the game
     print("You leave the dungeon with " + str(theHero.get_gold()) + icons.gold + "!")
 else:
     print(theHero.get_name() + ", you are dead. Death Trap Dungeon claims another victim.")
-print("{}######## GAME OVER ########".format(txt.sty.reset))
+print("{}######## GAME OVER ########".format(txt.col.fg.strg.red))
 input() # keeps the console open after the game ends
 
 

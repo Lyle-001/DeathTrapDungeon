@@ -6,17 +6,17 @@ from validation import validate_int_input
 from inventoryfile import get_items_with_tags
 
 class Shop:
-    def __init__(self,inv):
+    def __init__(self,inv):#formatted
         self.findMessage = "you see a shop"
         self.enterMessage = "you enter the shop"
         self.name = "shop"
         self.tag = "shopSellable"
         self.wareList = self.generate_stock(inv)
 
-    def find(self):
+    def find(self):#formatted
         print(self.findMessage)
 
-    def generate_stock(self,inv):
+    def generate_stock(self,inv):#formatted
         stock = []
 
         persistentItems = get_items_with_tags(["shopPersistent"])
@@ -44,7 +44,7 @@ class Shop:
                     stock.append([item(),1])
         return stock
 
-    def shop(self,hero,inventory):
+    def shop(self,hero,inventory):#formatted
         print(self.enterMessage)
         while True:
 
@@ -53,7 +53,7 @@ class Shop:
                 item = self.wareList[i]
                 print(str(i+1) + ". " + item[0].name + " - " + item[0].description + "\t\t " + str(item[0].value) + icons.gold)
 
-            print("\nWhat would you like to do?")
+            print("\n{}What would you like to do?{}".format(txt.col.fg.nml.yellow,txt.sty.reset))
             print("\"Help\" for help")
             selling = False
             valid = False
@@ -66,12 +66,12 @@ class Shop:
                     return
                 elif choice.lower() == "sell" or choice.lower() == "s": # deals with the sell command
                     selling = True
-                elif choice.lower() == "help": #do they need help with commands
+                elif choice.lower() == "help" or choice.lower() == "h": #do they need help with commands
                     leave = False
-                    print("\nBuy item (type \"buy\" + the item number)")
+                    print("\n{}Buy item (type \"buy\" + the item number)".format(txt.col.fg.nml.green))
                     print("Sell item (type \"sell\")")
                     print("Exit (type \"exit\")")
-                    print("Abbreviations are: \"b\", \"s\", \"e\" and \"h\" if you need anymore help.\n")
+                    print("Abbreviations are: \"b\", \"s\", \"e\" and \"h\" if you need anymore help.{}\n".format(txt.sty.reset))
                 else:
                     choice = choice.split(" ",1) # splits the command into 2 sections: the command and the target item
                     if len(choice) == 2:
@@ -98,9 +98,11 @@ class Shop:
 
             if not selling:
                 self.buy(target,hero,inventory)
+                input()
                 clearscreen()
             else:
                 self.sell(hero,inventory)
+                input()
                 clearscreen()
 
     def buy(self,choice,hero,inventory):
@@ -126,17 +128,22 @@ class Shop:
     def sell(self,hero,inventory):
         while True:
             inventory.print_inventory(hero)
-            print("What would you like to do?")
-            print("Sell item (type \"sell\" + the item number)")
-            print("Exit inventory (type \"exit\")")
+            print("\nWhat would you like to do?")
+            print("\"Help\" for help.")
             valid = False
-            while not valid:
+            leave = False
+            while not leave:
                 valid = True
+                leave = True
                 choice = input()
-                if choice.lower() == "exit": # deals with the exit command
+                if choice.lower() == "exit" or choice.lower() == "e": # deals with the exit command
                     return
-                choice = choice.split(" ",1) # splits the command into 2 sections: the command and the target item
-                if len(choice) == 2:
+                elif choice.lower() == "help" or choice.lower(0) == "h":
+                    print("Sell item (type \"sell\" + the item number)")
+                    print("Exit inventory (type \"exit\")")
+                    print("Abbreviations are \"s\", \"e\" and \"h\" for more help.")
+                elif len(choice) == 2:
+                    choice = choice.split(" ",1) # splits the command into 2 sections: the command and the target item
                     command = choice[0].lower()
                     target = choice[1]
                     if command != "sell":
