@@ -19,7 +19,6 @@ import random
 import math
 
 ############################### Subroutines ##################################
-
 def RandomColour(): # Choose random colour for monster.
     ColourList = get_list_of_colours_fg()[0]
     Colour = ColourList[random.randint(0,len(ColourList)-1)]
@@ -248,16 +247,10 @@ print()
 victories = 0
 while victories < 10 and theHero.get_hp() > 0: # Run until the hero wins ten matches or dies
     monsterChoice = random.randint(0,4)
-    if monsterChoice == 0:
-        theMonster = Monster(RandomColour(),RandomAdjective())
-    elif monsterChoice == 1:
-        theMonster = Goblin(RandomColour(),RandomAdjective())
-    elif monsterChoice == 2:
-        theMonster = Vampire(RandomColour(),RandomAdjective())
-    elif monsterChoice == 3:
-        theMonster = Slime(RandomColour(),RandomAdjective())
-    else:
-        theMonster = RogueWarrior(RandomColour(),RandomAdjective())
+    r = RandomColour()
+    a = RandomAdjective()
+    monsters = [Monster(r,a),Goblin(r,a),Vampire(r,a),Slime(r,a),RogueWarrior(r,a)]
+    theMonster = monsters[random.randint(0,len(monsters))]
     clearscreen()
     print("You are attacked by a {}".format(theMonster.getCode()) +  theMonster.get_adj() + " "
           + theMonster.get_species() + ".{}".format(txt.sty.reset))

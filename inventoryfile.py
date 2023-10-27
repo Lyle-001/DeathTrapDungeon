@@ -1,8 +1,14 @@
-from ansi_codes import txt,icons,clearscreen
+from ansi_codes import txt,icons,clearscreen,get_list_of_colours_fg
+import random
 from validation import validate_not_empty_input
 import Items
 import Equipment
 import Weapons
+
+def RandomColour(): # Choose random colour for monster.
+    ColourList = get_list_of_colours_fg()[0]
+    Colour = ColourList[random.randint(0,len(ColourList)-1)]
+    return Colour
 
 def get_items_with_tags(tags: list) -> list:
     """This function returns a list of all the items with a specific tag.
@@ -207,13 +213,14 @@ class inventory:
                 leave = True
                 choice = input()
                 if choice.lower() == "exit" or choice.lower() == "e": # deals with the exit command
+                    clearscreen()
                     return
                 if choice.lower() == "help" or choice.lower() == "h":
-                    print("Inspect item (\"inspect\" + item number)")
+                    print("{}Inspect item (\"inspect\" + item number)".format(txt.col.fg.nml.green))
                     print("Use item (\"use\" + item number)")
                     print("Drop item (\"drop\" + item number)")
                     print("Exit (\"exit\")")
-                    print("Abbreviations are \"i\", \"u\", \"d\", \"e\" and \"h\" for more help.")
+                    print("Abbreviations are \"i\", \"u\", \"d\", \"e\" and \"h\" for more help.{}".format(txt.sty.reset))
                     valid = False
                 choice = choice.split(" ",1) # splits the command into 2 sections: the command and the target item
                 if len(choice) == 2:
@@ -250,7 +257,7 @@ class inventory:
             # actually run the commands
             if command == "inspect" or command == "i":
                 try:
-                    print(target.inspect())
+                    print("\n" + RandomColour() + target.inspect() + txt.sty.reset)
                 except:
                     print("You cannot inspect this item.")
             elif command == "use" or command == "u":

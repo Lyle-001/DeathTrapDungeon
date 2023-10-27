@@ -141,7 +141,7 @@ class Slime(Monster):
     # Construction
     def __init__(self,colour,adj):
         slimeMessageBank = monster_messages.get_slime_bank()
-        self.resists = [["smash",5],["pierce",0],["slash",0]]
+        self.resists = [["smash",4],["pierce",0],["slash",0]]
         self.adj = adj
         self.colourcode = colour
         self.species = "slime"

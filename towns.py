@@ -134,21 +134,22 @@ class Towns:
             for i in range(0,len(town["shops"]),1):
                 print("\t" + str(i + 1) + ") Enter the " + town["shops"][i].name)
             print("Enter what you want to do:")
-            print("Enter \"help\" for help.")
+            print("Enter \"Help\" for help.")
 
             valid = False
             leave = False
             while not leave:
                 choice = input()
                 choice = choice.split(" ",1)
-                choice = choice[0].lower()
                 if len(choice) == 2:
+                    choice[0] = choice[0].lower()
                     if choice[1].isdigit():
                         choice[1] = int(choice[1])
                         if (choice[0] == "enter" or choice[0] == "e") and choice[1] > 0 and choice[1] < len(town["shops"]) + 1:
                             valid = True
                             leave = True
                 else:
+                    choice = choice[0].lower()
                     if choice == "inventory" or choice == "i":
                         valid = True
                         leave = True
@@ -164,11 +165,11 @@ class Towns:
                 if not valid:
                     print("{}Enter a valid command!{}".format(txt.warning,txt.sty.reset))
 
-            if choice == "inventory":
+            if choice == "inventory" or choice == "i":
                  inv.access_inventory(hero)
                  if hero.get_hp() <= 0:
                      return
-            elif choice == "continue":
+            elif choice == "continue" or choice == "c":
                  resting = False
             else:
                 theShop = town["shops"][choice[1] - 1]
