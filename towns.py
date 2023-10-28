@@ -134,8 +134,8 @@ class Towns:
             print("{}Shop options:{}".format(txt.col.fg.nml.blue,txt.sty.reset)) # shoptions haha
             for i in range(0,len(town["shops"]),1):
                 print("\t" + str(i + 1) + ") Enter the " + town["shops"][i].name)
-            print("Enter what you want to do:")
-            print("Enter \"Help\" for help.")
+            print("\n{}What would you like to do?{}".format(txt.col.fg.nml.yellow,txt.sty.reset))
+            print("\"{}Help\" for help{}".format(txt.col.fg.nml.black,txt.sty.reset))
 
             valid = False
             leave = False

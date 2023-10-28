@@ -1,7 +1,7 @@
 # feel trapped to keep this comment!!! no i wont
 
-#if you see a comment 'formatted' that means that that finction/class has been completely formatted and is just a note that it is done 
-#it will be on EVERY function, even if there is no text
+#if you see a comment 'formatted' that means that the file has been completely formatted and is just a note that it is done 
+#it will be on EVERY file, even if there is no text
 
 from turtle import clear
 from Monster import Monster, Goblin, Vampire, Slime, RogueWarrior
@@ -53,7 +53,7 @@ def name_and_format():#asks the user what they want their name to be and look li
 
     name = validate_not_empty_input("\n{}What do you wish your name to be?\n".format(txt.col.fg.nml.white))
     
-    choice = validate_not_empty_input("\n{}Do you wish for deeper customisation? \n\tY) Yes\n\tN) No\n".format(txt.col.fg.nml.white))
+    choice = validate_not_empty_input("\n{}Do you wish for deeper customisation? \n{}Y) Yes\tN) No{}".format(txt.col.fg.nml.white,txt.col.fg.nml.black,txt.sty.reset))
     if choice.lower()[0] == "y":
         print("\nWhat colour do you want your name to be?\n")
         print("1. Black\n2. Red\n3. Green\n4. Yellow\n5. Blue\n6. Magenta\n7. Cyan\n8. White")
@@ -74,58 +74,6 @@ def name_and_format():#asks the user what they want their name to be and look li
         return name #already includes all the formating
     else:
         return name
-
-def shops_and_inventory():
-    print("\n")
-    shops = []
-    if random.randint(1,100) < 70:
-        print("Up ahead lies a hastily-constructed shelter. Alchemy equipment is strewn across the nearby floor.")
-        apothecary = merchant.Apothecary(inv)
-        shops.append(apothecary)
-    if random.randint(1,100) < 70:
-        print("You see a blacksmith in the distance.")
-        shops.append(merchant.Blacksmith(inv))
-    if random.randint(1,100) < 70:
-        print("You see a small house with a sign in front. In its windowsill are spools of sewing thread.")
-        shops.append(merchant.Clothier(inv))
-    resting = True
-    input("Press enter to continue...")
-    while resting:
-        print("Shop options:") # shoptions haha
-        for i in range(0,len(shops),1):
-            print("\t" + str(i + 1) + ") Enter the " + shops[i].name)
-        print("Options:")
-        print("\tEnter a shop (type \"enter\" plus the number of the shop)")
-        print("\tAccess Inventory (type inventory)")
-        print("\tContinue Journey (type continue)")
-
-        valid = False
-        while not valid:
-            choice = input()
-            choice = choice.split(" ",1)
-            if len(choice) == 2:
-                if choice[1].isdigit():
-                    choice[1] = int(choice[1])
-                    if choice[0] == "enter" and choice[1] > 0 and choice[1] < len(shops) + 1:
-                        valid = True
-            else:
-                choice = choice[0]
-                if choice == "inventory":
-                    valid = True
-                elif choice == "continue":
-                    valid = True
-            if not valid:
-                print("Enter a valid command!")
-
-        if choice == "inventory":
-             inv.access_inventory(theHero)
-             if theHero.get_hp() <= 0:
-                 return
-        elif choice == "continue":
-             resting = False
-        else:
-            theShop = shops[choice[1] - 1]
-            theShop.shop(theHero,inv)
     
 ################################# Main Code ####################################
 
@@ -162,7 +110,7 @@ while not detailsConfirmed:
             print("{}I suggest you look again for training.{}".format(txt.col.fg.strg.red,txt.sty.reset))
     if debug:
         print("#### DEBUG #### Wouldst thou like to set thy own health?")
-        print("\tY) Yes\n\tN) No")
+        print("{}\tY) Yes\tN) No{}".format(txt.col.fg.nml.black,txt.sty.reset))
         if input().lower() == "y":
             print("What would you enjoy your health to be?")
             theHero.set_max_health(validate_int_input("Health: "))
@@ -176,8 +124,8 @@ while not detailsConfirmed:
     print("\t6) Hammer\t({} {}0-9 | {} {}60%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
     if debug:
         print("#### DEBUG ####")
-        print("\t1000) AxeOfFlames\t({}{} 0-8 | {}{} 80%)".format(icons.damage,txt.col.fg.nml.blue,icons.hitchance,txt.col.fg.nml.blue))
-        print("\t1001) SwordOfSouls\t({}{} 0-10 | {}{} 95%)".format(icons.damage,txt.col.fg.nml.blue,icons.hitchance,txt.col.fg.nml.blue))
+        print("\t1000) AxeOfFlames\t({}{} 0-8 | {}{} 80%)".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green))
+        print("\t1001) SwordOfSouls\t({}{} 0-10 | {}{} 95%){}".format(icons.damage,txt.col.fg.nml.green,icons.hitchance,txt.col.fg.nml.green,txt.sty.reset))
     valid = False
     while not valid:    
         choice = validate_int_input()
@@ -210,7 +158,7 @@ while not detailsConfirmed:
     print("\n\tName: " + theHero.get_name())
     print("\tClass: {}{}{}".format(txt.col.fg.nml.yellow,theHero.get_class(),txt.sty.reset))
     print("\tWeapon: {}{}{}".format(txt.col.fg.nml.green,weapon.get_name().capitalize(),txt.sty.reset))
-    print("Y) Yes\nN) No")
+    print("{}\tY) Yes\tN) No{}".format(txt.col.fg.nml.black,txt.sty.reset))
     choice = validate_not_empty_input()
     if choice.lower()[0] == "y":
         detailsConfirmed = True
@@ -233,7 +181,7 @@ inv.add_item(weapon,"weapons",1)
 
 if debug:
     print(txt.sty.reset + "#### DEBUG #### do you want some money?")
-    print("\tY) Yes\n\tN) No")
+    print("{}\tY) Yes\tN) No{}".format(txt.col.fg.nml.black,txt.sty.reset))
     if input().lower() == "y":
         valid = False
         while not valid:

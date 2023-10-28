@@ -1,3 +1,5 @@
+#formatted
+
 from random import randint
 from ansi_codes import txt,icons,clearscreen
 import Items as it
@@ -6,13 +8,13 @@ from validation_and_functions import validate_int_input,RandomColour
 from inventoryfile import get_items_with_tags
 
 class Shop:
-    def __init__(self,inv):#formatted
+    def __init__(self,inv): 
         pass
 
-    def find(self):#formatted
+    def find(self): 
         print(self.findMessage)
 
-    def generate_stock(self,inv):#formatted
+    def generate_stock(self,inv): 
         stock = []
 
         persistentItems = get_items_with_tags(["shopPersistent"])
@@ -40,7 +42,7 @@ class Shop:
                     stock.append([item(),1])
         return stock
 
-    def shop(self,hero,inventory):#formatted
+    def shop(self,hero,inventory): 
         clearscreen()
         print(self.enterMessage)
         while True:
@@ -51,7 +53,7 @@ class Shop:
                 print(str(i+1) + ". " + item[0].name + " - " + item[0].description + "\t\t " + str(item[0].value) + icons.gold)
 
             print("\n{}What would you like to do?{}".format(txt.col.fg.nml.yellow,txt.sty.reset))
-            print("\"Help\" for help")
+            print("\"{}Help\" for help{}".format(txt.col.fg.nml.black,txt.sty.reset))
             selling = False
             valid = False
             leave = False
@@ -90,7 +92,7 @@ class Shop:
                         valid = False
                         leave = False
                 if not valid:
-                    print("Please enter a valid option.") # now the user input is validated
+                    print("{}Please enter a valid option.{}".format(txt.warning,txt.sty.reset)) # now the user input is validated
 
 
             if not selling:
@@ -115,18 +117,16 @@ class Shop:
             self.wareList[choice][1] -= 1
             if self.wareList[choice][1] <= 0:
                 del self.wareList[choice]
-            clearscreen()
-            print("You successfully bought " + item + "!")
+            print("{}You successfully bought {}{}".format(txt.col.fg.nml.yellow,item.getname(),txt.sty.reset))
         else:
             hero.set_gold(item.value)
-            clearscreen()
-            print("You have been refunded.")
+            print("{}You have been refunded.{}".format(txt.col.fg.nml.yellow,txt.sty.reset))
 
     def sell(self,hero,inventory):
         while True:
             inventory.print_inventory(hero)
-            print("\nWhat would you like to do?")
-            print("\"Help\" for help.")
+            print("\n{}What would you like to do?{}".format(txt.col.fg.nml.yellow,txt.sty.reset))
+            print("{}\"Help\" for help{}".format(txt.col.fg.nml.black,txt.sty.reset))
             valid = False
             leave = False
             while not leave:
@@ -136,9 +136,9 @@ class Shop:
                 if choice.lower() == "exit" or choice.lower() == "e": # deals with the exit command
                     return
                 elif choice.lower() == "help" or choice.lower(0) == "h":
-                    print("Sell item (type \"sell\" + the item number)")
+                    print("{}Sell item (type \"sell\" + the item number)".format(txt.col.fg.nml.green))
                     print("Exit inventory (type \"exit\")")
-                    print("Abbreviations are \"s\", \"e\" and \"h\" for more help.")
+                    print("Abbreviations are \"s\", \"e\" and \"h\" for more help.{}".format(txt.sty.reset))
                 elif len(choice) == 2:
                     choice = choice.split(" ",1) # splits the command into 2 sections: the command and the target item
                     command = choice[0].lower()

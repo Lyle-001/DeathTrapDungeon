@@ -64,7 +64,7 @@ class Monster:
             damage = 0
             print("Miss! The " + self.colourcode + self.species + "{} is too fast for you.".format(txt.sty.reset))
         elif damage == 1:
-            print("You strike a glancing blow for 1 point of damage.")
+            print("You strike a glancing blow for 1 {}".format(icons.heart))
         else:
             print("The " + self.colourcode + self.species + "{} takes ".format(txt.sty.reset) + str(damage)
                   + " {}.".format(icons.heart))
@@ -74,7 +74,7 @@ class Monster:
         highIntelligence = monster_messages.get_monster_intel_talk()
         normalMonster = monster_messages.get_monster_norm_talk()
 
-        fortitude = self.getFortitude()
+        fortitude = self.mentalFortitude
 
         if fortitude >= 70:
             print('The Monster announces: {}"{}"{}'.format(self.colourcode,highIntelligence[randint(0, len(highIntelligence) - 1)],txt.sty.reset)) 
@@ -84,16 +84,14 @@ class Monster:
 class Goblin(Monster):
     # Construction
     def __init__(self,colour,adj):
+        super().__init__(colour,adj)
         goblinMessageBank = monster_messages.get_goblin_bank()
         self.resists = [["smash",0],["pierce",0],["slash",2]]
-        self.adj = adj
-        self.colourcode = colour
         self.species = "goblin"
         self.hitPoints = 12
         self.maxDamage = 6
         self.attackMessage = goblinMessageBank[randint(0, len(goblinMessageBank) - 1)]
         self.gold = randint(6,18)
-        self.mentalFortitude = randint(0,100)
      # Methods
     def talk(self):
         highIntelligence = monster_messages.get_goblin_intel_talk()

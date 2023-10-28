@@ -200,8 +200,8 @@ class inventory:
         self.print_inventory(hero)
         while True:
             # give options
-            print("\nWhat would you like to do?")
-            print("\"help\" for help.")
+            print("\n{}What would you like to do?{}".format(txt.col.fg.nml.yellow,txt.sty.reset))
+            print("\"{}Help\" for help{}".format(txt.col.fg.nml.black,txt.sty.reset))
             valid = False
             leave = False
             while not leave:
@@ -237,7 +237,7 @@ class inventory:
                     valid = False
                     leave = False
                 if not valid:
-                    print("Please enter a valid option.") # now the user input is validated
+                    print("{}Please enter a valid option.{}".format(txt.warning,txt.sty.reset)) # now the user input is validated
 
             # find the referenced item
             itemFound = False
@@ -255,7 +255,7 @@ class inventory:
                 try:
                     print("\n" + RandomColour() + target.inspect() + txt.sty.reset)
                 except:
-                    print("You cannot inspect this item.")
+                    print("{}You cannot inspect this item.{}".format(txt.warning,txt.sty.reset))
             elif command == "use" or command == "u":
                 try:
                     target.use(hero,self)
@@ -263,7 +263,7 @@ class inventory:
                         return
                     self.print_inventory(hero)
                 except:
-                    print("You cannot use this item.")
+                    print("{}You cannot use this item.{}".format(txt.warning,txt.sty.reset))
             elif command == "drop" or command == "d":
                 self.delete_item(target)
                 if section == 3:
@@ -340,7 +340,7 @@ class inventory:
             # if this slot already has an armour piece in
             else:
                 print("You have donned an alternative already. {}Would you like to replace this?{}".format(txt.warning,txt.sty.reset))
-                print("\tY) Yes\n\tN) No")
+                print("{}\tY) Yes\n\tN) No{}".format(txt.col.fg.nml.black,txt.sty.reset))
                 choice = validate_not_empty_input()
                 if choice[0].lower() == "y":
                     # swap them, putting the old piece in the general inventory
@@ -357,7 +357,7 @@ class inventory:
         elif section == "potions":
             section = 3
         else:                                                                                                                   #i will send skuderia after you
-            print("Invalid section when trying to add item. Please choose from \"weapons\", \"equipment\", \"general\" or \"potions\" LUCA.") # only luca would make this mistake
+            print("{}Invalid section when trying to add item. Please choose from \"weapons\", \"equipment\", \"general\" or \"potions\" LUCA.{}".format(txt.warning,txt.sty.reset)) # only luca would make this mistake
             return False
 
         # check if the item can go in a stack
@@ -419,7 +419,7 @@ class inventory:
         elif startingSection == "potions":
             startingSection = 3
         else:
-            print("Invalid section when trying to add item. Please choose from \"weapons\", \"equipment\", \"general\" or \"potions\" LUCA.") # only luca would make this mistake
+            print("{}Invalid section when trying to add item. Please choose from \"weapons\", \"equipment\", \"general\" or \"potions\" LUCA.{}".format(txt.warning,txt.sty.reset)) # only luca would make this mistake
             return False
 
         for section in range(startingSection,len(self.inv)):
@@ -441,7 +441,7 @@ class inventory:
                         self.update_numbering()
                         return True
         
-        print("You are trying to throw away an item which you do not have!")
+        print("{}You are trying to throw away an item which you do not have!{}".format(txt.warning,txt.sty.reset))
         return False
 
 

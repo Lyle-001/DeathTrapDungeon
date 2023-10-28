@@ -1,3 +1,5 @@
+#formatted
+
 def get_monster_bank():
     return [
             'He stabs you with his knife-like talons!',

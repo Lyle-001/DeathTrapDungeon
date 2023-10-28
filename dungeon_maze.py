@@ -1,3 +1,6 @@
+#formatted
+
+
 import random
 from validation_and_functions import validate_input_from_array
 from ansi_codes import txt
