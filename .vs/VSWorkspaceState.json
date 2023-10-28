@@ -1,8 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\test_scripts"
+    ""
   ],
-  "SelectedNode": "\\dungeonMain.py",
+  "SelectedNode": "\\town_generator.py",
   "PreviewInSolutionExplorer": false
 }
