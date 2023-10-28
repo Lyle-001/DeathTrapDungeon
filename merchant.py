@@ -53,7 +53,7 @@ class Shop:
                 print(str(i+1) + ". " + item[0].name + " - " + item[0].description + "\t\t " + str(item[0].value) + icons.gold)
 
             print("\n{}What would you like to do?{}".format(txt.col.fg.nml.yellow,txt.sty.reset))
-            print("\"{}Help\" for help{}".format(txt.col.fg.nml.black,txt.sty.reset))
+            print("{}\"Help\" for help{}".format(txt.col.fg.strg.grey,txt.sty.reset))
             selling = False
             valid = False
             leave = False
@@ -126,7 +126,7 @@ class Shop:
         while True:
             inventory.print_inventory(hero)
             print("\n{}What would you like to do?{}".format(txt.col.fg.nml.yellow,txt.sty.reset))
-            print("{}\"Help\" for help{}".format(txt.col.fg.nml.black,txt.sty.reset))
+            print("{}\"Help\" for help{}".format(txt.col.fg.strg.grey,txt.sty.reset))
             valid = False
             leave = False
             while not leave:
