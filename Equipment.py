@@ -1,14 +1,6 @@
 class Armour:
     def __init__(self):
-        self.name = "ignore this"
-        self.inspectMessage = "ignore this"
-        self.armour = 0
-        self.projProt = 0
-        self.slashProt = 0
-        self.pierceProt = 0
-        self.smashProt = 0
-    def get_tags(self=None):
-        return ["armour","shopExclusive"]
+        pass
 
     def get_name(self):
         return self.name
@@ -37,15 +29,7 @@ class Armour:
 
 class Helmet(Armour):
     def __init__(self):
-        self.name = "blank helmet"
-        self.description = "how did you get this"
-        self.inspectMessage = "a helmet made of nothing. you've broken the game if you've managed to get this."
-        self.maxStack = 1
-        self.armour = 0
-        self.projProt = 0
-        self.slashProt = 0
-        self.pierceProt = 0
-        self.smashProt = 0
+        pass
     def get_tags(self=None):
         return ["armour","head","shopExclusive"]
 
@@ -54,15 +38,7 @@ class Helmet(Armour):
 
 class Torso(Armour):
     def __init__(self):
-        self.name = "blank torso piece"
-        self.description = "how did you get this"
-        self.inspectMessage = "a torso piece made of nothing. you've broken the game if you've managed to get this."
-        self.maxStack = 1
-        self.armour = 0
-        self.projProt = 0
-        self.slashProt = 0
-        self.pierceProt = 0
-        self.smashProt = 0
+        pass
     def get_tags(self=None):
         return ["armour","torso","shopExclusive"]
 
@@ -71,15 +47,7 @@ class Torso(Armour):
 
 class Hands(Armour):
     def __init__(self):
-        self.name = "blank hands piece"
-        self.description = "how did you get this"
-        self.inspectMessage = "a pair of gloves made of nothing. you've broken the game if you've managed to get this."
-        self.maxStack = 1
-        self.armour = 0
-        self.projProt = 0
-        self.slashProt = 0
-        self.pierceProt = 0
-        self.smashProt = 0
+        pass
     def get_tags(self=None):
         return ["armour","hands","shopExclusive"]
 
@@ -88,15 +56,7 @@ class Hands(Armour):
 
 class Legs(Armour):
     def __init__(self):
-        self.name = "blank legs piece"
-        self.description = "how did you get this"
-        self.inspectMessage = "a pair of leggings made of nothing. you've broken the game if you've managed to get this."
-        self.maxStack = 1
-        self.armour = 0
-        self.projProt = 0
-        self.slashProt = 0
-        self.pierceProt = 0
-        self.smashProt = 0
+        pass
     def get_tags(self=None):
         return ["armour","legs","shopExclusive"]
 
@@ -105,24 +65,16 @@ class Legs(Armour):
 
 class Feet(Armour):
     def __init__(self):
-        self.name = "blank feet piece"
-        self.description = "how did you get this"
-        self.inspectMessage = "a pair of shoes made of nothing. you've broken the game if you've managed to get this."
-        self.maxStack = 1
-        self.armour = 0
-        self.projProt = 0
-        self.slashProt = 0
-        self.pierceProt = 0
-        self.smashProt = 0
+        pass
     def get_tags(self=None):
         return ["armour","feet","shopExclusive"]
 
     def get_equipment_type(self):
         return "feet"
 
-
-
-
+################################
+#### Actual equipment pieces ###
+################################
 
 
 class MailHood(Helmet):

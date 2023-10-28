@@ -248,7 +248,6 @@ class Fisticuffs(Weapon):
      
     def __init__(self):
         super().__init__()
-        super().__init__()
         self.attacks = ["smash"]
         self.name = "Fisticuffs"
         self.description = "Your bare fists."

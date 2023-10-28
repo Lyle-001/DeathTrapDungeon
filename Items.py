@@ -210,6 +210,9 @@ class PotionPouch:
     def get_tags(self=None):
         return ["clothierSellable","shopStrange"]
 
+    def get_name(self):
+        return self.name
+
     def use(self,hero,inv):
         print("You put on the potion pouch, now you can store 5 more types of potion.")
         inv.hasPotionPouch = True

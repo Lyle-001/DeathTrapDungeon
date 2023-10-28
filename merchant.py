@@ -101,7 +101,6 @@ class Shop:
                 clearscreen()
             else:
                 self.sell(hero,inventory)
-                input()
                 clearscreen()
 
     def buy(self,choice,hero,inventory):
@@ -117,9 +116,10 @@ class Shop:
             self.wareList[choice][1] -= 1
             if self.wareList[choice][1] <= 0:
                 del self.wareList[choice]
-            print("{}You successfully bought {}{}".format(txt.col.fg.nml.yellow,item.getname(),txt.sty.reset))
+            print("{}You successfully bought {}{}".format(txt.col.fg.nml.yellow,item.get_name(),txt.sty.reset))
+            hero.set_gold(item.value*-1)
         else:
-            hero.set_gold(item.value)
+            hero.set_gold(item.value) 
             print("{}You have been refunded.{}".format(txt.col.fg.nml.yellow,txt.sty.reset))
 
     def sell(self,hero,inventory):
@@ -135,25 +135,31 @@ class Shop:
                 choice = input()
                 if choice.lower() == "exit" or choice.lower() == "e": # deals with the exit command
                     return
-                elif choice.lower() == "help" or choice.lower(0) == "h":
+                elif choice.lower() == "help" or choice.lower() == "h":
                     print("{}Sell item (type \"sell\" + the item number)".format(txt.col.fg.nml.green))
                     print("Exit inventory (type \"exit\")")
                     print("Abbreviations are \"s\", \"e\" and \"h\" for more help.{}".format(txt.sty.reset))
-                elif len(choice) == 2:
+                    leave = False
+                else:
                     choice = choice.split(" ",1) # splits the command into 2 sections: the command and the target item
-                    command = choice[0].lower()
-                    target = choice[1]
-                    if command != "sell":
-                        valid = False
-                    if target.isdigit():
-                        target = int(target)
-                        if target < 1 or target >= inventory.activeSlotCount:
+                    if len(choice) == 2:
+                        command = choice[0].lower()
+                        target = choice[1]
+                        if command != "sell":
                             valid = False
+                            leave = False
+                        if target.isdigit():
+                            target = int(target)
+                            if target < 1 or target >= inventory.activeSlotCount:
+                                valid = False
+                                leave = False
+                        else:
+                            valid = False
+                            leave = False
+
                     else:
                         valid = False
-
-                else:
-                    valid = False
+                        leave = False
                 if not valid:
                     print("{}Please enter a valid option.{}".format(txt.warning,txt.sty.reset)) # now the user input is validated
 
@@ -172,8 +178,10 @@ class Shop:
                 hero.set_gold(target.value)
                 inventory.delete_item(target)
                 print("{}Item sold!{}".format(txt.col.fg.nml.yellow,txt.sty.reset))
+                input()
             else:
                 print("{}The merchant refuses to take this type of item.{}".format(txt.warning,txt.sty.reset))
+                input()
 
 
 class Apothecary(Shop):
