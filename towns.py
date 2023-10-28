@@ -135,7 +135,7 @@ class Towns:
             for i in range(0,len(town["shops"]),1):
                 print("\t" + str(i + 1) + ") Enter the " + town["shops"][i].name)
             print("\n{}What would you like to do?{}".format(txt.col.fg.nml.yellow,txt.sty.reset))
-            print("\"{}Help\" for help{}".format(txt.col.fg.nml.black,txt.sty.reset))
+            print("{}\"Help\" for help{}".format(txt.col.fg.strg.grey,txt.sty.reset))
 
             valid = False
             leave = False

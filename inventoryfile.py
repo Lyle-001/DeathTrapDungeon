@@ -201,7 +201,7 @@ class inventory:
         while True:
             # give options
             print("\n{}What would you like to do?{}".format(txt.col.fg.nml.yellow,txt.sty.reset))
-            print("\"{}Help\" for help{}".format(txt.col.fg.nml.black,txt.sty.reset))
+            print("{}\"Help\" for help{}".format(txt.col.fg.strg.grey,txt.sty.reset))
             valid = False
             leave = False
             while not leave:
@@ -340,7 +340,7 @@ class inventory:
             # if this slot already has an armour piece in
             else:
                 print("You have donned an alternative already. {}Would you like to replace this?{}".format(txt.warning,txt.sty.reset))
-                print("{}\tY) Yes\n\tN) No{}".format(txt.col.fg.nml.black,txt.sty.reset))
+                print("{}\tY) Yes\n\tN) No{}".format(txt.col.fg.strg.grey,txt.sty.reset))
                 choice = validate_not_empty_input()
                 if choice[0].lower() == "y":
                     # swap them, putting the old piece in the general inventory

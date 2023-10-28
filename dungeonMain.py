@@ -53,7 +53,7 @@ def name_and_format():#asks the user what they want their name to be and look li
 
     name = validate_not_empty_input("\n{}What do you wish your name to be?\n".format(txt.col.fg.nml.white))
     
-    choice = validate_not_empty_input("\n{}Do you wish for deeper customisation? \n{}Y) Yes\tN) No{}".format(txt.col.fg.nml.white,txt.col.fg.nml.black,txt.sty.reset))
+    choice = validate_not_empty_input("\n{}Do you wish for deeper customisation? \n{}Y) Yes\tN) No{}".format(txt.col.fg.nml.white,txt.col.fg.strg.grey,txt.sty.reset))
     if choice.lower()[0] == "y":
         print("\nWhat colour do you want your name to be?\n")
         print("1. Black\n2. Red\n3. Green\n4. Yellow\n5. Blue\n6. Magenta\n7. Cyan\n8. White")
@@ -110,7 +110,7 @@ while not detailsConfirmed:
             print("{}I suggest you look again for training.{}".format(txt.col.fg.strg.red,txt.sty.reset))
     if debug:
         print("#### DEBUG #### Wouldst thou like to set thy own health?")
-        print("{}\tY) Yes\tN) No{}".format(txt.col.fg.nml.black,txt.sty.reset))
+        print("{}\tY) Yes\tN) No{}".format(txt.col.fg.strg.grey,txt.sty.reset))
         if input().lower() == "y":
             print("What would you enjoy your health to be?")
             theHero.set_max_health(validate_int_input("Health: "))
@@ -158,7 +158,7 @@ while not detailsConfirmed:
     print("\n\tName: " + theHero.get_name())
     print("\tClass: {}{}{}".format(txt.col.fg.nml.yellow,theHero.get_class(),txt.sty.reset))
     print("\tWeapon: {}{}{}".format(txt.col.fg.nml.green,weapon.get_name().capitalize(),txt.sty.reset))
-    print("{}\tY) Yes\tN) No{}".format(txt.col.fg.nml.black,txt.sty.reset))
+    print("{}\tY) Yes\tN) No{}".format(txt.col.fg.strg.grey,txt.sty.reset))
     choice = validate_not_empty_input()
     if choice.lower()[0] == "y":
         detailsConfirmed = True
@@ -181,7 +181,7 @@ inv.add_item(weapon,"weapons",1)
 
 if debug:
     print(txt.sty.reset + "#### DEBUG #### do you want some money?")
-    print("{}\tY) Yes\tN) No{}".format(txt.col.fg.nml.black,txt.sty.reset))
+    print("{}\tY) Yes\tN) No{}".format(txt.col.fg.strg.grey,txt.sty.reset))
     if input().lower() == "y":
         valid = False
         while not valid:
