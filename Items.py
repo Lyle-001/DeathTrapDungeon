@@ -17,6 +17,10 @@ class DilutedHealingElixir:
         self.value = 4
         self.maxStack = 5
         self.healingPower = [3,7]
+    
+    def __str__(self):
+        print(self.name)
+
     def get_tags(self=None):
         return ["potion","healthPotion","unidentifiedElixirUsable","shopPersistent","apothecarySellable"]
 

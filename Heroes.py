@@ -1,3 +1,5 @@
+#formatted
+
 from random import randint
 
 class Hero():

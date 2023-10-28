@@ -1,5 +1,8 @@
+#formatted
+
+
 import random
-from validation import validate_input_from_array
+from validation_and_functions import validate_input_from_array
 from ansi_codes import txt
 
 def get_neighbouring_cells(row,column,maxrow,maxcolumns):

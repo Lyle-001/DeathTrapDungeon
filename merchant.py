@@ -1,22 +1,20 @@
+#formatted
+
 from random import randint
 from ansi_codes import txt,icons,clearscreen
 import Items as it
 import Equipment as eq
-from validation import validate_int_input
+from validation_and_functions import validate_int_input,RandomColour
 from inventoryfile import get_items_with_tags
 
 class Shop:
-    def __init__(self,inv):
-        self.findMessage = "you see a shop"
-        self.enterMessage = "you enter the shop"
-        self.name = "shop"
-        self.tag = "shopSellable"
-        self.wareList = self.generate_stock(inv)
+    def __init__(self,inv): 
+        pass
 
-    def find(self):
+    def find(self): 
         print(self.findMessage)
 
-    def generate_stock(self,inv):
+    def generate_stock(self,inv): 
         stock = []
 
         persistentItems = get_items_with_tags(["shopPersistent"])
@@ -44,7 +42,8 @@ class Shop:
                     stock.append([item(),1])
         return stock
 
-    def shop(self,hero,inventory):
+    def shop(self,hero,inventory): 
+        clearscreen()
         print(self.enterMessage)
         while True:
 
@@ -53,8 +52,8 @@ class Shop:
                 item = self.wareList[i]
                 print(str(i+1) + ". " + item[0].name + " - " + item[0].description + "\t\t " + str(item[0].value) + icons.gold)
 
-            print("\nWhat would you like to do?")
-            print("\"Help\" for help")
+            print("\n{}What would you like to do?{}".format(txt.col.fg.nml.yellow,txt.sty.reset))
+            print("\"{}Help\" for help{}".format(txt.col.fg.nml.black,txt.sty.reset))
             selling = False
             valid = False
             leave = False
@@ -66,12 +65,12 @@ class Shop:
                     return
                 elif choice.lower() == "sell" or choice.lower() == "s": # deals with the sell command
                     selling = True
-                elif choice.lower() == "help": #do they need help with commands
+                elif choice.lower() == "help" or choice.lower() == "h": #do they need help with commands
                     leave = False
-                    print("\nBuy item (type \"buy\" + the item number)")
+                    print("\n{}Buy item (type \"buy\" + the item number)".format(txt.col.fg.nml.green))
                     print("Sell item (type \"sell\")")
                     print("Exit (type \"exit\")")
-                    print("Abbreviations are: \"b\", \"s\", \"e\" and \"h\" if you need anymore help.\n")
+                    print("Abbreviations are: \"b\", \"s\", \"e\" and \"h\" if you need anymore help.{}\n".format(txt.sty.reset))
                 else:
                     choice = choice.split(" ",1) # splits the command into 2 sections: the command and the target item
                     if len(choice) == 2:
@@ -93,14 +92,16 @@ class Shop:
                         valid = False
                         leave = False
                 if not valid:
-                    print("Please enter a valid option.") # now the user input is validated
+                    print("{}Please enter a valid option.{}".format(txt.warning,txt.sty.reset)) # now the user input is validated
 
 
             if not selling:
                 self.buy(target,hero,inventory)
+                input()
                 clearscreen()
             else:
                 self.sell(hero,inventory)
+                input()
                 clearscreen()
 
     def buy(self,choice,hero,inventory):
@@ -116,27 +117,30 @@ class Shop:
             self.wareList[choice][1] -= 1
             if self.wareList[choice][1] <= 0:
                 del self.wareList[choice]
-            clearscreen()
-            print("You successfully bought the item.")
+            print("{}You successfully bought {}{}".format(txt.col.fg.nml.yellow,item.getname(),txt.sty.reset))
         else:
             hero.set_gold(item.value)
-            clearscreen()
-            print("You have been refunded.")
+            print("{}You have been refunded.{}".format(txt.col.fg.nml.yellow,txt.sty.reset))
 
     def sell(self,hero,inventory):
         while True:
             inventory.print_inventory(hero)
-            print("What would you like to do?")
-            print("Sell item (type \"sell\" + the item number)")
-            print("Exit inventory (type \"exit\")")
+            print("\n{}What would you like to do?{}".format(txt.col.fg.nml.yellow,txt.sty.reset))
+            print("{}\"Help\" for help{}".format(txt.col.fg.nml.black,txt.sty.reset))
             valid = False
-            while not valid:
+            leave = False
+            while not leave:
                 valid = True
+                leave = True
                 choice = input()
-                if choice.lower() == "exit": # deals with the exit command
+                if choice.lower() == "exit" or choice.lower() == "e": # deals with the exit command
                     return
-                choice = choice.split(" ",1) # splits the command into 2 sections: the command and the target item
-                if len(choice) == 2:
+                elif choice.lower() == "help" or choice.lower(0) == "h":
+                    print("{}Sell item (type \"sell\" + the item number)".format(txt.col.fg.nml.green))
+                    print("Exit inventory (type \"exit\")")
+                    print("Abbreviations are \"s\", \"e\" and \"h\" for more help.{}".format(txt.sty.reset))
+                elif len(choice) == 2:
+                    choice = choice.split(" ",1) # splits the command into 2 sections: the command and the target item
                     command = choice[0].lower()
                     target = choice[1]
                     if command != "sell":
@@ -151,7 +155,7 @@ class Shop:
                 else:
                     valid = False
                 if not valid:
-                    print("Please enter a valid option.") # now the user input is validated
+                    print("{}Please enter a valid option.{}".format(txt.warning,txt.sty.reset)) # now the user input is validated
 
             # find the referenced item
             itemFound = False
@@ -167,31 +171,34 @@ class Shop:
             if self.tag in target.get_tags():
                 hero.set_gold(target.value)
                 inventory.delete_item(target)
-                print("Item sold!")
+                print("{}Item sold!{}".format(txt.col.fg.nml.yellow,txt.sty.reset))
             else:
-                print("The merchant refuses to take this type of item.")
+                print("{}The merchant refuses to take this type of item.{}".format(txt.warning,txt.sty.reset))
 
 
 class Apothecary(Shop):
     def __init__(self,inv):
-        self.findMessage = "Up ahead lies a hastily-constructed shelter. Alchemy equipment is strewn across the nearby floor."
-        self.enterMessage = "You enter the dimly lit tent, as a hunch-backed man gestures at the wares around you."
+        self.colour = RandomColour()
+        self.findMessage = self.colour + "Up ahead lies a hastily-constructed shelter. Alchemy equipment is strewn across the nearby floor." + txt.sty.reset
+        self.enterMessage = self.colour + "You enter the dimly lit tent, as a hunch-backed man gestures at the wares around you." + txt.sty.reset
         self.name = "Apothecarial Tent"
         self.tag = "apothecarySellable"
         self.wareList = self.generate_stock(inv)
 
 class Blacksmith(Shop):
     def __init__(self,inv):
-        self.findMessage = "You see a blacksmith in the distance."
-        self.enterMessage = "You enter the workshop to find a young man hammering at a piece of glowing iron."
+        self.colour = RandomColour()
+        self.findMessage = self.colour + "You see a blacksmith in the distance." + txt.sty.reset
+        self.enterMessage = self.colour + "You enter the workshop to find a young man hammering at a piece of glowing iron." + txt.sty.reset
         self.name = "Blacksmith"
         self.tag = "blacksmithSellable"
         self.wareList = self.generate_stock(inv)
 
 class Clothier(Shop):
     def __init__(self,inv):
-        self.findMessage = "You see a small house with a sign in front. In its windowsill are spools of sewing thread."
-        self.enterMessage = "You enter the homely building. An old man is sitting behind the counter, sewing together a boy's shirt."
+        self.colour = RandomColour()
+        self.findMessage = self.colour +"You see a small house with a sign in front. In its windowsill are spools of sewing thread." + txt.sty.reset
+        self.enterMessage = self.colour +"You enter the homely building. An old man is sitting behind the counter, sewing together a boy's shirt." + txt.sty.reset
         self.name = "Clothier's"
         self.tag = "clothierSellable"
         self.wareList = self.generate_stock(inv)
