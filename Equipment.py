@@ -1,3 +1,4 @@
+from ansi_codes import txt,clearscreen
 class Armour:
     def __init__(self):
         pass
@@ -26,6 +27,8 @@ class Armour:
     def use(self,hero,inv):
         if inv.add_item(self,"equipment"):
             inv.delete_item(self,1,"general")
+            clearscreen()
+            print("{}Successfully equipped!{}".format(txt.col.fg.nml.yellow,txt.sty.reset))
 
 class Helmet(Armour):
     def __init__(self):
