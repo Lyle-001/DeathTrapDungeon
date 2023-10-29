@@ -97,7 +97,7 @@ class inventory:
             Nothing.
         """
 
-        clearscreen()
+        #clearscreen()
         def print_item(colour,item): # function-ception. i bet you didn't know you could do this
             if item[1].maxStack == 1:
                 print("\t{}{}. {}{}".format(colour,str(item[0]),txt.sty.reset,item[1].get_name()))
@@ -347,7 +347,7 @@ class inventory:
                     cachedItem = self.inv[section][slot][:]
                     self.inv[section][slot][1] = itemID
                     self.inv[section][slot][2] = count
-                    self.add_item("general",cachedItem[1],cachedItem[2])
+                    self.add_item(cachedItem[1],"general",cachedItem[2])
                     return True
                 else:
                     return False
@@ -365,6 +365,7 @@ class inventory:
             for itemIndex in range(len(self.inv[section])):
                 if self.inv[section][itemIndex][1] != "":
                     if self.inv[section][itemIndex][1].get_name() == itemID.get_name() and self.inv[section][itemIndex][2] < itemID.maxStack: # if an item is found to stack it with
+                        print("IS STACKABLE, ADDING TO STACK")
                         self.inv[section][itemIndex][2] += count
                         return True
 
@@ -388,6 +389,7 @@ class inventory:
                 return True
 
         # if it hasn't already looked through general, make it fall back on general
+        print("FALLING BACK ON GENERAL")
         if section != 2:
             if self.add_item(itemID,"general",count):
                 return True
