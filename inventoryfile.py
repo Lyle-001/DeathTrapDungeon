@@ -217,7 +217,6 @@ class inventory:
                     print("Drop item (\"drop\" + item number)")
                     print("Exit (\"exit\")")
                     print("Abbreviations are \"i\", \"u\", \"d\", \"e\" and \"h\" for more help.{}".format(txt.sty.reset))
-                    valid = False
                 choice = choice.split(" ",1) # splits the command into 2 sections: the command and the target item
                 if len(choice) == 2:
                     command = choice[0].lower()
@@ -259,6 +258,7 @@ class inventory:
             elif command == "use" or command == "u":
                 try:
                     target.use(hero,self)
+                    input()
                     if hero.get_hp() <= 0:
                         return
                     self.print_inventory(hero)
@@ -339,7 +339,7 @@ class inventory:
                 return True
             # if this slot already has an armour piece in
             else:
-                print("You have donned an alternative already. {}Would you like to replace this?{}".format(txt.warning,txt.sty.reset))
+                print("You have donned an alternative already. {}Would you like to replace \"{}\"?{}".format(txt.warning,self.inv[section][slot][1].get_name(),txt.sty.reset))
                 print("{}\tY) Yes\n\tN) No{}".format(txt.col.fg.strg.grey,txt.sty.reset))
                 choice = validate_not_empty_input()
                 if choice[0].lower() == "y":

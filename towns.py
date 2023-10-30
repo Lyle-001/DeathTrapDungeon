@@ -84,6 +84,7 @@ def generate_town_nameM6():
 class Towns:
     def __init__(self):
         self.towns = []
+        self.pity = 0
 
     def new_random_town(self,inventory):
         newTown = {}
@@ -109,11 +110,14 @@ class Towns:
 
     def visit_town(self,hero,inv):
         clearscreen()
-        if randint(1,100) < 50 or len(self.towns) == 0: #50% chance of visiting a new town. 100% if it's the first town (obviously)
-            self.new_random_town(inv)
+        chance = ((1-0.5**(self.pity+1))/0.5)*50
+        if randint(1,100) < chance or len(self.towns) == 0: #50% base chance of visiting a new town. 100% if it's the first town (obviously)
+            self.new_random_town(inv)                       #progressively increases chance if you dont visit a new town, the chance increases based on the sum of the series 1/2^n
             town = self.towns[-1]
             newTown = True
+            self.pity = 0
         else: # 50% chance of visiting an already visited town
+            self.pity += 1
             town = self.towns[randint(0,len(self.towns)-1)]
             newTown = False
 
