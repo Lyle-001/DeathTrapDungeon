@@ -43,7 +43,7 @@ def RandomColour(): # Choose random colour for monster.
     Colour = ColourList[random.randint(0,len(ColourList)-1)]
     return Colour
 
-def print_health(currentHealth: int,maxHealth: int,length: int = 20, barColour: str = txt.sty.reset, edgeColour: str = txt.sty.reset):
+def health_bar(currentHealth: int,maxHealth: int,length: int = 20, barColour: str = txt.sty.reset, edgeColour: str = txt.sty.reset):
     """
     Prints the actor's health in a cool and neat bar format
     
@@ -69,12 +69,14 @@ def print_health(currentHealth: int,maxHealth: int,length: int = 20, barColour: 
             0.125:"▏",
             0:" "}
     
+    healthBar = []
+    
     # Print the top edge
     message = edgeColour + corners[0]
     for i in range(0,length,1):
         message += horizontal
     message += corners[1] + txt.sty.reset
-    print(message)
+    healthBar += message + "\n"
     
     # Print the bar
     healthPerCharacter = maxHealth / length
@@ -88,11 +90,30 @@ def print_health(currentHealth: int,maxHealth: int,length: int = 20, barColour: 
         percent = round(healthLeft*8)/8
         message += barColour + bar[percent]
     message += edgeColour + vertical + txt.sty.reset
-    print(message)
+    healthBar += message + "\n"
 
     # Print the bottom edge
     message = edgeColour + corners[3]
     for i in range(0,length,1):
         message += horizontal
     message += corners[2] + txt.sty.reset
-    print(message)
+    healthBar += message
+    
+    return healthBar
+
+def stringify_list(data: list):
+    """
+    Returns a list in a more human-readable format to be printed
+
+    Args:
+        data (list): the list to be stringified.
+    Returns:
+        Nothing
+    """
+    if type(data) != list:
+        return str(data)
+    message = ""
+    for index in range(len(data)):
+        item = data[index]
+        message += stringify_list(item)
+    return message

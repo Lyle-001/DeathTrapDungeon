@@ -13,7 +13,8 @@ class Monster:
         self.adj = adj
         self.colourcode = colour
         self.species = "monster"
-        self.hitPoints = 10
+        self.maxHitPoints = 10
+        self.hitPoints = self.maxHitPoints
         self.maxDamage = 5
         self.attackMessage = monsterMessageBank[randint(0, len(monsterMessageBank) - 1)]
         self.gold = randint(6,9)
@@ -25,6 +26,9 @@ class Monster:
 
     def get_species(self):
         return self.species
+    
+    def get_max_hp(self):
+        return self.maxHitPoints
 
     def get_hitPoints(self):
         return self.hitPoints
@@ -88,7 +92,8 @@ class Goblin(Monster):
         goblinMessageBank = monster_messages.get_goblin_bank()
         self.resists = [["smash",0],["pierce",0],["slash",2]]
         self.species = "goblin"
-        self.hitPoints = 12
+        self.maxHitPoints = 12
+        self.hitPoints = self.maxHitPoints
         self.maxDamage = 6
         self.attackMessage = goblinMessageBank[randint(0, len(goblinMessageBank) - 1)]
         self.gold = randint(6,18)
@@ -113,7 +118,8 @@ class Vampire(Monster):
         self.adj = adj
         self.colourcode = colour
         self.species = "vampire"
-        self.hitPoints = 20
+        self.maxHitPoints = 20
+        self.hitPoints = self.maxHitPoints
         self.maxDamage = 7
         self.attackMessage = vampireMessageBank[randint(0, len(vampireMessageBank) - 1)]
         self.gold = randint(5,15)
@@ -143,7 +149,8 @@ class Slime(Monster):
         self.adj = adj
         self.colourcode = colour
         self.species = "slime"
-        self.hitPoints = 8
+        self.maxHitPoints = 8
+        self.hitPoints = self.maxHitPoints
         self.maxDamage = 4
         self.attackMessage = slimeMessageBank[randint(0, len(slimeMessageBank) - 1)]
         self.gold = randint(2,9)
@@ -174,7 +181,8 @@ class RogueWarrior(Monster):
         self.adj = adj
         self.colourcode = colour
         self.species = "rogue warrior"
-        self.hitPoints = 25
+        self.maxHitPoints = 25
+        self.hitPoints = self.maxHitPoints
         self.maxDamage = 6
         self.attackMessage = rogueMessageBank[randint(0, len(rogueMessageBank) - 1)]
         self.gold = randint(12,27)

@@ -17,6 +17,9 @@ class Hero():
 
     def get_hp(self):
         return self.currentHPs
+    
+    def get_max_hp(self):
+        return self.originalHPs
 
     def get_gold(self):
         return self.gold

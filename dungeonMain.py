@@ -8,7 +8,7 @@ from Monster import Monster, Goblin, Vampire, Slime, RogueWarrior
 from Heroes import Barbarian, Wizard, Warlock
 from ansi_codes import txt, get_list_of_colours_bg, get_list_of_colours_fg, get_list_of_formats,icons,clearscreen
 import merchant
-from validation_and_functions import validate_int_input,validate_int_input_with_bounds,validate_not_empty_input,validate_input_from_array,RandomColour
+from validation_and_functions import validate_int_input,validate_int_input_with_bounds,validate_not_empty_input,validate_input_from_array,RandomColour,health_bar,stringify_list
 import towns
 
 import dungeon_maze
@@ -35,8 +35,10 @@ def makeWeaponlist(weapon):
 # Run one fight until either hero or monster is dead
 def Combat(myHero, myWeapon, myMonster ):
     while myHero.get_hp() > 0 and myMonster.get_hitPoints() > 0: #Fight continues until either combatant dies.
-        print("\n######### " + name + ": " + str(myHero.get_hp()) + " " + icons.heart + " #########" +
-              " "+ myMonster.getCode() + myMonster.get_species().capitalize() + ":{} ".format(txt.sty.reset) + str(myMonster.get_hitPoints()) + " " + icons.heart + " #########\n")
+        print("\n" + myHero.get_name())
+        print(stringify_list(health_bar(myHero.get_hp(),myHero.get_max_hp(),20,txt.col.fg.nml.red)))
+        print("\n" + myMonster.getCode() + myMonster.get_species().capitalize())
+        print(stringify_list(health_bar(myMonster.get_hitPoints(),myMonster.get_max_hp(),20,myMonster.getCode())))
         
         choice = validate_input_from_array(weapon.get_attacks(),makeWeaponlist(myWeapon))   
 

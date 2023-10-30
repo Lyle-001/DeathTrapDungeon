@@ -1,6 +1,6 @@
 from ansi_codes import txt,icons,clearscreen,get_list_of_colours_fg
 import random
-from validation_and_functions import validate_not_empty_input,RandomColour
+from validation_and_functions import validate_not_empty_input,RandomColour,health_bar,stringify_list
 import Items
 import Equipment
 import Weapons
@@ -97,7 +97,7 @@ class inventory:
             Nothing.
         """
 
-        #clearscreen()
+        clearscreen()
         def print_item(colour,item): # function-ception. i bet you didn't know you could do this
             if item[1].maxStack == 1:
                 print("\t{}{}. {}{}".format(colour,str(item[0]),txt.sty.reset,item[1].get_name()))
@@ -105,7 +105,9 @@ class inventory:
                 print("\t{}{}. {}{}\t{}".format(colour,str(item[0]),txt.sty.reset,item[1].get_name(),str(item[2])))
 
         # print the player's health and gold
-        print(txt.sty.reset + "\n" + hero.get_name() + ": " + str(hero.get_hp()) + " {}, ".format(icons.heart) + str(hero.get_gold()) + icons.gold)
+        print("\n" + hero.get_name())
+        print(stringify_list(health_bar(hero.get_hp(),hero.get_max_hp(),20,txt.col.fg.nml.red)))
+        print(str(hero.get_gold()) + icons.gold)
 
         # print the inventory contents
         itemIncrement = 1
