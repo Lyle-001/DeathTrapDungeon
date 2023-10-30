@@ -39,6 +39,8 @@ def Combat(myHero, myWeapon, myMonster ):
         print(stringify_list(health_bar(myHero.get_hp(),myHero.get_max_hp(),20,txt.col.fg.nml.red)))
         print("\n" + myMonster.getCode() + myMonster.get_species().capitalize())
         print(stringify_list(health_bar(myMonster.get_hitPoints(),myMonster.get_max_hp(),20,myMonster.getCode())))
+        if debug:
+            print("#### DEBUG ####\tPlayer health: " + str(myHero.get_hp()) + "/" + str(myHero.get_max_hp()) + ", Monster health: " + str(myMonster.get_hitPoints()) + "/" + str(myMonster.get_max_hp()))
         
         choice = validate_input_from_array(weapon.get_attacks(),makeWeaponlist(myWeapon))   
 

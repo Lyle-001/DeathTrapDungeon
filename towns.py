@@ -1,19 +1,16 @@
 from random import randint
+from math import sqrt
 import town_name_weights_dictionary
 import merchant
 from ansi_codes import clearscreen,txt
-from town_generator import map_generator,print_map
+from town_generator import town_generator2,print_map
 from validation_and_functions import RandomColour
             
 def generate_town_nameM6():
     # this version is too good at generating english names that i need to check whether the generated name already exists or not
-    file = open("test_scripts/placenames.txt","r")  # open the existing names file and sanitise it  
+    file = open("test_scripts/placenames_sanitised.txt","r")  # open the existing names file
     existingNames = []
     for line in file:
-        line = line.split("\t",1)
-        if len(line) >= 2:
-            del line[1]
-        line = line[0]
         existingNames.append(line)
     file.close()
     
@@ -96,7 +93,8 @@ class Towns:
                  5: "great town"}
         sizeValue = randint(1,5)
         newTown["size"] = [sizeValue,sizes[sizeValue]]
-        newTown["map"] = map_generator(3 * newTown["size"][0],3 * newTown["size"][0])
+        roadCount = int((sqrt(3 * newTown["size"][0]*3 * newTown["size"][0]))/2)
+        newTown["map"] = town_generator2(3 * newTown["size"][0],3 * newTown["size"][0],roadCount)
         shops = []
         if randint(1,100) > 70: # 70% chance of generating an apothecary
             shops.append(merchant.Apothecary(inventory))
@@ -116,7 +114,7 @@ class Towns:
             town = self.towns[-1]
             newTown = True
             self.pity = 0
-        else: # 50% chance of visiting an already visited town
+        else:
             self.pity += 1
             town = self.towns[randint(0,len(self.towns)-1)]
             newTown = False
