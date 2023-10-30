@@ -1,4 +1,4 @@
-from ansi_codes import txt,get_list_of_colours_fg
+﻿from ansi_codes import txt,get_list_of_colours_fg
 import random
 
 def validate_int_input_with_bounds(lowbound,upperbound,message=""):#upper bound is exclusive lower bound inclusive
@@ -42,3 +42,57 @@ def RandomColour(): # Choose random colour for monster.
     ColourList = get_list_of_colours_fg()[0]
     Colour = ColourList[random.randint(0,len(ColourList)-1)]
     return Colour
+
+def print_health(currentHealth: int,maxHealth: int,length: int = 20, barColour: str = txt.sty.reset, edgeColour: str = txt.sty.reset):
+    """
+    Prints the actor's health in a cool and neat bar format
+    
+    Args:
+        currentHealth (int): The actor's current health, to be displayed as full boxes
+        maxHealth (int): The actor's maximum health, to be displayed as empty boxes
+        length (int, default of 20): The length of the bar (discluding the edges) in characters
+        barColour (str, default of none): The colour code of the bar
+        edgeColour (str, default of none): The colour code of the edges
+    Returns:
+        Nothing
+    """
+    corners = ["╭","╮","╯","╰"]
+    vertical = "│"
+    horizontal = "━"
+    bar = {1:"█",
+            0.875:"▉",
+            0.75:"▊",
+            0.625:"▋",
+            0.5:"▌",
+            0.375:"▍",
+            0.25:"▎",
+            0.125:"▏",
+            0:" "}
+    
+    # Print the top edge
+    message = edgeColour + corners[0]
+    for i in range(0,length,1):
+        message += horizontal
+    message += corners[1] + txt.sty.reset
+    print(message)
+    
+    # Print the bar
+    healthPerCharacter = maxHealth / length
+    message = edgeColour + vertical
+    for i in range(0,length,1):
+        healthLeft = (currentHealth - i*healthPerCharacter) / healthPerCharacter
+        if healthLeft > 1:
+            healthLeft = 1
+        if healthLeft < 0:
+            healthLeft = 0
+        percent = round(healthLeft*8)/8
+        message += barColour + bar[percent]
+    message += edgeColour + vertical + txt.sty.reset
+    print(message)
+
+    # Print the bottom edge
+    message = edgeColour + corners[3]
+    for i in range(0,length,1):
+        message += horizontal
+    message += corners[2] + txt.sty.reset
+    print(message)
