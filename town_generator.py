@@ -3,60 +3,6 @@ import random
 from re import L
 from ansi_codes import txt,clearscreen
 from math import sqrt
-
-def map_generator(rows,columns):
-    grid = [[[] for i in range(0,columns,1)] for i in range(0,rows,1)]
-
-    firstPoint = [randint(1,((rows-1)//2))*2-1,randint(1,((columns-1)//2))*2-1]
-    if randint(1,100) <= 50:
-        secondPoint = [firstPoint[0],randint(1,((columns-1)//2))*2-1]
-        for y in range(min(firstPoint[1],secondPoint[1]),max(firstPoint[1],secondPoint[1])+1):
-            grid[firstPoint[0]][y] = ["ROAD"]
-            if grid[firstPoint[0] + 1][y] == []:
-                grid[firstPoint[0] + 1][y] = ["POSSIBLE BUILDING"]
-            if grid[firstPoint[0] - 1][y] == []:
-                grid[firstPoint[0] - 1][y] = ["POSSIBLE BUILDING"]
-    else:
-        secondPoint = [randint(1,((rows-1)//2))*2-1,firstPoint[1]]
-        for x in range(min(firstPoint[0],secondPoint[0]),max(firstPoint[0],secondPoint[0])+1):
-            grid[x][firstPoint[1]] = ["ROAD"]
-            if grid[x][firstPoint[1] + 1] == []:
-                grid[x][firstPoint[1] + 1] = ["POSSIBLE BUILDING"]
-            if grid[x][firstPoint[1] - 1] == []:
-                grid[x][firstPoint[1] - 1] = ["POSSIBLE BUILDING"]
-    
-    lineCount = 1
-    maxLines = int((sqrt(rows*columns))/2)
-    while lineCount < maxLines:
-        validLine = False
-        firstPoint = [randint(1,((rows-1)//2))*2-1,randint(1,((columns-1)//2))*2-1]
-        if randint(1,100) <= 50:
-            secondPoint = [firstPoint[0],randint(1,((columns-1)//2))*2-1]
-            for y in range(min(firstPoint[1],secondPoint[1]),max(firstPoint[1],secondPoint[1])+1):
-                if grid[firstPoint[0]][y] == ["ROAD"]:
-                    validLine = True
-            if validLine:
-                for y in range(min(firstPoint[1],secondPoint[1]),max(firstPoint[1],secondPoint[1])+1):
-                    grid[firstPoint[0]][y] = ["ROAD"]
-                    if grid[firstPoint[0] + 1][y] == []:
-                        grid[firstPoint[0] + 1][y] = ["POSSIBLE BUILDING"]
-                    if grid[firstPoint[0] - 1][y] == []:
-                        grid[firstPoint[0] - 1][y] = ["POSSIBLE BUILDING"]
-                lineCount += 1
-        else:
-            secondPoint = [randint(1,((rows-1)//2))*2-1,firstPoint[1]]
-            for x in range(min(firstPoint[0],secondPoint[0]),max(firstPoint[0],secondPoint[0])+1):
-                if grid[x][firstPoint[1]] == ["ROAD"]:
-                    validLine = True
-            if validLine:
-                for x in range(min(firstPoint[0],secondPoint[0]),max(firstPoint[0],secondPoint[0])+1):
-                    grid[x][firstPoint[1]] = ["ROAD"]
-                    if grid[x][firstPoint[1] + 1] == []:
-                        grid[x][firstPoint[1] + 1] = ["POSSIBLE BUILDING"]
-                    if grid[x][firstPoint[1] - 1] == []:
-                        grid[x][firstPoint[1] - 1] = ["POSSIBLE BUILDING"]
-                lineCount += 1
-    return grid
         
 def print_map(map):
     for row in map:
@@ -66,8 +12,8 @@ def print_map(map):
                 message += "{}  {}".format(txt.col.bg.nml.white,txt.sty.reset)
             elif cell == ["POSSIBLE BUILDING"]:
                 message += "{}  {}".format(txt.col.bg.strg.grey,txt.sty.reset)
-            elif cell == ["HIGHLIGHTED"]:
-                message += "{}  {}".format(txt.col.bg.strg.red,txt.sty.reset)
+            elif cell == ["SHOP"]:
+                message += "{}  {}".format(txt.col.bg.strg.green,txt.sty.reset)
             else:
                 message += "{}  {}".format(txt.sty.reset,txt.sty.reset)
         print(message)
@@ -102,7 +48,7 @@ def random_odd_value(lower:int,upper:int) -> int:
         
 
 
-def town_generator2(rows,columns,maxLines=10,mapSeed=None):
+def road_generator(rows,columns,maxLines=10,mapSeed=None):
     if mapSeed != None:
         seed(mapSeed)
         
@@ -143,7 +89,6 @@ def town_generator2(rows,columns,maxLines=10,mapSeed=None):
     while lineCount < maxLines:
         # draw vertical line (x stays constant)
         x = random_odd_value(firstPoint[1],secondPoint[1])
-        grid[firstPoint[0]][x] = ["HIGHLIGHTED"]
         newFirstPoint = [random_odd_value(1,firstPoint[0]),x]
         newSecondPoint = [random_odd_value(firstPoint[0],rows-2),x]
         firstPoint = newFirstPoint
@@ -155,7 +100,6 @@ def town_generator2(rows,columns,maxLines=10,mapSeed=None):
         if lineCount < maxLines:
             #draw horizontal line (y stays constant)
             y = random_odd_value(firstPoint[0],secondPoint[0])
-            grid[y][firstPoint[1]] = ["HIGHLIGHTED"]
             newFirstPoint = [y,random_odd_value(1,firstPoint[1])]
             newSecondPoint = [y,random_odd_value(firstPoint[1],columns-2)]
             firstPoint = newFirstPoint
@@ -163,5 +107,55 @@ def town_generator2(rows,columns,maxLines=10,mapSeed=None):
             draw_line(firstPoint,secondPoint)
             #increment lineCount
             lineCount += 1
+    
+    return grid
+
+def add_buildings(grid,shopCount):
+    # Find all the possible building locations
+    possibleBuildings = []
+    for rowIndex in range(0,len(grid),1):
+        for cellIndex in range(0,len(grid[rowIndex]),1):
+            if grid[rowIndex][cellIndex] == ["POSSIBLE BUILDING"]:
+                possibleBuildings.append((rowIndex,cellIndex))
+    
+    # Place shops
+    def calculate_weights_list(theSet):
+        positionRange = len(theSet)
+        # split the curve into areas with width 2/positionRange
+        integralList = []
+        for i in range(0,positionRange,1):
+            lowerBound = -abs(-1 + i*(2/positionRange))+1
+            upperBound = -abs(-1 + (i+1)*(2/positionRange))+1
+            area = ((lowerBound + upperBound)/2) * 2/positionRange
+            integralList.append(area)
+        return integralList
+    def get_weighted_random(weights):
+        randomValue = random.random()
+        randomValue *= sum(weights)
+        total = 0
+        for i in range(0,len(weights),1):
+            total += weights[i]
+            if total >= randomValue:
+                return i
+    
+    shopCoords = []
+    for shop in range(0,shopCount,1):
+        rowSet = set(possibleBuildings[i][0] for i in range(0,len(possibleBuildings),1))
+        rowWeights = calculate_weights_list(rowSet)
+        xAxis = list(rowSet)[get_weighted_random(rowWeights)]
+        columnSet = []
+        for item in possibleBuildings:
+            if item[0] == xAxis:
+                columnSet.append(item[1])
+        columnSet = set(columnSet)
+        columnWeights = calculate_weights_list(columnSet)
+        yAxis = list(columnSet)[get_weighted_random(columnWeights)]
+        shopCoords.append((xAxis,yAxis))
+        possibleBuildings.remove((xAxis,yAxis))
+        if len(possibleBuildings) == 0:
+            break
+    
+    for shop in shopCoords:
+        grid[shop[0]][shop[1]] = ["SHOP"]
     
     return grid

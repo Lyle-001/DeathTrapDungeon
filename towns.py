@@ -3,7 +3,7 @@ from math import sqrt
 import town_name_weights_dictionary
 import merchant
 from ansi_codes import clearscreen,txt
-from town_generator import town_generator2,print_map
+from town_generator import road_generator,print_map,add_buildings
 from validation_and_functions import RandomColour
             
 def generate_town_nameM6():
@@ -94,7 +94,8 @@ class Towns:
         sizeValue = randint(1,5)
         newTown["size"] = [sizeValue,sizes[sizeValue]]
         roadCount = int((sqrt(3 * newTown["size"][0]*3 * newTown["size"][0]))/2)
-        newTown["map"] = town_generator2(3 * newTown["size"][0],3 * newTown["size"][0],roadCount)
+        newTown["map"] = road_generator(3 * newTown["size"][0],3 * newTown["size"][0],roadCount)
+        newTown["map"] = add_buildings(newTown["map"],10)
         shops = []
         if randint(1,100) > 70: # 70% chance of generating an apothecary
             shops.append(merchant.Apothecary(inventory))
